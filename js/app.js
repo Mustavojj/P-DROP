@@ -772,6 +772,7 @@ class App {
             }
             if (result.user) {
                 this.verified = true;
+                this.updateHeaderBalances();
                 this.showNotification('Verified', 'Your account is now verified!', 'success');
                 this.vibrate('success');
                 return true;
