@@ -771,10 +771,8 @@ class App {
                 return false;
             }
             if (result.user) {
-                this.gramBalance = result.user.gram_balance || 0;
                 this.verified = true;
-                this.updateHeaderBalances();
-                this.showNotification(this.t('verified'), this.t('verify_success', { amount: result.reward }), 'success');
+                this.showNotification('Verified', 'Your account is now verified!', 'success');
                 this.vibrate('success');
                 return true;
             }
@@ -989,7 +987,7 @@ class App {
                         ${verifyTasksHtml}
                     </div>
                     <button id="verify-account-btn" class="verify-btn" ${!allTasksStarted ? 'disabled' : ''}>
-                        <i class="fas fa-shield-alt"></i> ${this.t('verify_bonus', { amount: this.config.VERIFY_BONUS || 0.04 })}
+                        <i class="fas fa-shield-alt"></i> Verify Account
                     </button>
                 </div>
             `;
@@ -1091,7 +1089,12 @@ class App {
                                 newBtn.classList.remove('claim-btn');
                                 this.userCompletedTasks.add(taskId);
                                 this.verifyTasksStatus[taskId] = true;
-                                this.showNotification(this.t('claim'), `+${task.reward} GRAM`, 'success');
+                                this.showNotification(
+                                    'Success', 
+                                    `You have received ${task.reward} GRAM!`, 
+                                    'success'
+                                );
+                                
                                 this.vibrate('success');
                                 this.isTaskRunning = false;
                                 this.disableAllTaskButtons(false);
