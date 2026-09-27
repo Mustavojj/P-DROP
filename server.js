@@ -1329,7 +1329,7 @@ app.post('/api/check-payment', authenticate, async (req, res) => {
             if (totalNum < 100 || totalNum > 5000) {
                 return res.json({ success: false, error: 'Failed to create task.' });
             }
-            const requiredAmount = (totalNum * rewardNum / 1000) * (APP_CONFIG.PRICE_PER_100 || 0.20);
+            const requiredAmount = (totalNum / 100) * (APP_CONFIG.PRICE_PER_100 || 0.20);
             if (txAmount >= requiredAmount * 0.98) {
                 let verification = taskData.verification || false;
                 if (verification && taskData.link) {
