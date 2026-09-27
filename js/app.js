@@ -1284,9 +1284,10 @@ class App {
         let selectedVerification = 'no';
         const updateTotalCost = () => {
             const pricePer100 = this.config.PRICE_PER_100 || 0.20;
-            const cost = (selectedTotal * (this.config.SOCIAL_TASK_REWARD || 0.001) / 1000) * pricePer100;
+            const cost = (selectedTotal / 100) * pricePer100;
             totalCostDisplay.textContent = cost.toFixed(4) + ' GRAM';
         };
+        
         document.querySelectorAll('.total-option').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.total-option').forEach(b => b.classList.remove('active'));
@@ -1392,7 +1393,7 @@ class App {
         const wallet = this.config.PAYMENT_WALLET || this.config.TON_WALLET_ADDRESS;
         const walletDisplay = wallet.length > 12 ? wallet.substring(0, 10) + '.....' + wallet.substring(wallet.length - 10) : wallet;
         const memo = `t_${userId}_${Date.now().toString(36)}`.substring(0, 10);
-        const amount = (this.pendingTaskData.total * (this.config.SOCIAL_TASK_REWARD || 0.001) / 1000) * (this.config.PRICE_PER_100 || 0.20);
+        const amount = (this.pendingTaskData.total / 100) * (this.config.PRICE_PER_100 || 0.20);
         const walletDisplayEl = document.getElementById('payment-wallet-display');
         const memoDisplay = document.getElementById('payment-memo-display');
         const amountDisplay = document.getElementById('payment-amount-display');
