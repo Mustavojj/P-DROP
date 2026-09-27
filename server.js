@@ -287,7 +287,7 @@ const APP_CONFIG = {
             description: "Join & get special reward",
             url: "https://t.me/UltrawalletTrade_Bot/app?startapp=5455903941",
             reward: 0.02,
-            icon: "fa-telegram",
+            icon: "fa-rocket",
             special: true
         },
         {
@@ -296,7 +296,7 @@ const APP_CONFIG = {
             description: "Subscribe & react",
             url: "https://t.me/MONEYHUB9_69",
             reward: 0.01,
-            icon: "fa-telegram",
+            icon: "fa-rocket",
             special: false
         },
         {
@@ -305,7 +305,7 @@ const APP_CONFIG = {
             description: "Subscribe & react",
             url: "https://t.me/GramTownNews",
             reward: 0.01,
-            icon: "fa-telegram",
+            icon: "fa-rocket",
             special: false
         }
     ]
