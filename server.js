@@ -754,8 +754,8 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                 }
             }
             const appLink = referrerId
-                ? `https://t.me/PiratesDropBot/app?startapp=${referrerId}`
-                : `https://t.me/PiratesDropBot/app`;
+                ? `https://t.me/PtsDropBot/app?startapp=${referrerId}`
+                : `https://t.me/PtsDropBot/app`;
             const existingUser = await getUser(chatId);
             if (!existingUser) {
                 const userData = {
