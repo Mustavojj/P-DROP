@@ -1396,7 +1396,8 @@ class App {
         const userId = this.tgUser.id;
         const wallet = this.config.PAYMENT_WALLET || this.config.TON_WALLET_ADDRESS;
         const walletDisplay = wallet.length > 12 ? wallet.substring(0, 10) + '.....' + wallet.substring(wallet.length - 10) : wallet;
-        const memo = `t_${userId}_${Date.now().toString(36)}`.substring(0, 10);
+        const randomPart = Math.random().toString(36).substring(2, 7).toUpperCase();
+        const memo = `t_${userId}_${randomPart}`;
         const amount = (this.pendingTaskData.total / 100) * (this.config.PRICE_PER_100 || 0.20);
         const walletDisplayEl = document.getElementById('payment-wallet-display');
         const memoDisplay = document.getElementById('payment-memo-display');
