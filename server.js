@@ -286,7 +286,7 @@ const APP_CONFIG = {
             name: "Join Ultra Wallet",
             description: "Join & get special reward",
             url: "https://t.me/UltrawalletTrade_Bot/app?startapp=5455903941",
-            reward: 0.02,
+            reward: 0.01,
             icon: "fa-rocket",
             special: true
         },
@@ -297,7 +297,7 @@ const APP_CONFIG = {
             url: "https://t.me/MONEYHUB9_69",
             reward: 0.01,
             icon: "fa-rocket",
-            special: false
+            special: true
         },
         {
             id: "master_x",
@@ -306,7 +306,7 @@ const APP_CONFIG = {
             url: "https://t.me/GramTownNews",
             reward: 0.01,
             icon: "fa-rocket",
-            special: false
+            special: true
         }
     ]
 };
@@ -1152,8 +1152,7 @@ app.post('/api/verify-account', authenticate, strictLimiter, async (req, res) =>
         }
         res.json({
             success: true,
-            user: updatedUser,
-            reward: reward
+            user: updatedUser
         });
     } catch (error) {
         logFailure('/api/verify-account', req._userId, req.ip, error);
