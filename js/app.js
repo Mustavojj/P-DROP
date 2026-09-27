@@ -688,7 +688,7 @@ class App {
             this.referralGramEarnings = user.referral_gram_earnings || 0;
             this.verified = user.verified || false;
             this.totalReferrals = user.total_referrals || 0;
-            this.verifiedReferrals = result.referrals?.filter(r => r.verified).length || 0;
+            this.verifiedReferrals = user.verified_referrals || 0;
             this.totalTasksCompleted = user.total_tasks_completed || 0;
             this.referredBy = user.referred_by || null;
             this.referralRewardGiven = user.referral_reward_given || false;
