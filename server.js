@@ -882,6 +882,17 @@ app.post('/api/auth', strictLimiter, async (req, res) => {
             };
             try {
                 user = await createUser(userData);
+                if (!user.referred_by) {
+                    const urlParams = new URLSearchParams(initData);
+                    const startParam = urlParams.get('start_param');
+                    
+                    if (startParam && !isNaN(startParam) && parseInt(startParam) !== telegramUser.id) {
+                        user = await updateUser(telegramUser.id, {
+                            referred_by: parseInt(startParam)
+                        });
+                    }
+                }
+                
             } catch (createError) {
                 logFailure('/api/auth', telegramUser.id, req.ip, createError);
                 user = await getUser(telegramUser.id);
