@@ -1,4 +1,4 @@
-import express from 'express';
+PtsDropBotress from 'express';
 import cors from 'cors';
 import path from 'path';
 import crypto from 'crypto';
@@ -258,7 +258,7 @@ async function checkDeviceAndIP(userId, deviceId, ip) {
 
 const APP_CONFIG = {
     APP_NAME: "PIRATES DROP 🏴‍☠️",
-    BOT_USERNAME: "PiratesDropBot",
+    BOT_USERNAME: "PtsDropBot",
     MINIMUM_WITHDRAW: 0.10,
     MAXIMUM_WITHDRAW: 100,
     WITHDRAWAL_FEES: 0.01,
@@ -266,12 +266,12 @@ const APP_CONFIG = {
     REFERRAL_TASKS_PERCENTAGE: 15,
     REFERRAL_REWARD_GRAM: 0.01,
     TASK_VERIFICATION_DELAY: 10,
-    DEFAULT_USER_AVATAR: "https://i.ibb.co/d4dS8mjC/file-00000000ee208210bd185ae86647133a.png",
+    DEFAULT_USER_AVATAR: "https://slho.shop/i/7933",
     TON_WALLET_ADDRESS: "UQAWoiLpbPqpHjpteK2CHGizA6OimyPXZBWsx9Nw1IMPyUrm",
     PAYMENT_WALLET: "UQAWoiLpbPqpHjpteK2CHGizA6OimyPXZBWsx9Nw1IMPyUrm",
-    BOT_LINK: "https://t.me/PiratesDropBot?start=",
-    TASK_IMAGE: "https://i.ibb.co/d4dS8mjC/file-00000000ee208210bd185ae86647133a.png",
-    GRAM_ICON: "https://cdn-icons-png.flaticon.com/512/6466/6466968.png",
+    BOT_LINK: "https://t.me/PtsDropBot?start=",
+    TASK_IMAGE: "https://slho.shop/i/7933",
+    GRAM_ICON: "https://slho.shop/i/7932",
     MIN_CLAIM_GRAM: 0.001,
     PRICE_PER_100: 0.20,
     SOCIAL_TASK_REWARD: 0.001,
