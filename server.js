@@ -780,9 +780,20 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                     device_id: null,
                     ip_address: null
                 };
+                
                 if (referrerId && referrerId !== chatId) {
                     userData.referred_by = referrerId;
                 }
+                
+                if (referrerId && referrerId !== chatId) {
+                    const referrer = await getUser(referrerId);
+                    if (referrer) {
+                        await updateUser(referrerId, {
+                            total_referrals: (referrer.total_referrals || 0) + 1
+                        });
+                    }
+                } 
+                    
                 try {
                     await createUser(userData);
                 } catch (createError) {
@@ -1134,7 +1145,7 @@ app.post('/api/verify-account', authenticate, strictLimiter, async (req, res) =>
             if (referrer) {
                 const newTotal = (referrer.total_referrals || 0) + 1;
                 await updateUser(user.referred_by, {
-                    total_referrals: newTotal,
+                    verified_referrals: (referrer.verified_referrals || 0) + 1,
                     gram_balance: (referrer.gram_balance || 0) + APP_CONFIG.REFERRAL_REWARD_GRAM
                 });
                 await updateUser(userId, { referral_reward_given: true });
