@@ -269,7 +269,7 @@ const APP_CONFIG = {
     DEFAULT_USER_AVATAR: "https://slho.shop/i/7933",
     TON_WALLET_ADDRESS: "UQAWoiLpbPqpHjpteK2CHGizA6OimyPXZBWsx9Nw1IMPyUrm",
     PAYMENT_WALLET: "UQAWoiLpbPqpHjpteK2CHGizA6OimyPXZBWsx9Nw1IMPyUrm",
-    BOT_LINK: "https://t.me/PtsDropBot?start=",
+    BOT_LINK: "https://t.me/PtsDropBot/app?startapp=",
     TASK_IMAGE: "https://slho.shop/i/7933",
     GRAM_ICON: "https://slho.shop/i/7932",
     MIN_CLAIM_GRAM: 0.001,
@@ -287,7 +287,7 @@ const APP_CONFIG = {
             description: "Join & get special reward",
             url: "https://t.me/UltrawalletTrade_Bot/app?startapp=5455903941",
             reward: 0.02,
-            icon: "fa-gem",
+            icon: "fa-telegram",
             special: true
         },
         {
@@ -296,7 +296,7 @@ const APP_CONFIG = {
             description: "Subscribe & react",
             url: "https://t.me/MONEYHUB9_69",
             reward: 0.01,
-            icon: "fa-chart-line",
+            icon: "fa-telegram",
             special: false
         },
         {
@@ -305,7 +305,7 @@ const APP_CONFIG = {
             description: "Subscribe & react",
             url: "https://t.me/GramTownNews",
             reward: 0.01,
-            icon: "fa-bolt",
+            icon: "fa-telegram",
             special: false
         }
     ]
