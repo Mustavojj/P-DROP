@@ -1,15 +1,12 @@
 const translations = {
     en: {
-        level: "Level",
-        hourly: "HOURLY",
-        daily: "DAILY",
-        monthly: "MONTHLY",
         start: "Start",
         claim: "Claim",
         done: "Done",
         verify_account: "Verify Your Account",
         verify_bonus: "Verify & Get {amount} GRAM",
         verified: "Verified",
+        unverified: "Unverified",
         promo_code: "Promo Code",
         enter_code: "Enter code",
         community_tasks: "Community Tasks",
@@ -20,7 +17,6 @@ const translations = {
         home: "Home",
         gram: "GRAM",
         balance: "Balance",
-        earn_gram: "Earn GRAM",
         referral_link: "Referral Link",
         copy: "Copy",
         copied: "Copied!",
@@ -29,13 +25,10 @@ const translations = {
         referral_earnings: "Referral Earnings",
         earn_per_referral: "Earn {amount} GRAM each verified referral",
         earn_percent_tasks: "Earn {percent}% from tasks earnings",
-        claim_earnings: "Claim",
+        claim_earnings: "CLAIM",
         withdraw_gram: "Withdraw GRAM",
         amount: "Amount",
         wallet_address: "Wallet Address",
-        min_withdraw: "Minimum withdrawal",
-        max_withdraw: "Maximum withdrawal",
-        withdrawal_fees: "Withdrawal fees",
         confirm_withdrawal: "Confirm Withdrawal",
         withdrawal_history: "Withdrawal History",
         no_withdrawals: "No withdrawals yet",
@@ -59,8 +52,6 @@ const translations = {
         payment_checking: "Checking payment...",
         loading: "Loading...",
         no_tasks: "No tasks available",
-        already_completed: "Already completed",
-        join_channel: "Join Channel",
         task_cooldown: "Please wait {s}s before completing another task",
         promo_cooldown: "Please wait {s}s before using another promo code",
         insufficient_balance: "Insufficient GRAM balance",
@@ -68,44 +59,32 @@ const translations = {
         invalid_wallet: "Invalid wallet address. Must start with UQ and be at least 20 characters.",
         withdrawal_success: "Withdrawal successful!",
         withdrawal_failed: "Withdrawal failed",
-        save_error: "Data save failed! Please try again.",
         ban_message: "Your account has been banned.",
         not_registered: "Not Registered",
         not_registered_message: "You need to start the bot first to register your account.",
         register_now: "Register Now",
-        yes: "Yes",
-        no: "No",
         community_task_added: "Community task added successfully!",
         task_deleted: "Task deleted successfully",
-        welcome_bonus: "Welcome Bonus",
-        claim_welcome: "Claim Welcome Bonus",
         invalid_total: "Total must be between 100 and 5000",
         name_required: "Name must be between 5-20 characters",
         link_required: "Please enter a valid link starting with https://",
-        select_verification: "Please select verification option",
-        promo_created: "Promo code created successfully!",
-        promo_code_cost: "Total Cost",
-        my_promo_codes: "My Promo Codes",
-        no_promo_codes: "You haven't created any promo codes yet.",
-        create_promo_code: "Create Promo Code",
-        code: "Code",
-        reward_per_use: "Reward per Use",
-        max_uses: "Max Uses (50-5000)",
-        required_channel: "Required Channel (Optional)",
-        generate_random: "Random",
-        verify_channels: "Join these channels to verify",
         verify_success: "Account verified! +{amount} GRAM",
         already_verified: "Account already verified",
-        join_all_channels: "Please join all required channels first"
+        join_all_channels: "Please join all required channels first",
+        task_ultra_wallet_desc: "Join & get special reward",
+        task_money_hub_desc: "Subscribe & react",
+        task_master_x_desc: "Subscribe & react",
+        max: "MAX",
+        daily: "Daily"
     },
     ar: {
-        level: "المستوى",
         start: "بدء",
         claim: "استلام",
         done: "تم",
         verify_account: "تحقق من حسابك",
         verify_bonus: "تحقق واحصل على {amount} GRAM",
         verified: "موثق",
+        unverified: "غير موثق",
         promo_code: "رمز ترويجي",
         enter_code: "أدخل الرمز",
         community_tasks: "مهام المجتمع",
@@ -116,7 +95,6 @@ const translations = {
         home: "الرئيسية",
         gram: "GRAM",
         balance: "الرصيد",
-        earn_gram: "اربح GRAM",
         referral_link: "رابط الإحالة",
         copy: "نسخ",
         copied: "تم النسخ!",
@@ -129,9 +107,6 @@ const translations = {
         withdraw_gram: "سحب GRAM",
         amount: "المبلغ",
         wallet_address: "عنوان المحفظة",
-        min_withdraw: "الحد الأدنى للسحب",
-        max_withdraw: "الحد الأقصى للسحب",
-        withdrawal_fees: "رسوم السحب",
         confirm_withdrawal: "تأكيد السحب",
         withdrawal_history: "سجل السحوبات",
         no_withdrawals: "لا توجد سحوبات بعد",
@@ -155,8 +130,6 @@ const translations = {
         payment_checking: "جارٍ التحقق من الدفع...",
         loading: "جار التحميل...",
         no_tasks: "لا توجد مهام متاحة",
-        already_completed: "مكتملة بالفعل",
-        join_channel: "انضم للقناة",
         task_cooldown: "يرجى الانتظار {s}ث قبل إكمال مهمة أخرى",
         promo_cooldown: "يرجى الانتظار {s}ث قبل استخدام رمز ترويجي آخر",
         insufficient_balance: "رصيد GRAM غير كافٍ",
@@ -164,44 +137,32 @@ const translations = {
         invalid_wallet: "عنوان محفظة غير صالح. يجب أن يبدأ بـ UQ ويكون 20 حرفاً على الأقل.",
         withdrawal_success: "تم السحب بنجاح!",
         withdrawal_failed: "فشل السحب",
-        save_error: "فشل حفظ البيانات! حاول مرة أخرى.",
         ban_message: "تم حظر حسابك.",
         not_registered: "غير مسجل",
         not_registered_message: "يجب أن تبدأ البوت أولاً لتسجيل حسابك.",
         register_now: "سجل الآن",
-        yes: "نعم",
-        no: "لا",
         community_task_added: "تمت إضافة مهمة المجتمع بنجاح!",
         task_deleted: "تم حذف المهمة بنجاح",
-        welcome_bonus: "مكافأة الترحيب",
-        claim_welcome: "استلام مكافأة الترحيب",
         invalid_total: "يجب أن يكون الإجمالي بين 100 و 5000",
         name_required: "يجب أن يكون الاسم بين 5-20 حرفاً",
         link_required: "يرجى إدخال رابط صحيح يبدأ بـ https://",
-        select_verification: "يرجى اختيار خيار التحقق",
-        promo_created: "تم إنشاء الرمز الترويجي بنجاح!",
-        promo_code_cost: "التكلفة الإجمالية",
-        my_promo_codes: "أكوادي الترويجية",
-        no_promo_codes: "لم تقم بإنشاء أي أكواد ترويجية بعد.",
-        create_promo_code: "إنشاء كود ترويجي",
-        code: "الكود",
-        reward_per_use: "المكافأة لكل استخدام",
-        max_uses: "الحد الأقصى للاستخدام (50-5000)",
-        required_channel: "القناة المطلوبة (اختياري)",
-        generate_random: "عشوائي",
-        verify_channels: "انضم لهذه القنوات للتحقق",
         verify_success: "تم توثيق الحساب! +{amount} GRAM",
         already_verified: "الحساب موثق بالفعل",
-        join_all_channels: "يرجى الانضمام لجميع القنوات المطلوبة أولاً"
+        join_all_channels: "يرجى الانضمام لجميع القنوات المطلوبة أولاً",
+        task_ultra_wallet_desc: "انضم واحصل على مكافأة خاصة",
+        task_money_hub_desc: "اشترك وتفاعل",
+        task_master_x_desc: "اشترك وتفاعل",
+        max: "الحد الأقصى",
+        daily: "يومياً"
     },
     ru: {
-        level: "Уровень",
         start: "Начать",
         claim: "Забрать",
         done: "Готово",
         verify_account: "Подтвердите аккаунт",
         verify_bonus: "Подтвердить и получить {amount} GRAM",
         verified: "Подтверждён",
+        unverified: "Не подтверждён",
         promo_code: "Промокод",
         enter_code: "Введите код",
         community_tasks: "Задания сообщества",
@@ -212,7 +173,6 @@ const translations = {
         home: "Главная",
         gram: "GRAM",
         balance: "Баланс",
-        earn_gram: "Заработать GRAM",
         referral_link: "Реферальная ссылка",
         copy: "Копировать",
         copied: "Скопировано!",
@@ -221,13 +181,10 @@ const translations = {
         referral_earnings: "Реферальный доход",
         earn_per_referral: "Заработай {amount} GRAM за каждого подтверждённого реферала",
         earn_percent_tasks: "Зарабатывай {percent}% от дохода с заданий",
-        claim_earnings: "Забрать",
+        claim_earnings: "ЗАБРАТЬ",
         withdraw_gram: "Вывести GRAM",
         amount: "Сумма",
         wallet_address: "Адрес кошелька",
-        min_withdraw: "Минимальный вывод",
-        max_withdraw: "Максимальный вывод",
-        withdrawal_fees: "Комиссия за вывод",
         confirm_withdrawal: "Подтвердить вывод",
         withdrawal_history: "История выводов",
         no_withdrawals: "Выводов пока нет",
@@ -251,8 +208,6 @@ const translations = {
         payment_checking: "Проверка оплаты...",
         loading: "Загрузка...",
         no_tasks: "Нет доступных заданий",
-        already_completed: "Уже выполнено",
-        join_channel: "Присоединиться",
         task_cooldown: "Подождите {s}с перед выполнением следующего задания",
         promo_cooldown: "Подождите {s}с перед использованием другого промокода",
         insufficient_balance: "Недостаточно GRAM",
@@ -260,44 +215,32 @@ const translations = {
         invalid_wallet: "Неверный адрес кошелька. Должен начинаться с UQ и содержать минимум 20 символов.",
         withdrawal_success: "Вывод успешен!",
         withdrawal_failed: "Ошибка вывода",
-        save_error: "Ошибка сохранения! Попробуйте снова.",
         ban_message: "Ваш аккаунт заблокирован.",
         not_registered: "Не зарегистрирован",
         not_registered_message: "Сначала запустите бота, чтобы зарегистрировать аккаунт.",
         register_now: "Зарегистрироваться",
-        yes: "Да",
-        no: "Нет",
         community_task_added: "Задание сообщества добавлено!",
         task_deleted: "Задание удалено",
-        welcome_bonus: "Приветственный бонус",
-        claim_welcome: "Забрать приветственный бонус",
         invalid_total: "Всего должно быть от 100 до 5000",
         name_required: "Название должно содержать 5-20 символов",
         link_required: "Пожалуйста, введите корректную ссылку, начинающуюся с https://",
-        select_verification: "Пожалуйста, выберите вариант проверки",
-        promo_created: "Промокод создан успешно!",
-        promo_code_cost: "Общая стоимость",
-        my_promo_codes: "Мои промокоды",
-        no_promo_codes: "Вы пока не создали ни одного промокода.",
-        create_promo_code: "Создать промокод",
-        code: "Код",
-        reward_per_use: "Награда за использование",
-        max_uses: "Макс. использований (50-5000)",
-        required_channel: "Обязательный канал (опционально)",
-        generate_random: "Случайно",
-        verify_channels: "Присоединитесь к этим каналам для проверки",
         verify_success: "Аккаунт подтверждён! +{amount} GRAM",
         already_verified: "Аккаунт уже подтверждён",
-        join_all_channels: "Пожалуйста, сначала присоединитесь ко всем каналам"
+        join_all_channels: "Пожалуйста, сначала присоединитесь ко всем каналам",
+        task_ultra_wallet_desc: "Присоединяйтесь и получите награду",
+        task_money_hub_desc: "Подпишитесь и реагируйте",
+        task_master_x_desc: "Подпишитесь и реагируйте",
+        max: "МАКС",
+        daily: "В день"
     },
     fa: {
-        level: "سطح",
         start: "شروع",
         claim: "دریافت",
         done: "انجام شد",
         verify_account: "حساب خود را تأیید کنید",
         verify_bonus: "تأیید و دریافت {amount} GRAM",
         verified: "تأیید شده",
+        unverified: "تأیید نشده",
         promo_code: "کد تبلیغاتی",
         enter_code: "کد را وارد کنید",
         community_tasks: "وظایف جامعه",
@@ -308,7 +251,6 @@ const translations = {
         home: "خانه",
         gram: "GRAM",
         balance: "موجودی",
-        earn_gram: "کسب GRAM",
         referral_link: "لینک معرفی",
         copy: "کپی",
         copied: "کپی شد!",
@@ -321,9 +263,6 @@ const translations = {
         withdraw_gram: "برداشت GRAM",
         amount: "مبلغ",
         wallet_address: "آدرس کیف پول",
-        min_withdraw: "حداقل برداشت",
-        max_withdraw: "حداکثر برداشت",
-        withdrawal_fees: "کارمزد برداشت",
         confirm_withdrawal: "تأیید برداشت",
         withdrawal_history: "تاریخچه برداشت",
         no_withdrawals: "هنوز برداشتی انجام نشده",
@@ -347,8 +286,6 @@ const translations = {
         payment_checking: "در حال بررسی پرداخت...",
         loading: "در حال بارگذاری...",
         no_tasks: "هیچ وظیفه‌ای در دسترس نیست",
-        already_completed: "قبلاً تکمیل شده",
-        join_channel: "پیوستن به کانال",
         task_cooldown: "لطفاً {s}ثانیه قبل از تکمیل وظیفه بعدی صبر کنید",
         promo_cooldown: "لطفاً {s}ثانیه قبل از استفاده از کد تبلیغاتی دیگر صبر کنید",
         insufficient_balance: "موجودی GRAM کافی نیست",
@@ -356,35 +293,23 @@ const translations = {
         invalid_wallet: "آدرس کیف پول نامعتبر است. باید با UQ شروع شود و حداقل ۲۰ کاراکتر باشد.",
         withdrawal_success: "برداشت با موفقیت انجام شد!",
         withdrawal_failed: "برداشت ناموفق بود",
-        save_error: "ذخیره داده‌ها ناموفق بود! دوباره تلاش کنید.",
         ban_message: "حساب شما مسدود شده است.",
         not_registered: "ثبت نشده",
         not_registered_message: "ابتدا باید ربات را استارت کنید تا حساب شما ثبت شود.",
         register_now: "ثبت نام کنید",
-        yes: "بله",
-        no: "خیر",
         community_task_added: "وظیفه جامعه با موفقیت اضافه شد!",
         task_deleted: "وظیفه با موفقیت حذف شد",
-        welcome_bonus: "پاداش خوش‌آمدگویی",
-        claim_welcome: "دریافت پاداش خوش‌آمدگویی",
         invalid_total: "کل باید بین ۱۰۰ تا ۵۰۰۰ باشد",
         name_required: "نام باید بین ۵-۲۰ کاراکتر باشد",
         link_required: "لطفاً یک لینک معتبر که با https:// شروع می‌شود وارد کنید",
-        select_verification: "لطفاً گزینه تأیید را انتخاب کنید",
-        promo_created: "کد تبلیغاتی با موفقیت ایجاد شد!",
-        promo_code_cost: "هزینه کل",
-        my_promo_codes: "کدهای تبلیغاتی من",
-        no_promo_codes: "شما هنوز هیچ کد تبلیغاتی ایجاد نکرده‌اید.",
-        create_promo_code: "ایجاد کد تبلیغاتی",
-        code: "کد",
-        reward_per_use: "پاداش در هر استفاده",
-        max_uses: "حداکثر استفاده (۵۰-۵۰۰۰)",
-        required_channel: "کانال اجباری (اختیاری)",
-        generate_random: "تصادفی",
-        verify_channels: "برای تأیید به این کانال‌ها بپیوندید",
         verify_success: "حساب تأیید شد! +{amount} GRAM",
         already_verified: "حساب قبلاً تأیید شده است",
-        join_all_channels: "لطفاً ابتدا به تمام کانال‌های مورد نیاز بپیوندید"
+        join_all_channels: "لطفاً ابتدا به تمام کانال‌های مورد نیاز بپیوندید",
+        task_ultra_wallet_desc: "بپیوندید و پاداش ویژه دریافت کنید",
+        task_money_hub_desc: "عضو شوید و تعامل کنید",
+        task_master_x_desc: "عضو شوید و تعامل کنید",
+        max: "حداکثر",
+        daily: "روزانه"
     }
 };
 
@@ -397,9 +322,7 @@ class App {
         this.jwtToken = null;
         this.isAuthenticated = false;
         this.deviceId = null;
-        
         this.gramBalance = 0;
-        this.userLevel = 1;
         this.verified = false;
         this.referralGramEarnings = 0;
         this.totalReferrals = 0;
@@ -416,7 +339,6 @@ class App {
         this.totalTasksCompleted = 0;
         this.serverTimeOffset = 0;
         this._dirtyGram = false;
-        this._saveTimeout = null;
         this._isSaving = false;
         this._userDataLoaded = false;
         this._homeLoaded = false;
@@ -428,13 +350,12 @@ class App {
         this._lastFetchTime = new Map();
         this._taskCompletionCooldown = 0;
         this._promoCooldown = 0;
-        this.quests = { welcome_bonus_claimed: false, current_referral_quest_index: 0 };
         this.config = {};
         this.communityTasks = [];
         this.myCommunityTasks = [];
         this.promoCodes = [];
-        this.myPromoCodes = [];
         this.pendingTaskData = null;
+        this.verifyTasksStatus = { ultra_wallet: false, money_hub: false, master_x: false };
         this.loadSettings();
     }
 
@@ -480,19 +401,25 @@ class App {
         return num.toFixed(5);
     }
 
-    formatNumber(num) {
-        if (num >= 1000000) return (num / 1000000).toFixed(2) + 'M';
-        if (num >= 1000) return (num / 1000).toFixed(2) + 'K';
-        return Math.floor(num).toString();
-    }
-
     getCurrentTime() {
         return Date.now() + this.serverTimeOffset;
     }
 
     updateHeaderBalances() {
         const gramHeader = document.getElementById('header-gram');
-        if (gramHeader) gramHeader.innerHTML = `<img src="${this.config.GRAM_ICON}" style="width:14px;height:14px;border-radius:50%;object-fit:cover;"> ${this.formatGram(this.gramBalance)}`;
+        if (gramHeader) {
+            gramHeader.innerHTML = `<img src="${this.config.GRAM_ICON}" class="gram-icon-header"><span>${this.formatGram(this.gramBalance)}</span>`;
+        }
+        const userStatus = document.getElementById('user-status');
+        if (userStatus) {
+            if (this.verified) {
+                userStatus.className = 'user-status verified';
+                userStatus.innerHTML = `<i class="fas fa-circle-check"></i><span>${this.t('verified')}</span>`;
+            } else {
+                userStatus.className = 'user-status unverified';
+                userStatus.innerHTML = `<i class="fas fa-circle-xmark"></i><span>${this.t('unverified')}</span>`;
+            }
+        }
     }
 
     checkCooldown(endpoint) {
@@ -615,7 +542,6 @@ class App {
             this.serverTimeOffset = data.serverTime - Date.now();
             return data.serverTime;
         } catch (error) {
-            console.warn('Failed to get server time:', error);
             return Date.now();
         }
     }
@@ -641,7 +567,6 @@ class App {
         try {
             const initData = this.tg?.initData;
             if (!initData) {
-                console.error('No initData available');
                 return false;
             }
             const storedJwt = localStorage.getItem('pirates_jwt');
@@ -722,7 +647,6 @@ class App {
                 font-size: 1rem;
                 text-decoration: none;
                 box-shadow: 0 5px 25px rgba(46, 204, 113, 0.4);
-                transition: transform 0.2s;
                 margin-top: 10px;
             ">
                 <i class="fas fa-rocket"></i>
@@ -743,7 +667,6 @@ class App {
             if (!authenticated) return;
             const result = await this.fetchFromServer('/api/get-user', {});
             if (result.error) {
-                console.error('Error loading user:', result.error);
                 if (result.error === 'Account banned' || result.banned) {
                     this.showBanModal();
                     return;
@@ -756,14 +679,13 @@ class App {
                     setTimeout(() => this.loadUserData(), 3000);
                     return;
                 }
-                this.showNotification('Error', 'Failed to load user data: ' + result.error, 'error');
+                this.showNotification('Error', 'Failed to load user data', 'error');
                 this.vibrate('error');
                 return;
             }
             const user = result.user;
             this.gramBalance = user.gram_balance || 0;
             this.referralGramEarnings = user.referral_gram_earnings || 0;
-            this.userLevel = user.level || 1;
             this.verified = user.verified || false;
             this.totalReferrals = user.total_referrals || 0;
             this.verifiedReferrals = result.referrals?.filter(r => r.verified).length || 0;
@@ -771,7 +693,6 @@ class App {
             this.referredBy = user.referred_by || null;
             this.referralRewardGiven = user.referral_reward_given || false;
             this.userState = user.state || 'active';
-            this.quests = user.quests || { welcome_bonus_claimed: false, current_referral_quest_index: 0 };
             this.isAuthenticated = true;
             if (result.completedTasks) {
                 this.userCompletedTasks = new Set(result.completedTasks);
@@ -779,13 +700,12 @@ class App {
             if (result.withdrawals) {
                 this.withdrawals = result.withdrawals;
             }
+            if (user.completed_special_tasks) {
+                user.completed_special_tasks.forEach(id => this.userCompletedTasks.add(id));
+            }
             this._userDataLoaded = true;
             const nameSpan = document.getElementById('user-name');
             if (nameSpan) nameSpan.innerText = this.truncateName(this.tgUser.first_name || 'User');
-            const levelSpan = document.getElementById('user-level');
-            if (levelSpan) levelSpan.innerText = this.userLevel;
-            const levelBadge = document.getElementById('user-level-badge');
-            if (levelBadge) levelBadge.innerText = this.userLevel;
             const photoImg = document.getElementById('user-photo');
             if (photoImg) photoImg.src = this.tgUser.photo_url || this.config.DEFAULT_USER_AVATAR;
             this.updateHeaderBalances();
@@ -799,42 +719,8 @@ class App {
         }
     }
 
-    async saveUserData(immediate = false) {
-        if (!this.tgUser || !this.isAuthenticated) return false;
-        if (this._isSaving) {
-            if (immediate) {
-                let waited = 0;
-                while (this._isSaving && waited < 3000) {
-                    await new Promise(resolve => setTimeout(resolve, 50));
-                    waited += 50;
-                }
-                if (this._isSaving) return false;
-            } else {
-                return true;
-            }
-        }
-        this._isSaving = true;
-        try {
-            const updates = {};
-            if (this._dirtyGram) updates.gramBalance = this.gramBalance;
-            if (Object.keys(updates).length === 0) {
-                this._isSaving = false;
-                return true;
-            }
-            const result = await this.fetchFromServer('/api/update-user', updates);
-            if (result.error) {
-                console.error('Save error:', result.error);
-                this._isSaving = false;
-                return false;
-            }
-            this._dirtyGram = false;
-            return true;
-        } catch (error) {
-            this._isSaving = false;
-            return false;
-        } finally {
-            this._isSaving = false;
-        }
+    async saveUserData() {
+        return true;
     }
 
     async completeTaskOnServer(taskId, taskType = 'community') {
@@ -870,7 +756,6 @@ class App {
             if (error.message === 'Cooldown' || error.message === 'Banned' || error.message === 'Auth required') {
                 return false;
             }
-            console.error('Complete task error:', error);
             this.showNotification('Error', 'Failed to complete task', 'error');
             this.vibrate('error');
             return false;
@@ -898,7 +783,6 @@ class App {
             if (error.message === 'Cooldown' || error.message === 'Banned' || error.message === 'Auth required') {
                 return false;
             }
-            console.error('Verify error:', error);
             this.showNotification('Error', 'Failed to verify account', 'error');
             this.vibrate('error');
             return false;
@@ -927,7 +811,6 @@ class App {
             if (error.message === 'Cooldown' || error.message === 'Banned' || error.message === 'Auth required') {
                 return false;
             }
-            console.error('Claim referral error:', error);
             this.showNotification('Error', 'Failed to claim earnings', 'error');
             this.vibrate('error');
             return false;
@@ -962,7 +845,6 @@ class App {
             if (error.message === 'Cooldown' || error.message === 'Banned' || error.message === 'Auth required') {
                 return false;
             }
-            console.error('Apply promo error:', error);
             this.showNotification('Error', 'Failed to apply promo code', 'error');
             this.vibrate('error');
             return false;
@@ -979,7 +861,6 @@ class App {
             if (error.message === 'Cooldown' || error.message === 'Banned' || error.message === 'Auth required') {
                 return [];
             }
-            console.error('Load tasks error:', error);
             return [];
         }
     }
@@ -1002,7 +883,6 @@ class App {
             this.taskCache.myTasks = { data: this.myCommunityTasks, timestamp: Date.now() };
             return this.myCommunityTasks;
         } catch (error) {
-            console.error('Error loading my tasks:', error);
             return [];
         }
     }
@@ -1018,7 +898,6 @@ class App {
             }
             return false;
         } catch (error) {
-            console.error('Error deleting task:', error);
             return false;
         }
     }
@@ -1049,17 +928,26 @@ class App {
         return match ? match[1] : null;
     }
 
+    getTaskDescription(taskId, defaultDesc) {
+        const map = {
+            'ultra_wallet': 'task_ultra_wallet_desc',
+            'money_hub': 'task_money_hub_desc',
+            'master_x': 'task_master_x_desc'
+        };
+        if (map[taskId]) {
+            return this.t(map[taskId]);
+        }
+        return defaultDesc;
+    }
+
     renderHome() {
         const el = document.getElementById('home-page');
         if (!el) return;
-        
-        const welcomeBonusClaimed = this.quests.welcome_bonus_claimed || this.gramBalance > 0.005;
-        
+
         const promoHtml = `
             <div class="promo-card green-card">
                 <div class="promo-header">
                     <div class="promo-title"><i class="fas fa-gift"></i> ${this.t('promo_code')}</div>
-                    <a href="${this.config.PROMO_CODES_CHANNEL || 'https://t.me/PiratesDropCodes'}" target="_blank" class="promo-action-btn" title="${this.t('promo_code')}"><i class="fas fa-bell"></i></a>
                 </div>
                 <div class="promo-input-group">
                     <input type="text" id="promo-input" class="form-input green-input" placeholder="${this.t('enter_code')}" autocomplete="off">
@@ -1068,39 +956,48 @@ class App {
             </div>
         `;
 
+        const allTasksStarted = Object.values(this.verifyTasksStatus).every(v => v);
+
         const verifyTasksHtml = this.config.SPECIAL_TASKS?.map(task => {
             const isCompleted = this.userCompletedTasks.has(task.id);
             const buttonHtml = isCompleted
-                ? `<button class="task-btn done" data-id="${task.id}"><i class="fas fa-check"></i> ${this.t('done')}</button>`
+                ? `<button class="task-btn done" data-id="${task.id}"><i class="fas fa-check"></i></button>`
                 : `<button class="task-btn start" data-id="${task.id}" data-url="${task.url}">${this.t('start')}</button>`;
-            const iconClass = task.special ? 'gold-icon' : 'green-icon';
+            const desc = this.getTaskDescription(task.id, task.description);
             return `
                 <div class="verify-task-item">
-                    <div class="task-icon ${iconClass}"><i class="fas ${task.icon}"></i></div>
+                    <div class="task-icon"><i class="fas ${task.icon || 'fa-gem'}"></i></div>
                     <div class="task-info">
                         <h4>${task.name}</h4>
-                        <div class="task-desc">${task.description}</div>
-                        <div class="task-reward"><i class="fas fa-coins"></i> ${task.reward} GRAM</div>
+                        <div class="task-desc">${desc}</div>
+                        <div class="task-reward">
+                            <img src="${this.config.GRAM_ICON}">
+                            <span>${task.reward} GRAM</span>
+                        </div>
                     </div>
                     ${buttonHtml}
                 </div>
             `;
         }).join('');
 
-        const verifyBtnHtml = this.verified
-            ? `<button class="verify-btn verified" disabled><i class="fas fa-check-circle"></i> ${this.t('verified')}</button>`
-            : `<button id="verify-account-btn" class="verify-btn"><i class="fas fa-shield-alt"></i> ${this.t('verify_bonus', { amount: this.config.VERIFY_BONUS || 0.04 })}</button>`;
+        let verifyCardHtml = '';
+        if (!this.verified) {
+            verifyCardHtml = `
+                <div class="verify-card green-card" id="verify-card">
+                    <h3><i class="fas fa-shield-alt"></i> ${this.t('verify_account')}</h3>
+                    <div class="verify-tasks">
+                        ${verifyTasksHtml}
+                    </div>
+                    <button id="verify-account-btn" class="verify-btn" ${!allTasksStarted ? 'disabled' : ''}>
+                        <i class="fas fa-shield-alt"></i> ${this.t('verify_bonus', { amount: this.config.VERIFY_BONUS || 0.04 })}
+                    </button>
+                </div>
+            `;
+        }
 
         el.innerHTML = `
             ${promoHtml}
-            
-            <div class="verify-card green-card">
-                <h3><i class="fas fa-shield-alt"></i> ${this.t('verify_account')}</h3>
-                <div class="verify-tasks">
-                    ${verifyTasksHtml}
-                </div>
-                ${verifyBtnHtml}
-            </div>
+            ${verifyCardHtml}
 
             <div class="section-header green-header">
                 <h3><i class="fas fa-users"></i> ${this.t('community_tasks')}</h3>
@@ -1145,12 +1042,73 @@ class App {
         document.getElementById('my-tasks-btn')?.addEventListener('click', async () => {
             const modal = document.getElementById('my-tasks-modal');
             modal.style.display = 'flex';
-            document.getElementById('my-tasks-container').innerHTML = '<div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>Loading...</p></div>';
+            document.getElementById('my-tasks-container').innerHTML = `<div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div>`;
             await this.loadMyTasks();
             this.renderMyTasks();
         });
 
+        this.attachSpecialTaskHandlers();
         this.loadCommunityTasksList();
+    }
+
+    attachSpecialTaskHandlers() {
+        document.querySelectorAll('.verify-task-item .task-btn.start').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (this.isTaskRunning) {
+                    this.showNotification('Busy', 'Complete current task first', 'warning');
+                    return;
+                }
+                const taskId = btn.dataset.id;
+                const task = this.config.SPECIAL_TASKS.find(t => t.id === taskId);
+                if (!task) return;
+                this.isTaskRunning = true;
+                this.disableAllTaskButtons(true);
+                btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>';
+                btn.disabled = true;
+                if (task.url) {
+                    window.open(task.url, '_blank');
+                }
+                let seconds = this.config.TASK_VERIFICATION_DELAY || 10;
+                const interval = setInterval(() => {
+                    seconds--;
+                    if (seconds <= 0) {
+                        clearInterval(interval);
+                        btn.innerHTML = this.t('claim');
+                        btn.disabled = false;
+                        btn.classList.remove('start');
+                        btn.classList.add('claim-btn');
+                        const newBtn = btn.cloneNode(true);
+                        btn.parentNode.replaceChild(newBtn, btn);
+                        newBtn.addEventListener('click', async (e) => {
+                            e.stopPropagation();
+                            newBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>';
+                            newBtn.disabled = true;
+                            const success = await this.completeTaskOnServer(taskId, 'special');
+                            if (success) {
+                                newBtn.innerHTML = '<i class="fas fa-check"></i>';
+                                newBtn.disabled = true;
+                                newBtn.classList.add('done');
+                                newBtn.classList.remove('claim-btn');
+                                this.userCompletedTasks.add(taskId);
+                                this.verifyTasksStatus[taskId] = true;
+                                this.showNotification(this.t('claim'), `+${task.reward} GRAM`, 'success');
+                                this.vibrate('success');
+                                this.isTaskRunning = false;
+                                this.disableAllTaskButtons(false);
+                                this.renderHome();
+                            } else {
+                                newBtn.innerHTML = this.t('claim');
+                                newBtn.disabled = false;
+                                newBtn.classList.remove('claim-btn');
+                                newBtn.classList.add('start');
+                            }
+                            this.isTaskRunning = false;
+                            this.disableAllTaskButtons(false);
+                        });
+                    }
+                }, 1000);
+            });
+        });
     }
 
     async loadCommunityTasksList() {
@@ -1175,7 +1133,7 @@ class App {
                             <div class="task-info">
                                 <h4>${task.name}</h4>
                                 <div class="task-reward">
-                                    <span class="reward-badge"><img src="${this.config.GRAM_ICON}" style="width:14px;height:14px;border-radius:50%;object-fit:cover;"> ${reward} GRAM</span>
+                                    <span class="reward-badge"><img src="${this.config.GRAM_ICON}"> ${reward} GRAM</span>
                                 </div>
                                 <div style="font-size:0.55rem;color:#888;margin-top:2px;">${task.total_completed || 0}/${task.total}</div>
                             </div>
@@ -1226,12 +1184,12 @@ class App {
                                 if (isMember) {
                                     const success = await this.completeTaskOnServer(taskId, 'community');
                                     if (success) {
-                                        newBtn.innerHTML = '<i class="fas fa-check"></i> Done';
+                                        newBtn.innerHTML = '<i class="fas fa-check"></i>';
                                         newBtn.disabled = true;
                                         newBtn.classList.add('done');
                                         newBtn.classList.remove('claim-btn');
                                         this.userCompletedTasks.add(taskId);
-                                        this.showNotification(this.t('claim'), `You have received ${task.reward} GRAM`, 'success');
+                                        this.showNotification(this.t('claim'), `+${task.reward} GRAM`, 'success');
                                         this.vibrate('success');
                                         this.isTaskRunning = false;
                                         this.disableAllTaskButtons(false);
@@ -1257,70 +1215,8 @@ class App {
                     }, 1000);
                 });
             });
-
-            const specialContainer = document.querySelector('.verify-tasks');
-            if (specialContainer) {
-                specialContainer.querySelectorAll('.task-btn.start').forEach(btn => {
-                    btn.addEventListener('click', async () => {
-                        if (this.isTaskRunning) {
-                            this.showNotification('Busy', 'Complete current task first', 'warning');
-                            return;
-                        }
-                        const taskId = btn.dataset.id;
-                        const task = this.config.SPECIAL_TASKS.find(t => t.id === taskId);
-                        if (!task) return;
-                        this.isTaskRunning = true;
-                        this.disableAllTaskButtons(true);
-                        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>';
-                        btn.disabled = true;
-                        if (task.url) {
-                            window.open(task.url, '_blank');
-                        }
-                        let seconds = this.config.TASK_VERIFICATION_DELAY || 10;
-                        const interval = setInterval(() => {
-                            seconds--;
-                            if (seconds <= 0) {
-                                clearInterval(interval);
-                                btn.innerHTML = this.t('claim');
-                                btn.disabled = false;
-                                btn.classList.remove('start');
-                                btn.classList.add('claim-btn');
-                                const newBtn = btn.cloneNode(true);
-                                btn.parentNode.replaceChild(newBtn, btn);
-                                newBtn.addEventListener('click', async (e) => {
-                                    e.stopPropagation();
-                                    newBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>';
-                                    newBtn.disabled = true;
-                                    const success = await this.completeTaskOnServer(taskId, 'special');
-                                    if (success) {
-                                        newBtn.innerHTML = '<i class="fas fa-check"></i> Done';
-                                        newBtn.disabled = true;
-                                        newBtn.classList.add('done');
-                                        newBtn.classList.remove('claim-btn');
-                                        this.userCompletedTasks.add(taskId);
-                                        this.showNotification(this.t('claim'), `You have received ${task.reward} GRAM`, 'success');
-                                        this.vibrate('success');
-                                        this.isTaskRunning = false;
-                                        this.disableAllTaskButtons(false);
-                                        this.renderHome();
-                                    } else {
-                                        newBtn.innerHTML = this.t('claim');
-                                        newBtn.disabled = false;
-                                        newBtn.classList.remove('claim-btn');
-                                        newBtn.classList.add('start');
-                                    }
-                                    this.isTaskRunning = false;
-                                    this.disableAllTaskButtons(false);
-                                });
-                            }
-                        }, 1000);
-                    });
-                });
-            }
-
         } catch (error) {
             if (error.message === 'Cooldown' || error.message === 'Banned' || error.message === 'Auth required') return;
-            console.error('Load tasks error:', error);
             container.innerHTML = `<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>${this.t('no_tasks')}</p></div>`;
             this.isTaskRunning = false;
             this.disableAllTaskButtons(false);
@@ -1329,7 +1225,7 @@ class App {
 
     disableAllTaskButtons(disable) {
         document.querySelectorAll('.task-btn').forEach(btn => {
-            if (!btn.classList.contains('done') && !btn.classList.contains('go')) {
+            if (!btn.classList.contains('done')) {
                 btn.disabled = disable;
             }
         });
@@ -1354,7 +1250,7 @@ class App {
                     </div>
                     <button class="my-task-delete" data-id="${task.id}">
                         <i class="fas fa-trash"></i>
-                        ${this.t('delete') || 'Delete'}
+                        Delete
                     </button>
                 </div>
             `;
@@ -1398,7 +1294,7 @@ class App {
                 if (btn.dataset.value === 'custom') {
                     totalCustom.style.display = 'block';
                     totalCustom.value = '';
-                    selectedTotal = parseInt(totalCustom.value) || 0;
+                    selectedTotal = 0;
                 } else {
                     totalCustom.style.display = 'none';
                     selectedTotal = parseInt(btn.dataset.value);
@@ -1462,12 +1358,12 @@ class App {
                                 channel: channelMatch[1]
                             });
                             if (!checkResult.isAdmin) {
-                                this.showNotification('Error', 'Bot is not admin in the channel. Please add bot as admin.', 'error');
+                                this.showNotification('Error', 'Bot is not admin in the channel', 'error');
                                 this.vibrate('error');
                                 return;
                             }
                         } catch (error) {
-                            this.showNotification('Error', 'Failed to verify bot admin status', 'error');
+                            this.showNotification('Error', 'Failed to verify bot admin', 'error');
                             this.vibrate('error');
                             return;
                         }
@@ -1489,13 +1385,13 @@ class App {
         const modal = document.getElementById('payment-modal');
         if (!modal || !this.pendingTaskData) return;
         if (!this.tgUser || !this.tgUser.id) {
-            this.showNotification('Error', 'User not loaded. Please restart.', 'error');
+            this.showNotification('Error', 'User not loaded', 'error');
             return;
         }
         const userId = this.tgUser.id;
         const wallet = this.config.PAYMENT_WALLET || this.config.TON_WALLET_ADDRESS;
         const walletDisplay = wallet.length > 12 ? wallet.substring(0, 10) + '.....' + wallet.substring(wallet.length - 10) : wallet;
-        const memo = `t_${userId}_${Date.now().toString(36)}`;
+        const memo = `t_${userId}_${Date.now().toString(36)}`.substring(0, 10);
         const amount = (this.pendingTaskData.total * (this.config.SOCIAL_TASK_REWARD || 0.001) / 1000) * (this.config.PRICE_PER_100 || 0.20);
         const walletDisplayEl = document.getElementById('payment-wallet-display');
         const memoDisplay = document.getElementById('payment-memo-display');
@@ -1503,15 +1399,15 @@ class App {
         const tonkeeperLink = document.getElementById('tonkeeper-link');
         const statusEl = document.getElementById('payment-status');
         if (walletDisplayEl) {
-            walletDisplayEl.innerHTML = `<span style="font-size:0.7rem;font-family:monospace;color:#2ecc71;word-break:break-all;flex:1;">${walletDisplay}</span>`;
+            walletDisplayEl.innerHTML = `<span>${walletDisplay}</span>`;
             walletDisplayEl.onclick = () => this.copyToClipboard(wallet);
         }
         if (memoDisplay) {
-            memoDisplay.innerHTML = `<span style="font-size:0.7rem;font-family:monospace;color:#2ecc71;word-break:break-all;flex:1;">${memo}</span>`;
+            memoDisplay.innerHTML = `<span>${memo}</span>`;
             memoDisplay.onclick = () => this.copyToClipboard(memo);
         }
         if (amountDisplay) {
-            amountDisplay.innerHTML = `<span style="font-size:0.8rem;font-family:monospace;color:#2ecc71;font-weight:600;flex:1;">${amount.toFixed(4)} GRAM</span>`;
+            amountDisplay.innerHTML = `<span>${amount.toFixed(4)} GRAM</span>`;
             amountDisplay.onclick = () => this.copyToClipboard(amount.toFixed(4) + ' GRAM');
         }
         if (tonkeeperLink) {
@@ -1570,27 +1466,27 @@ class App {
         const el = document.getElementById('team-page');
         if (!el) return;
         const link = (this.config.BOT_LINK || 'https://t.me/PiratesDropBot?start=') + this.tgUser.id;
-        const claimText = this.referralGramEarnings >= (this.config.MIN_CLAIM_GOLD || 0.001) ? this.t('claim_earnings') : this.t('claim_earnings');
+        const canClaim = this.referralGramEarnings >= (this.config.MIN_CLAIM_GRAM || 0.001);
         el.innerHTML = `
             <div class="team-card green-card">
                 <div class="team-title">
                     <i class="fas fa-users"></i>
                     <strong>${this.t('team')}</strong>
                 </div>
-                
+
                 <div class="earnings-highlight">
-                    <div class="earning-item">
-                        <div class="earning-icon"><i class="fas fa-user-plus"></i></div>
-                        <div class="earning-info">
-                            <div class="earning-label">${this.t('earn_per_referral', { amount: this.config.REFERRAL_REWARD_GRAM || 0.01 })}</div>
-                            <div class="earning-value">${this.config.REFERRAL_REWARD_GRAM || 0.01} GRAM</div>
+                    <div class="earning-highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-user-plus"></i></div>
+                        <div class="highlight-info">
+                            <div class="highlight-label">${this.t('earn_per_referral', { amount: this.config.REFERRAL_REWARD_GRAM || 0.01 })}</div>
+                            <div class="highlight-value">${this.config.REFERRAL_REWARD_GRAM || 0.01} GRAM</div>
                         </div>
                     </div>
-                    <div class="earning-item">
-                        <div class="earning-icon"><i class="fas fa-coins"></i></div>
-                        <div class="earning-info">
-                            <div class="earning-label">${this.t('earn_percent_tasks', { percent: this.config.REFERRAL_TASKS_PERCENTAGE || 15 })}</div>
-                            <div class="earning-value">${this.config.REFERRAL_TASKS_PERCENTAGE || 15}%</div>
+                    <div class="earning-highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-coins"></i></div>
+                        <div class="highlight-info">
+                            <div class="highlight-label">${this.t('earn_percent_tasks', { percent: this.config.REFERRAL_TASKS_PERCENTAGE || 15 })}</div>
+                            <div class="highlight-value">${this.config.REFERRAL_TASKS_PERCENTAGE || 15}%</div>
                         </div>
                     </div>
                 </div>
@@ -1610,17 +1506,17 @@ class App {
                 <button id="copyLink" class="copy-btn"><i class="fas fa-copy"></i> ${this.t('copy')}</button>
             </div>
 
-            <div class="referral-earnings-title">
-                <i class="fas fa-gift"></i> ${this.t('referral_earnings')}
-            </div>
-
-            <div class="earning-card">
-                <div class="earning-left">
-                    <img src="${this.config.GRAM_ICON}" style="width:20px;height:20px;border-radius:50%;">
-                    <span class="earning-value">${this.formatGram(this.referralGramEarnings)}</span>
+            <div class="referral-earnings-card">
+                <div class="earnings-title">
+                    <i class="fas fa-gift"></i> ${this.t('referral_earnings')}
                 </div>
-                <button id="claim-earnings" class="claim-btn green-btn" ${this.referralGramEarnings < (this.config.MIN_CLAIM_GOLD || 0.001) ? 'disabled' : ''}>
-                    ${claimText}
+                <div class="earnings-amount">
+                    <img src="${this.config.GRAM_ICON}">
+                    <span>${this.formatGram(this.referralGramEarnings)}</span>
+                </div>
+                <div class="earnings-label">${this.t('gram')}</div>
+                <button id="claim-earnings" class="claim-earnings-btn" ${!canClaim ? 'disabled' : ''}>
+                    <i class="fas fa-hand-holding-usd"></i> ${this.t('claim_earnings')}
                 </button>
             </div>
         `;
@@ -1634,8 +1530,6 @@ class App {
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>';
             await this.claimReferralEarnings();
-            btn.disabled = false;
-            btn.innerHTML = this.t('claim_earnings');
             this.renderTeam();
             this.vibrate('success');
         });
@@ -1644,10 +1538,8 @@ class App {
     renderWithdraw() {
         const el = document.getElementById('withdraw-page');
         if (!el) return;
-        const exchangeRate = this.config.PIRATE_TO_GRAM_RATE || 10000;
-        const minWithdraw = this.config.MINIMUM_WITHDRAW || 0.5;
+        const minWithdraw = this.config.MINIMUM_WITHDRAW || 0.10;
         const maxWithdraw = this.config.MAXIMUM_WITHDRAW || 100;
-        const withdrawalFees = this.config.WITHDRAWAL_FEES || 0.1;
         const historyHtml = this.withdrawals && this.withdrawals.length ? this.withdrawals.slice(0, 5).map(w => {
             const date = new Date(w.timestamp);
             const dateStr = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -1655,29 +1547,27 @@ class App {
             const statusClass = w.status || 'pending';
             const statusText = statusClass === 'completed' ? this.t('completed') : (statusClass === 'processing' ? this.t('processing') : this.t('pending'));
             const explorerLink = statusClass === 'completed' && w.tx_hash ?
-                `<a href="https://tonscan.org/tx/${w.tx_hash}" target="_blank" class="history-explorer-link"><i class="fas fa-arrow-up-right-from-square"></i> ${this.t('view_on_explorer') || 'Explorer'}</a>` : '';
+                `<a href="https://tonscan.org/tx/${w.tx_hash}" target="_blank" class="history-explorer-link"><i class="fas fa-arrow-up-right-from-square"></i> Explorer</a>` : '';
             return `
-            <div class="history-item green-item">
-                <div class="history-details">
+            <div class="history-item">
+                <div>
                     <div class="history-amount">
-                        <img src="${this.config.GRAM_ICON}" style="width:16px;height:16px;border-radius:50%;">
-                        <span style="font-weight:600;">${w.gram_amount.toFixed(5)}</span>
+                        <img src="${this.config.GRAM_ICON}">
+                        <span>${w.gram_amount.toFixed(5)}</span>
                         <span style="color:#888;font-size:0.65rem;">GRAM</span>
                     </div>
-                    <div class="history-date" style="font-size:0.6rem;color:#666;">${dateStr} ${timeStr}</div>
+                    <div style="font-size:0.6rem;color:#666;margin-top:2px;">${dateStr} ${timeStr}</div>
                     ${explorerLink}
                 </div>
-                <div class="history-status ${statusClass}" style="font-size:0.65rem;font-weight:600;">${statusText}</div>
+                <div class="history-status ${statusClass}">${statusText}</div>
             </div>
         `}).join('') : '<div class="no-data">' + this.t('no_withdrawals') + '</div>';
         el.innerHTML = `
             <div class="wallet-card green-card">
-                <div class="wallet-balances">
-                    <div class="wallet-balance-item">
-                        <div class="wallet-balance-icon"><img src="${this.config.GRAM_ICON}" style="width:36px;height:36px;border-radius:50%;"></div>
-                        <div class="wallet-balance-label">${this.t('balance')}</div>
-                        <div class="wallet-balance-amount">${this.formatGram(this.gramBalance)}</div>
-                    </div>
+                <div class="wallet-balance-item">
+                    <div class="wallet-balance-icon"><img src="${this.config.GRAM_ICON}"></div>
+                    <div class="wallet-balance-label">${this.t('balance')}</div>
+                    <div class="wallet-balance-amount">${this.formatGram(this.gramBalance)}</div>
                 </div>
             </div>
 
@@ -1686,24 +1576,18 @@ class App {
                 <div class="form-group">
                     <label class="form-label">${this.t('amount')}</label>
                     <div class="input-wrapper">
-                        <input type="number" id="withdraw-amount" class="form-input green-input" placeholder="${this.t('min_withdraw')}: ${minWithdraw} GRAM" step="0.001">
-                        <button id="max-amount" class="action-btn green-btn">MAX</button>
+                        <input type="number" id="withdraw-amount" class="form-input green-input" placeholder="0.00" step="0.001">
+                        <button id="max-amount" class="action-btn green-btn">${this.t('max')}</button>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">${this.t('wallet_address')}</label>
-                    <input type="text" id="withdraw-wallet" class="form-input green-input" placeholder="${this.t('wallet_address')}" autocomplete="off">
+                    <input type="text" id="withdraw-wallet" class="form-input green-input" placeholder="UQ..." autocomplete="off">
                 </div>
                 <div class="withdraw-preview" id="withdraw-preview">
-                    <span>≈ 0.00000 GRAM</span>
+                    <span>0.00000 GRAM</span>
                 </div>
                 <button id="withdraw-btn" class="withdraw-confirm-btn green-btn disabled">${this.t('confirm_withdrawal')}</button>
-                <div class="exchange-note">
-                    <i class="fas fa-exchange-alt"></i> ${this.t('min_withdraw')}: ${minWithdraw} GRAM | ${this.t('max_withdraw')}: ${maxWithdraw} GRAM
-                </div>
-                <div class="withdrawal-fees-note">
-                    ${this.t('withdrawal_fees')}: ${withdrawalFees} GRAM
-                </div>
             </div>
 
             <div class="section-header green-header" style="margin-top:16px;">
@@ -1723,7 +1607,7 @@ class App {
             if (preview) {
                 preview.innerHTML = `<span>${!isNaN(amount) && amount > 0 ? amount.toFixed(5) + ' GRAM' : '0.00000 GRAM'}</span>`;
             }
-            const fees = this.config.WITHDRAWAL_FEES || 0.1;
+            const fees = this.config.WITHDRAWAL_FEES || 0.01;
             const wallet = walletInput?.value.trim();
             const isValid = amount >= minWithdraw && amount <= maxWithdraw && amount <= this.gramBalance && (amount - fees) > 0 && wallet && wallet.startsWith('UQ') && wallet.length >= 20;
             if (withdrawBtn) {
@@ -1754,7 +1638,7 @@ class App {
 
     async processWithdrawal(gramAmount, wallet) {
         if (this._withdrawLock) {
-            this.showNotification('Please wait', 'You can withdraw again after 10 seconds', 'warning');
+            this.showNotification('Please wait', 'Try again in 10 seconds', 'warning');
             this.vibrate('warning');
             return;
         }
@@ -1769,13 +1653,13 @@ class App {
             this.vibrate('error');
             return;
         }
-        if (amount < (this.config.MINIMUM_WITHDRAW || 0.5)) {
-            this.showNotification('Error', `Minimum withdrawal: ${this.config.MINIMUM_WITHDRAW || 0.5} GRAM`, 'error');
+        if (amount < (this.config.MINIMUM_WITHDRAW || 0.10)) {
+            this.showNotification('Error', `Minimum: ${this.config.MINIMUM_WITHDRAW} GRAM`, 'error');
             this.vibrate('error');
             return;
         }
         if (amount > (this.config.MAXIMUM_WITHDRAW || 100)) {
-            this.showNotification('Error', `Maximum withdrawal: ${this.config.MAXIMUM_WITHDRAW || 100} GRAM`, 'error');
+            this.showNotification('Error', `Maximum: ${this.config.MAXIMUM_WITHDRAW} GRAM`, 'error');
             this.vibrate('error');
             return;
         }
@@ -1814,7 +1698,7 @@ class App {
                 this.withdrawals.unshift(result.withdrawal);
                 if (this.withdrawals.length > 10) this.withdrawals = this.withdrawals.slice(0, 10);
             }
-            this.showNotification(this.t('withdrawal_success'), `${result.gramAmount.toFixed(5)} GRAM sent to your wallet`, 'success');
+            this.showNotification(this.t('withdrawal_success'), `${result.gramAmount.toFixed(5)} GRAM sent`, 'success');
             this.vibrate('success');
             if (this._withdrawLoaded) {
                 this.renderWithdraw();
@@ -1837,7 +1721,6 @@ class App {
                 this._withdrawLock = false;
                 return;
             }
-            console.error('Withdraw error:', error);
             this.showNotification('Error', this.t('withdrawal_failed'), 'error');
             this.vibrate('error');
             if (withdrawBtn) {
@@ -1934,14 +1817,12 @@ class App {
             }
             this.tg.ready();
             this.tg.expand();
-            
             let deviceId = localStorage.getItem('pirates_device_id');
             if (!deviceId) {
                 deviceId = 'dev_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
                 localStorage.setItem('pirates_device_id', deviceId);
             }
             this.deviceId = deviceId;
-
             const startParam = this.tg.initDataUnsafe?.start_param;
             if (startParam && !isNaN(startParam) && parseInt(startParam) !== this.tgUser.id) {
                 this.referredBy = parseInt(startParam);
@@ -1953,9 +1834,7 @@ class App {
                 this.showBanModal();
                 return;
             }
-            if (!this.isAuthenticated) {
-                return;
-            }
+            if (!this.isAuthenticated) return;
             this.setupEventListeners();
             this.renderHome();
             this.setupNavigation();
@@ -1965,9 +1844,7 @@ class App {
             }, 60000);
             this.isInitialized = true;
         } catch (err) {
-            if (err.message === 'Cooldown' || err.message === 'Banned' || err.message === 'Auth required' || err.message === 'Not registered') {
-                return;
-            }
+            if (err.message === 'Cooldown' || err.message === 'Banned' || err.message === 'Auth required' || err.message === 'Not registered') return;
             console.error('Initialization error:', err);
             this.showNotification('Error', err.message || 'Failed to initialize', 'error');
             this.vibrate('error');
@@ -1977,13 +1854,11 @@ class App {
     setupEventListeners() {
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                this.saveUserData(true);
+                this.saveUserData();
             }
         });
         window.addEventListener('beforeunload', () => {
-            if (this._dirtyGram) {
-                this.saveUserData(true);
-            }
+            this.saveUserData();
         });
         const langBtn = document.getElementById('lang-btn');
         const langMenu = document.getElementById('lang-menu');
@@ -2023,7 +1898,7 @@ class App {
                     ru: 'Русский',
                     fa: 'فارسی'
                 };
-                this.showNotification('Language Changed!', `Changed to ${langNames[this.lang] || this.lang} Language`, 'success');
+                this.showNotification('Language Changed!', `${langNames[this.lang] || this.lang}`, 'success');
                 this.vibrate('success');
             });
         });
