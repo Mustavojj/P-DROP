@@ -1818,30 +1818,13 @@ class App {
             }
             this.tg.ready();
             this.tg.expand();
-            const deviceId = localStorage.getItem('pirates_device_id');
-            const registeredUser = localStorage.getItem('pirates_registered_user');
             
-            if (deviceId && registeredUser && parseInt(registeredUser) !== this.tgUser.id) {
-                this.showBanModal();
-                return;
-            }
-            
-            if (!deviceId) {
-                const newDeviceId = 'dev_' + Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
-                localStorage.setItem('pirates_device_id', newDeviceId);
-                this.deviceId = newDeviceId;
-            } else {
-                this.deviceId = deviceId;
-            }
-            
-            if (!registeredUser) {
-                localStorage.setItem('pirates_registered_user', this.tgUser.id);
-            }
             
             const startParam = this.tg.initDataUnsafe?.start_param;
             if (startParam && !isNaN(startParam) && parseInt(startParam) !== this.tgUser.id) {
                 this.referredBy = parseInt(startParam);
             }
+            
             await this.getConfig();
             await this.getServerTime();
             await this.loadUserData();
