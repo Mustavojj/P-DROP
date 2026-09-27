@@ -1127,8 +1127,8 @@ app.post('/api/verify-account', authenticate, strictLimiter, async (req, res) =>
         const updatedUser = await updateUser(userId, {
             verified: true,
             verification_completed: true,
-            gram_balance: (user.gram_balance || 0) + reward
         });
+        
         if (user.referred_by && !user.referral_reward_given) {
             const referrer = await getUser(user.referred_by);
             if (referrer) {
