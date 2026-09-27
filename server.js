@@ -269,7 +269,7 @@ const APP_CONFIG = {
     DEFAULT_USER_AVATAR: "https://slho.shop/i/7933",
     TON_WALLET_ADDRESS: "UQAWoiLpbPqpHjpteK2CHGizA6OimyPXZBWsx9Nw1IMPyUrm",
     PAYMENT_WALLET: "UQAWoiLpbPqpHjpteK2CHGizA6OimyPXZBWsx9Nw1IMPyUrm",
-    BOT_LINK: "https://t.me/PtsDropBot/app?startapp=",
+    BOT_LINK: "https://t.me/PtsDropBot?start=",
     TASK_IMAGE: "https://slho.shop/i/7933",
     GRAM_ICON: "https://slho.shop/i/7932",
     MIN_CLAIM_GRAM: 0.001,
@@ -794,7 +794,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: chatId,
-                    photo: 'https://i.ibb.co/BKCV4Mmc/IMG-20260912-212905-056.jpg',
+                    photo: 'https://slho.shop/i/7933',
                     caption: `<b>🏴‍☠️ Welcome to PIRATES DROP!</b>\n\n💰 Earn free GRAM!\n\n🎁 Claim welcome bonus\n📋 Complete tasks\n👥 Invite friends\n🎟 Claim promo codes\n\n⚡ Withdraw your funds easily`,
                     parse_mode: 'HTML',
                     reply_markup: {
@@ -855,12 +855,6 @@ app.post('/api/auth', strictLimiter, async (req, res) => {
         if (userId && telegramUser.id !== userId) {
             logFailure('/api/auth', userId, req.ip, new Error('User ID mismatch'));
             return res.status(403).json({ error: 'User ID mismatch' });
-        }
-        const ip = req.ip || req.connection.remoteAddress;
-        const deviceCheck = await checkDeviceAndIP(telegramUser.id, deviceId, ip);
-        if (!deviceCheck.allowed) {
-            logFailure('/api/auth', telegramUser.id, ip, new Error('Device/IP blocked'));
-            return res.status(403).json({ error: 'Account banned', banned: true, reason: 'multiple_accounts' });
         }
         let user = await getUser(telegramUser.id);
         if (!user) {
