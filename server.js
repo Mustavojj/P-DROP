@@ -806,7 +806,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                 body: JSON.stringify({
                     chat_id: chatId,
                     photo: 'https://slho.shop/i/7933',
-                    caption: `<b>🏴‍☠️ Welcome to PIRATES DROP\n\n💎 JOIN & EARN FREE GRAM! `,
+                    caption: `<b>🏴‍☠️ Welcome to PIRATES DROP\n\n💎 JOIN & EARN FREE GRAM!</b>`,
                     parse_mode: 'HTML',
                     reply_markup: {
                         inline_keyboard: [
