@@ -280,8 +280,8 @@ const APP_CONFIG = {
     PROMO_CODES_CHANNEL_USERNAME: "PiratesDropCodes",
     TASKS_CHANNEL: "@PiratesDropTasks",
     PAYMENTS_CHANNEL: "https://t.me/PiratesDropProof",
-    REWARD_AD_BLOCK_ID: "50589",
-    INTERSTITIAL_AD_BLOCK_ID: "int-50452",
+    REWARD_AD_BLOCK_ID: "50647",
+    INTERSTITIAL_AD_BLOCK_ID: "int-50648",
     SPECIAL_TASKS: [
         {
             id: "ultra_wallet",
