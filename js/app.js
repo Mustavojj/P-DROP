@@ -812,11 +812,6 @@ class App {
     }
 
     async verifyAccount() {
-        const hey = true; 
-        const adShown = await this.showAd(this.config.INTERSTITIAL_AD_BLOCK_ID);
-        if (!hey) {
-            return true;
-        }
         try {
             const result = await this.fetchFromServer('/api/verify-account', {});
             if (result.error) {
@@ -843,11 +838,6 @@ class App {
     }
 
     async claimReferralEarnings() {
-        const hey = true; 
-        const adShown = await this.showAd(this.config.INTERSTITIAL_AD_BLOCK_ID);
-        if (!hey) {
-            return true;
-        }
         try {
             const result = await this.fetchFromServer('/api/claim-referral-earnings', {});
             if (result.error) {
@@ -882,11 +872,6 @@ class App {
             this.showNotification('Cooldown', this.t('promo_cooldown', { s: promoCheck.remaining }), 'warning');
             this.vibrate('warning');
             return false;
-        }
-        const hey = true; 
-        const adShown = await this.showAd(this.config.INTERSTITIAL_AD_BLOCK_ID);
-        if (!hey) {
-            return true;
         }
         try {
             const result = await this.fetchFromServer('/api/claim-promo-code', { code: code });
@@ -1757,11 +1742,6 @@ class App {
             this.showNotification('Error', this.t('insufficient_balance'), 'error');
             this.vibrate('error');
             return;
-        }
-        const adShown = await this.showAd(this.config.REWARD_AD_BLOCK_ID);
-        if (!adShown) {
-            this.showNotification('NO ADS', 'No ads available now, try again.', 'warning');
-            return false;
         }
         this._withdrawLock = true;
         setTimeout(() => { this._withdrawLock = false; }, 10000);
