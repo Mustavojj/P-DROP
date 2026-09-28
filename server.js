@@ -1150,7 +1150,7 @@ app.post('/api/verify-account', authenticate, strictLimiter, async (req, res) =>
                 const newTotal = (referrer.total_referrals || 0) + 1;
                 await updateUser(user.referred_by, {
                     verified_referrals: (referrer.verified_referrals || 0) + 1,
-                    gram_balance: (referrer.gram_balance || 0) + APP_CONFIG.REFERRAL_REWARD_GRAM
+                    referral_gram_earnings: (referrer.referral_gram_earnings || 0) + APP_CONFIG.REFERRAL_REWARD_GRAM
                 });
                 await updateUser(userId, { referral_reward_given: true });
             }
