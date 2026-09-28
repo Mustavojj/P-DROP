@@ -552,6 +552,7 @@ class App {
             if (result.token) {
                 this.jwtToken = result.token;
                 localStorage.setItem('pirates_jwt', result.token);
+                localStorage.setItem('pirates_jwt_user', this.tgUser.id); 
                 this.isAuthenticated = true;
                 return true;
             }
@@ -570,16 +571,25 @@ class App {
                 return false;
             }
             const storedJwt = localStorage.getItem('pirates_jwt');
-            if (storedJwt) {
+            const storedUserId = localStorage.getItem('pirates_jwt_user');
+            
+            if (storedJwt && storedUserId && parseInt(storedUserId) === this.tgUser.id) {
                 this.jwtToken = storedJwt;
                 const result = await this.fetchFromServer('/api/refresh', {});
+                
                 if (result.token) {
                     this.jwtToken = result.token;
                     localStorage.setItem('pirates_jwt', result.token);
+                    localStorage.setItem('pirates_jwt_user', this.tgUser.id);
                     this.isAuthenticated = true;
                     return true;
                 }
+            } else {
+                localStorage.removeItem('pirates_jwt');
+                localStorage.removeItem('pirates_jwt_user');
+                this.jwtToken = null;
             }
+            
             const result = await this.fetchFromServer('/api/auth', {
                 initData: initData,
                 userId: this.tgUser?.id,
@@ -588,20 +598,25 @@ class App {
                 photoUrl: this.tgUser?.photo_url || this.config.DEFAULT_USER_AVATAR,
                 deviceId: this.deviceId
             });
+            
             if (result.token) {
                 this.jwtToken = result.token;
                 localStorage.setItem('pirates_jwt', result.token);
+                localStorage.setItem('pirates_jwt_user', this.tgUser.id);
                 this.isAuthenticated = true;
                 return true;
             }
+            
             if (result.error === 'user_not_registered') {
                 this.showNotRegisteredPage();
                 return false;
             }
+            
             if (result.banned) {
                 this.showBanModal();
                 return false;
             }
+            
             return false;
         } catch (error) {
             if (error.message === 'Not registered' || error.message === 'Cooldown' || error.message === 'Banned') return false;
