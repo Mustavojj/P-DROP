@@ -75,7 +75,12 @@ const translations = {
         task_money_hub_desc: "Subscribe & react",
         task_master_x_desc: "Subscribe & react",
         max: "MAX",
-        daily: "Daily"
+        daily: "Daily",
+        official_channel: "Official Channel",
+        official_channel_desc: "Join & get official news",
+        payouts_channel: "Payouts Channel",
+        payouts_channel_desc: "Join & get live payouts",
+        go: "GO"
     },
     ar: {
         start: "بدء",
@@ -153,7 +158,12 @@ const translations = {
         task_money_hub_desc: "اشترك وتفاعل",
         task_master_x_desc: "اشترك وتفاعل",
         max: "الحد الأقصى",
-        daily: "يومياً"
+        daily: "يومياً",
+        official_channel: "القناة الرسمية",
+        official_channel_desc: "انضم واحصل على الأخبار الرسمية",
+        payouts_channel: "قناة المدفوعات",
+        payouts_channel_desc: "انضم وشاهد المدفوعات المباشرة",
+        go: "اذهب"
     },
     ru: {
         start: "Начать",
@@ -231,7 +241,12 @@ const translations = {
         task_money_hub_desc: "Подпишитесь и реагируйте",
         task_master_x_desc: "Подпишитесь и реагируйте",
         max: "МАКС",
-        daily: "В день"
+        daily: "В день", 
+        official_channel: "Официальный канал",
+        official_channel_desc: "Подпишитесь на официальные новости",
+        payouts_channel: "Канал выплат",
+        payouts_channel_desc: "Смотрите выплаты в прямом эфире",
+        go: "ПЕРЕЙТИ"
     },
     fa: {
         start: "شروع",
@@ -309,7 +324,12 @@ const translations = {
         task_money_hub_desc: "عضو شوید و تعامل کنید",
         task_master_x_desc: "عضو شوید و تعامل کنید",
         max: "حداکثر",
-        daily: "روزانه"
+        daily: "روزانه",
+        official_channel: "کانال رسمی",
+            official_channel_desc: "عضو شوید و اخبار رسمی دریافت کنید",
+        payouts_channel: "کانال پرداخت‌ها",
+        payouts_channel_desc: "پرداخت‌های زنده را ببینید",
+        go: "برو"
     }
 };
 
@@ -1046,6 +1066,27 @@ class App {
             <div id="community-tasks-container" class="tasks-list">
                 <div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div>
             </div>
+            <div class="section-header green-header">
+    <h3><i class="fas fa-link"></i> Community</h3>
+</div>
+
+<a href="${this.config.OFFICIAL_CHANNEL_URL}" target="_blank" class="channel-card green-card">
+    <div class="channel-icon"><i class="fas fa-bullhorn"></i></div>
+    <div class="channel-info">
+        <h4>${this.t('official_channel')}</h4>
+        <p>${this.t('official_channel_desc')}</p>
+    </div>
+    <span class="channel-btn">${this.t('go')}</span>
+</a>
+
+<a href="${this.config.PAYOUTS_CHANNEL_URL}" target="_blank" class="channel-card green-card">
+    <div class="channel-icon"><i class="fas fa-money-bill-wave"></i></div>
+    <div class="channel-info">
+        <h4>${this.t('payouts_channel')}</h4>
+        <p>${this.t('payouts_channel_desc')}</p>
+    </div>
+    <span class="channel-btn">${this.t('go')}</span>
+</a>
         `;
 
         const promoInput = document.getElementById('promo-input');
