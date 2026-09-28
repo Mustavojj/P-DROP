@@ -1410,3 +1410,59 @@ body {
     background: var(--primary);
     border-radius: 10px;
 }
+
+.channel-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+}
+
+.channel-card:active {
+    transform: scale(0.98);
+    border-color: rgba(46, 204, 113, 0.3);
+}
+
+.channel-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(46, 204, 113, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2ecc71;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.channel-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.channel-info h4 {
+    font-size: 0.85rem;
+    color: #55efc4;
+    margin-bottom: 2px;
+}
+
+.channel-info p {
+    font-size: 0.65rem;
+    color: #888;
+}
+
+.channel-btn {
+    padding: 6px 16px;
+    background: var(--green-gradient);
+    border-radius: 40px;
+    color: #0a0a0f;
+    font-weight: 700;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+} 
