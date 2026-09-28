@@ -1173,8 +1173,7 @@ class App {
                                 <div class="task-reward">
                                     <span class="reward-badge"><img src="${this.config.GRAM_ICON}"> ${reward} GRAM</span>
                                 </div>
-                                <div style="font-size:0.55rem;color:#888;margin-top:2px;">${task.total_completed || 0}/${task.total}</div>
-                            </div>
+                                </div>
                             <button class="task-btn start" data-id="${task.id}" data-url="${task.url || ''}" data-verify="${task.verification || false}" data-owner="${task.owner || ''}">${this.t('start')}</button>
                         </div>
                     </div>
