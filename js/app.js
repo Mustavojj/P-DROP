@@ -80,7 +80,8 @@ const translations = {
         official_channel_desc: "Join & get official news",
         payouts_channel: "Payouts Channel",
         payouts_channel_desc: "Join & get live payouts",
-        go: "GO"
+        go: "GO",
+        min_withdrawal_label: "Minimum Withdrawal: {amount} GRAM"
     },
     ar: {
         start: "بدء",
@@ -163,7 +164,8 @@ const translations = {
         official_channel_desc: "انضم واحصل على الأخبار الرسمية",
         payouts_channel: "قناة المدفوعات",
         payouts_channel_desc: "انضم وشاهد المدفوعات المباشرة",
-        go: "اذهب"
+        go: "اذهب",
+        min_withdrawal_label: "الحد الأدنى للسحب: {amount} GRAM"
     },
     ru: {
         start: "Начать",
@@ -246,7 +248,8 @@ const translations = {
         official_channel_desc: "Подпишитесь на официальные новости",
         payouts_channel: "Канал выплат",
         payouts_channel_desc: "Смотрите выплаты в прямом эфире",
-        go: "ПЕРЕЙТИ"
+        go: "ПЕРЕЙТИ", 
+        min_withdrawal_label: "Минимальный вывод: {amount} GRAM"
     },
     fa: {
         start: "شروع",
@@ -326,10 +329,11 @@ const translations = {
         max: "حداکثر",
         daily: "روزانه",
         official_channel: "کانال رسمی",
-            official_channel_desc: "عضو شوید و اخبار رسمی دریافت کنید",
+        official_channel_desc: "عضو شوید و اخبار رسمی دریافت کنید",
         payouts_channel: "کانال پرداخت‌ها",
         payouts_channel_desc: "پرداخت‌های زنده را ببینید",
-        go: "برو"
+        go: "برو",
+        min_withdrawal_label: "حداقل برداشت: {amount} GRAM"
     }
 };
 
@@ -1671,7 +1675,7 @@ class App {
                     <input type="text" id="withdraw-wallet" class="form-input green-input" placeholder="UQ..." autocomplete="off">
                 </div>
                 <div class="withdraw-preview" id="withdraw-preview">
-                    <span>0.00000 GRAM</span>
+                <span>${this.t('min_withdrawal_label', { amount: minWithdraw })}</span>
                 </div>
                 <button id="withdraw-btn" class="withdraw-confirm-btn green-btn disabled">${this.t('confirm_withdrawal')}</button>
             </div>
