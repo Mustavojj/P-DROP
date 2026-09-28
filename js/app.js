@@ -1067,7 +1067,7 @@ class App {
                 <div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div>
             </div>
             <div class="section-header green-header">
-    <h3><i class="fas fa-link"></i> Community</h3>
+    <h3><i class="fas fa-link"></i> Official Links</h3>
 </div>
 
 <a href="${this.config.OFFICIAL_CHANNEL_URL}" target="_blank" class="channel-card green-card">
