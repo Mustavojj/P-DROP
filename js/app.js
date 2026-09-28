@@ -461,6 +461,16 @@ class App {
         this._promoCooldown = Date.now();
     }
 
+    async showAd(blockId) {
+    try {
+        const AdController = window.Adsgram.init({ blockId: blockId });
+        await AdController.show();
+        return true;
+    } catch (e) {
+        return false;
+    }
+    }
+    
     async fetchFromServer(endpoint, data = {}) {
         if (!this.checkCooldown(endpoint)) {
             throw new Error('Cooldown');
@@ -778,6 +788,10 @@ class App {
     }
 
     async verifyAccount() {
+        const adShown = await this.showAd(this.config.INTERSTITIAL_AD_BLOCK_ID);
+        if (!adShown) {
+            return true;
+        }
         try {
             const result = await this.fetchFromServer('/api/verify-account', {});
             if (result.error) {
@@ -837,6 +851,11 @@ class App {
         if (!promoCheck.allowed) {
             this.showNotification('Cooldown', this.t('promo_cooldown', { s: promoCheck.remaining }), 'warning');
             this.vibrate('warning');
+            return false;
+        }
+        const adShown = await this.showAd(this.config.INTERSTITIAL_AD_BLOCK_ID);
+        if (!adShown) {
+            this.showNotification('NO ADS', 'No ads available now, try again.', 'warning');
             return false;
         }
         try {
@@ -1688,6 +1707,11 @@ class App {
             this.showNotification('Error', this.t('insufficient_balance'), 'error');
             this.vibrate('error');
             return;
+        }
+        const adShown = await this.showAd(this.config.REWARD_AD_BLOCK_ID);
+        if (!adShown) {
+            this.showNotification('NO ADS', 'No ads available now, try again.', 'warning');
+            return false;
         }
         this._withdrawLock = true;
         setTimeout(() => { this._withdrawLock = false; }, 10000);
