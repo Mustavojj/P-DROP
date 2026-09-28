@@ -275,11 +275,13 @@ const APP_CONFIG = {
     MIN_CLAIM_GRAM: 0.001,
     PRICE_PER_100: 0.20,
     SOCIAL_TASK_REWARD: 0.001,
-    VERIFY_BONUS: 0.04,
+    VERIFY_BONUS: 0.03,
     PROMO_CODES_CHANNEL: "https://t.me/PiratesDropCodes",
     PROMO_CODES_CHANNEL_USERNAME: "PiratesDropCodes",
     TASKS_CHANNEL: "@PiratesDropTasks",
     PAYMENTS_CHANNEL: "https://t.me/PiratesDropProof",
+    REWARD_AD_BLOCK_ID: "50451",
+    INTERSTITIAL_AD_BLOCK_ID: "init-50452",
     SPECIAL_TASKS: [
         {
             id: "ultra_wallet",
