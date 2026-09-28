@@ -1094,7 +1094,7 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
             gram_balance: (user.gram_balance || 0) + reward,
             total_tasks_completed: (user.total_tasks_completed || 0) + 1
         });
-        if (user.referred_by) {
+        if (user.referred_by && taskType !== 'special') {
             const referralEarning = reward * (APP_CONFIG.REFERRAL_TASKS_PERCENTAGE / 100);
             await addReferralCommission(user.referred_by, referralEarning, 'gram');
         }
