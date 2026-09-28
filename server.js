@@ -848,6 +848,7 @@ app.post('/api/check-membership', authenticate, async (req, res) => {
 });
 
 app.post('/api/auth', strictLimiter, async (req, res) => {
+    const ip = req.ip || req.connection.remoteAddress || req.headers['x-forwarded-for'] || null;
     try {
         const { initData, userId, username, firstName, photoUrl, deviceId } = req.body;
         if (!initData) {
