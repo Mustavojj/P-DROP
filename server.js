@@ -678,21 +678,56 @@ async function checkPendingWithdrawals() {
                 if (statusResult && statusResult.data) {
                     const oxaPayStatus = statusResult.data.status;
                     if (oxaPayStatus === 'confirmed' || oxaPayStatus === 'completed') {
+                        const txHash = statusResult.data.tx_hash || withdrawal.tx_hash;
                         await supabase
                             .from('withdrawals')
                             .update({
                                 status: 'completed',
-                                tx_hash: statusResult.data.tx_hash || withdrawal.tx_hash
+                                tx_hash: txHash
                             })
                             .eq('id', withdrawal.id);
                         const userMessage = `<b>✅ Your Withdrawal Confirmed!</b>\n\n💸 <code>${withdrawal.gram_amount.toFixed(5)}</code> <b>GRAM has been sent</b>\n\n`;
                         await sendTelegramNotification(withdrawal.user_id, '✅ Withdrawal Completed!', userMessage);
+                        const PAYOUTS_CHANNEL = APP_CONFIG.PAYOUTS_CHANNEL_URL || 'https://t.me/paymentdroppts';
+                        const channelMatch = PAYOUTS_CHANNEL.match(/t\.me\/([^\/\?]+)/);
+                        if (channelMatch && BOT_TOKEN) {
+                            const wallet = withdrawal.wallet || '';
+                            const maskedWallet = wallet.length > 10
+                                ? wallet.substring(0, 5) + '****' + wallet.substring(wallet.length - 5)
+                                : wallet;
+                            const explorerLink = txHash ? `https://tonscan.org/tx/${txHash}` : null;
+                            const channelMsg =
+                                `<b>✅ Withdrawal Confirmed!</b>\n\n` +
+                                `<b>👤 User:</b> <code>${withdrawal.user_id}</code>\n` +
+                                `<b>💎 Amount:</b> <code>${withdrawal.gram_amount.toFixed(5)}</code> GRAM\n` +
+                                `<b>📭 Wallet:</b> <code>${maskedWallet}</code>\n` +
+                                `<b>⏳ Status:</b> Completed`;
+                            const payload = {
+                                chat_id: '@' + channelMatch[1],
+                                text: channelMsg,
+                                parse_mode: 'HTML',
+                                disable_web_page_preview: true
+                            };
+                            if (explorerLink) {
+                                payload.reply_markup = {
+                                    inline_keyboard: [[
+                                        { text: '🔍 View on Explorer', url: explorerLink }
+                                    ]]
+                                };
+                            }
+                            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
+                            }).catch(() => {});
+                        }
                     }
                 }
             } catch (error) {}
         }
     } catch (error) {}
 }
+
 
 setInterval(async () => {
     await checkPendingWithdrawals();
@@ -809,8 +844,8 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: chatId,
-                    photo: 'https://slho.shop/i/7933',
-                    caption: `<b>🏴‍☠️ Welcome to PIRATES DROP\n\n💎 JOIN & EARN FREE GRAM!</b>`,
+                    photo: 'https://slho.shop/i/7940',
+                    caption: `<b>🏴‍☠️ Welcome to PIRATES DROP\n\n⚡ INVITE & EARN & GROW\n\n💎 JOIN & EARN FREE GRAM!</b>`,
                     parse_mode: 'HTML',
                     reply_markup: {
                         inline_keyboard: [
@@ -1460,7 +1495,13 @@ app.post('/api/withdraw-gram', authenticate, veryStrictLimiter, async (req, res)
         }
         if (!user.verified) {
             logFailure('/api/withdraw-gram', userId, req.ip, new Error('Account not verified'));
-            return res.status(400).json({ error: 'Please verify your account first' });
+            return res.status(400).json({ error: 'Account not verified' });
+        }
+        
+        if ((user.verified_referrals || 0) < 3) {
+            return res.status(400).json({ 
+                error: `You need at least 3 verified referrals` 
+            });
         }
         const { data: lockResult, error: lockError } = await supabase
             .from('users')
