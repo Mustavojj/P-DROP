@@ -1192,7 +1192,7 @@ class App {
         container.replaceChildren();
         try {
             const tasks = await this.loadTasksWithCache('community');
-            const availableTasks = tasks.filter(task => !this.userCompletedTasks.has(task.id) && task.owner !== this.tgUser?.id);
+            const availableTasks = tasks.filter(task => !this.userCompletedTasks.has(task.id));
             this.communityTasks = availableTasks;
             if (availableTasks.length === 0) {
                 container.innerHTML = `<div class="no-data"><i class="fas fa-users"></i><p>${this.t('no_tasks')}</p></div>`;
