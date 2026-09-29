@@ -1518,11 +1518,6 @@ app.post('/api/withdraw-gram', authenticate, veryStrictLimiter, async (req, res)
         if ((user.total_referrals || 0) <= (user.verified_referrals || 0)) {
             return res.status(400).json({ error: 'Connot withdraw, fake referrals' });
         }
-        if ((user.referral_gram_earnings || 0) < 0.01) {
-            return res.status(400).json({ 
-                error: 'Error, please try again later' 
-            });
-        }
         
         const { data: lockResult, error: lockError } = await supabase
             .from('users')
