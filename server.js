@@ -921,7 +921,19 @@ app.post('/api/auth', strictLimiter, async (req, res) => {
                 device_id: deviceId || null,
                 ip_address: ip || null
             };
-            
+            try {
+                user = await createUser(userData);
+                if (!user.referred_by) {
+                    const urlParams = new URLSearchParams(initData);
+                    const startParam = urlParams.get('start_param');
+                    if (startParam && !isNaN(startParam)) {
+                        const referrerId = parseInt(startParam);
+                        if (referrerId !== telegramUser.id) {
+                            const referrer = await getUser(referrerId);
+                            
+                        }
+                    }
+                }
             } catch (createError) {
                 logFailure('/api/auth', telegramUser.id, req.ip, createError);
                 user = await getUser(telegramUser.id);
@@ -1502,9 +1514,6 @@ app.post('/api/withdraw-gram', authenticate, veryStrictLimiter, async (req, res)
             return res.status(400).json({ 
                 error: `You need at least 3 verified referrals` 
             });
-        }
-        if ((user.total_referrals || 0) < (user.verified_referrals || 0)) {
-            return res.status(400).json({ error: 'Fake referrals, you can not withdraw' });
         }
         const { data: lockResult, error: lockError } = await supabase
             .from('users')
