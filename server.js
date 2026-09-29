@@ -31,8 +31,6 @@ const getUserCache = new Map();
 const withdrawLocks = new Map();
 const taskCompletionLocks = new Map();
 const promoCodeLocks = new Map();
-const deviceFingerprints = new Map();
-const ipRegistrations = new Map();
 
 function logFailure(endpoint, userId, ip, error, extra = {}) {
     console.error(`[${endpoint}] FAILED`, JSON.stringify({
@@ -235,27 +233,6 @@ async function checkUserInChannel(userId, channelUsername) {
     }
 }
 
-async function checkDeviceAndIP(userId, deviceId, ip) {
-    if (!deviceId) return { allowed: true };
-    const deviceKey = `device_${deviceId}`;
-    const ipKey = `ip_${ip}`;
-    const existingDevice = deviceFingerprints.get(deviceKey);
-    if (existingDevice && existingDevice !== userId) {
-        return { allowed: false, reason: 'device_already_used', existingUser: existingDevice };
-    }
-    const existingIP = ipRegistrations.get(ipKey);
-    if (existingIP && existingIP !== userId && existingIP !== 'multiple') {
-        return { allowed: false, reason: 'ip_already_used', existingUser: existingIP };
-    }
-    deviceFingerprints.set(deviceKey, userId);
-    if (ipRegistrations.has(ipKey) && ipRegistrations.get(ipKey) !== userId) {
-        ipRegistrations.set(ipKey, 'multiple');
-    } else {
-        ipRegistrations.set(ipKey, userId);
-    }
-    return { allowed: true };
-}
-
 const APP_CONFIG = {
     APP_NAME: "PIRATES DROP 🏴‍☠️",
     BOT_USERNAME: "PtsDropBot",
@@ -373,6 +350,20 @@ async function updateUser(userId, updates) {
         return data;
     } catch (error) {
         throw error;
+    }
+}
+
+async function incrementGram(userId, amount) {
+    try {
+        const { error } = await supabase.rpc('increment_gram', {
+            uid: userId,
+            amt: amount
+        });
+        if (error) throw error;
+        getUserCache.delete(`getUser_${userId}`);
+        return true;
+    } catch (error) {
+        return false;
     }
 }
 
@@ -728,7 +719,6 @@ async function checkPendingWithdrawals() {
     } catch (error) {}
 }
 
-
 setInterval(async () => {
     await checkPendingWithdrawals();
 }, 60000);
@@ -812,6 +802,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                     verified: false,
                     verification_completed: false,
                     total_referrals: 0,
+                    verified_referrals: 0,
                     last_withdraw_time: 0,
                     referred_by_verified: false,
                     wallet: null,
@@ -823,18 +814,17 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
                 if (referrerId && referrerId !== chatId) {
                     userData.referred_by = referrerId;
                 }
-                
-                if (referrerId && referrerId !== chatId) {
-                    const referrer = await getUser(referrerId);
-                    if (referrer) {
-                        await updateUser(referrerId, {
-                            total_referrals: (referrer.total_referrals || 0) + 1
-                        });
-                    }
-                } 
                     
                 try {
                     await createUser(userData);
+                    if (referrerId && referrerId !== chatId) {
+                        const referrer = await getUser(referrerId);
+                        if (referrer) {
+                            await updateUser(referrerId, {
+                                total_referrals: (referrer.total_referrals || 0) + 1
+                            });
+                        }
+                    }
                 } catch (createError) {
                     logFailure('/webhook', chatId, req.ip, createError);
                 }
@@ -923,6 +913,7 @@ app.post('/api/auth', strictLimiter, async (req, res) => {
                 verified: false,
                 verification_completed: false,
                 total_referrals: 0,
+                verified_referrals: 0,
                 last_withdraw_time: 0,
                 referred_by_verified: false,
                 wallet: null,
@@ -935,14 +926,21 @@ app.post('/api/auth', strictLimiter, async (req, res) => {
                 if (!user.referred_by) {
                     const urlParams = new URLSearchParams(initData);
                     const startParam = urlParams.get('start_param');
-                    
-                    if (startParam && !isNaN(startParam) && parseInt(startParam) !== telegramUser.id) {
-                        user = await updateUser(telegramUser.id, {
-                            referred_by: parseInt(startParam)
-                        });
+                    if (startParam && !isNaN(startParam)) {
+                        const referrerId = parseInt(startParam);
+                        if (referrerId !== telegramUser.id) {
+                            const referrer = await getUser(referrerId);
+                            if (referrer && !referrer.state === 'ban') {
+                                user = await updateUser(telegramUser.id, {
+                                    referred_by: referrerId
+                                });
+                                await updateUser(referrerId, {
+                                    total_referrals: (referrer.total_referrals || 0) + 1
+                                });
+                            }
+                        }
                     }
                 }
-                
             } catch (createError) {
                 logFailure('/api/auth', telegramUser.id, req.ip, createError);
                 user = await getUser(telegramUser.id);
@@ -1073,6 +1071,10 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
             if (!task) {
                 return res.status(404).json({ error: 'Task not found' });
             }
+            const completedSpecial = user.completed_special_tasks || [];
+            if (completedSpecial.includes(taskId)) {
+                return res.status(400).json({ error: 'Task already completed!' });
+            }
             const channelMatch = task.url.match(/t\.me\/([^\/\?]+)/);
             if (channelMatch) {
                 const chatId = channelMatch[1];
@@ -1085,11 +1087,9 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
                 }
             }
             reward = task.reward;
-            if (!user.completed_special_tasks) {
-                await updateUser(userId, { completed_special_tasks: [taskId] });
-            } else if (!user.completed_special_tasks.includes(taskId)) {
-                await updateUser(userId, { completed_special_tasks: [...user.completed_special_tasks, taskId] });
-            }
+            await updateUser(userId, {
+                completed_special_tasks: [...completedSpecial, taskId]
+            });
         } else {
             const { data: task, error: taskError } = await supabase
                 .from('tasks')
@@ -1098,6 +1098,9 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
                 .single();
             if (taskError || !task) {
                 return res.status(404).json({ error: 'Task not found' });
+            }
+            if ((task.total_completed || 0) >= task.total) {
+                return res.status(400).json({ error: 'Task is full!' });
             }
             if (task.verification && task.url) {
                 const chatId = task.url.match(/t\.me\/([^\/\?]+)/)?.[1];
@@ -1113,32 +1116,41 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
                 .select('task_id')
                 .eq('user_id', userId)
                 .eq('task_id', taskId)
-                .single();
+                .maybeSingle();
             if (completed) {
                 return res.status(400).json({ error: 'Task already completed!' });
             }
-            reward = task.reward || APP_CONFIG.SOCIAL_TASK_REWARD;
-            await supabase
+            const { error: insertError } = await supabase
                 .from('user_completed_tasks')
                 .insert([{ user_id: userId, task_id: taskId, completed_at: getCurrentTime() }]);
-            const newTotalCompleted = (task.total_completed || 0) + 1;
-            await supabase
+            if (insertError) {
+                return res.status(400).json({ error: 'Task already completed!' });
+            }
+            const { data: updatedTask } = await supabase
                 .from('tasks')
-                .update({ total_completed: newTotalCompleted })
-                .eq('id', taskId);
+                .update({ total_completed: (task.total_completed || 0) + 1 })
+                .eq('id', taskId)
+                .lt('total_completed', task.total)
+                .select()
+                .single();
+            if (!updatedTask) {
+                return res.status(400).json({ error: 'Task is full!' });
+            }
+            reward = task.reward || APP_CONFIG.SOCIAL_TASK_REWARD;
         }
         setTaskCompletionCooldown(userId);
-        const updatedUser = await updateUser(userId, {
-            gram_balance: (user.gram_balance || 0) + reward,
+        await incrementGram(userId, reward);
+        await updateUser(userId, {
             total_tasks_completed: (user.total_tasks_completed || 0) + 1
         });
+        const freshUser = await getUser(userId);
         if (user.referred_by && taskType !== 'special') {
             const referralEarning = reward * (APP_CONFIG.REFERRAL_TASKS_PERCENTAGE / 100);
             await addReferralCommission(user.referred_by, referralEarning, 'gram');
         }
         res.json({
             success: true,
-            user: updatedUser,
+            user: freshUser,
             reward: reward
         });
     } catch (error) {
@@ -1173,16 +1185,13 @@ app.post('/api/verify-account', authenticate, strictLimiter, async (req, res) =>
         if (!allChannelsJoined) {
             return res.status(400).json({ error: 'Please join all required channels first' });
         }
-        const reward = APP_CONFIG.VERIFY_BONUS;
         const updatedUser = await updateUser(userId, {
             verified: true,
-            verification_completed: true,
+            verification_completed: true
         });
-        
         if (user.referred_by && !user.referral_reward_given) {
             const referrer = await getUser(user.referred_by);
-            if (referrer) {
-                const newTotal = (referrer.total_referrals || 0) + 1;
+            if (referrer && referrer.state !== 'ban') {
                 await updateUser(user.referred_by, {
                     verified_referrals: (referrer.verified_referrals || 0) + 1,
                     referral_gram_earnings: (referrer.referral_gram_earnings || 0) + APP_CONFIG.REFERRAL_REWARD_GRAM
@@ -1209,13 +1218,21 @@ app.post('/api/claim-referral-earnings', authenticate, strictLimiter, async (req
         if (amount < APP_CONFIG.MIN_CLAIM_GRAM) {
             return res.status(400).json({ error: `Minimum claim: ${APP_CONFIG.MIN_CLAIM_GRAM} GRAM` });
         }
-        const updatedUser = await updateUser(userId, {
-            gram_balance: (user.gram_balance || 0) + amount,
-            referral_gram_earnings: 0
-        });
+        const { data: locked } = await supabase
+            .from('users')
+            .update({ referral_gram_earnings: 0 })
+            .eq('id', userId)
+            .eq('referral_gram_earnings', user.referral_gram_earnings)
+            .select()
+            .single();
+        if (!locked) {
+            return res.status(429).json({ error: 'Please try again.' });
+        }
+        await incrementGram(userId, amount);
+        const freshUser = await getUser(userId);
         res.json({
             success: true,
-            user: updatedUser,
+            user: freshUser,
             claimed: amount
         });
     } catch (error) {
@@ -1316,7 +1333,7 @@ app.post('/api/claim-promo-code', authenticate, strictLimiter, async (req, res) 
             .select('*')
             .eq('user_id', userId)
             .eq('code', code)
-            .single();
+            .maybeSingle();
         if (usedData) {
             return res.status(400).json({ error: 'Code already used' });
         }
@@ -1327,15 +1344,19 @@ app.post('/api/claim-promo-code', authenticate, strictLimiter, async (req, res) 
             }
         }
         setPromoCooldown(userId);
-        await usePromoCode(userId, code);
+        const { error: useError } = await supabase
+            .from('used_promo_codes')
+            .insert([{ user_id: userId, code, used_at: getCurrentTime() }]);
+        if (useError) {
+            return res.status(400).json({ error: 'Code already used' });
+        }
         await incrementPromoUses(code);
-        const updatedUser = await updateUser(userId, {
-            gram_balance: (user.gram_balance || 0) + promo.reward_amount,
-            last_promo_time: getCurrentTime()
-        });
+        await incrementGram(userId, promo.reward_amount);
+        await updateUser(userId, { last_promo_time: getCurrentTime() });
+        const freshUser = await getUser(userId);
         res.json({
             success: true,
-            user: updatedUser,
+            user: freshUser,
             reward: `+${promo.reward_amount} GRAM`,
             rewardAmount: promo.reward_amount
         });
@@ -1378,7 +1399,6 @@ app.post('/api/check-payment', authenticate, async (req, res) => {
                 return res.json({ success: false, error: 'Failed to create task.' });
             }
             const txAmount = parseFloat(foundTx.in_msg?.value) / 1000000000 || 0;
-            const rewardNum = APP_CONFIG.SOCIAL_TASK_REWARD;
             const totalNum = parseInt(taskData.total);
             if (totalNum < 100 || totalNum > 5000) {
                 return res.json({ success: false, error: 'Failed to create task.' });
@@ -1497,11 +1517,13 @@ app.post('/api/withdraw-gram', authenticate, veryStrictLimiter, async (req, res)
             logFailure('/api/withdraw-gram', userId, req.ip, new Error('Account not verified'));
             return res.status(400).json({ error: 'Account not verified' });
         }
-        
         if ((user.verified_referrals || 0) < 3) {
             return res.status(400).json({ 
                 error: `You need at least 3 verified referrals` 
             });
+        }
+        if ((user.total_referrals || 0) < (user.verified_referrals || 0)) {
+            return res.status(400).json({ error: 'Fake referrals, you can not withdraw' });
         }
         const { data: lockResult, error: lockError } = await supabase
             .from('users')
