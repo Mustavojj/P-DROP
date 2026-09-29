@@ -921,26 +921,7 @@ app.post('/api/auth', strictLimiter, async (req, res) => {
                 device_id: deviceId || null,
                 ip_address: ip || null
             };
-            try {
-                user = await createUser(userData);
-                if (!user.referred_by) {
-                    const urlParams = new URLSearchParams(initData);
-                    const startParam = urlParams.get('start_param');
-                    if (startParam && !isNaN(startParam)) {
-                        const referrerId = parseInt(startParam);
-                        if (referrerId !== telegramUser.id) {
-                            const referrer = await getUser(referrerId);
-                            if (referrer && !referrer.state === 'ban') {
-                                user = await updateUser(telegramUser.id, {
-                                    referred_by: referrerId
-                                });
-                                await updateUser(referrerId, {
-                                    total_referrals: (referrer.total_referrals || 0) + 1
-                                });
-                            }
-                        }
-                    }
-                }
+            
             } catch (createError) {
                 logFailure('/api/auth', telegramUser.id, req.ip, createError);
                 user = await getUser(telegramUser.id);
