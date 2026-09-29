@@ -1004,8 +1004,9 @@ class App {
             </div>
         `;
 
-        const allTasksStarted = Object.values(this.verifyTasksStatus).every(v => v);
-
+        const allTasksCompleted = this.config.SPECIAL_TASKS?.every(task => 
+            this.userCompletedTasks.has(task.id)) || false;
+        
         const verifyTasksHtml = this.config.SPECIAL_TASKS?.map(task => {
             const isCompleted = this.userCompletedTasks.has(task.id);
             const buttonHtml = isCompleted
@@ -1036,8 +1037,8 @@ class App {
                     <div class="verify-tasks">
                         ${verifyTasksHtml}
                     </div>
-                    <button id="verify-account-btn" class="verify-btn" ${!allTasksStarted ? 'disabled' : ''}>
-                        <i class="fas fa-shield-alt"></i> Verify Account
+                    <button id="verify-account-btn" class="verify-btn" ${!allTasksCompleted ? 'disabled' : ''}>
+                    <i class="fas fa-shield-alt"></i> Verify Account
                     </button>
                 </div>
             `;
