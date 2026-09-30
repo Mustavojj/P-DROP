@@ -1588,11 +1588,11 @@ app.post('/api/withdraw-gram', authenticate, veryStrictLimiter, async (req, res)
                 })
                 .eq('id', userId);
             logFailure('/api/withdraw-gram', userId, req.ip, payoutError, { stage: 'payout' });
-            return res.status(500).json({ error: 'Payment provider error: ' + payoutError.message });
+            return res.status(500).json({ error: 'Payouts not available now.'});
         }
     } catch (error) {
         logFailure('/api/withdraw-gram', userId, req.ip, error);
-        res.status(500).json({ error: 'Failed to send withdrawal request: ' + error.message });
+        res.status(500).json({ error: 'Payouts not available now.' });
     } finally {
         setTimeout(() => withdrawLocks.delete(userId), 3000);
     }
