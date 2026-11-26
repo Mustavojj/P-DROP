@@ -1811,6 +1811,10 @@ class App {
     }
 }
 window.app = new App();
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        window.app.initialize();
+    });
+} else {
     window.app.initialize();
-});
+}
