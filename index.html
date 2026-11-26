@@ -8,16 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" onerror="var l=document.createElement('link');l.rel='stylesheet';l.href='css_styles.css';document.head.appendChild(l);">
+<style>
+html,body{margin:0!important;padding:0!important;width:100%!important;max-width:100%!important;height:100%!important;min-height:100dvh!important;overflow-x:hidden!important;background:#04060F!important;border:0!important;outline:0!important;box-sizing:border-box!important}
+body{position:relative!important}
+#app,#app-loader{width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;border:0!important;outline:0!important;box-sizing:border-box!important}
+#app-loader{height:100dvh!important;min-height:100dvh!important}
+#app{min-height:100dvh!important}
+main#main-content{width:100%!important;max-width:100%!important;margin:0!important;padding:0 0 76px!important;border:0!important;box-sizing:border-box!important}
+.page{width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;border:0!important;box-sizing:border-box!important}
+.app-header{width:100%!important;max-width:100%!important;margin:0!important;border-left:0!important;border-right:0!important;border-top:0!important;border-radius:0!important;box-sizing:border-box!important}
+.bottom-nav{left:0!important;right:0!important;width:100%!important;max-width:100%!important;margin:0!important;border-left:0!important;border-right:0!important;border-bottom:0!important;border-radius:0!important;box-sizing:border-box!important}
+#snow-canvas{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;margin:0!important;padding:0!important;border:0!important;pointer-events:none!important}
+</style>
 </head>
 <body>
-<div id="app-loader" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0a0a0a;gap:16px;">
-    <img src="https://i.postimg.cc/7YNtFgSG/IMG-20261124-191828-260.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid #2ecc71;object-fit:cover;">
-    <div style="color:#2ecc71;font-weight:700;font-size:1.1rem;letter-spacing:2px;">PIRATES DROP</div>
+<canvas id="snow-canvas"></canvas>
+<div id="app-loader" style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100dvh;min-height:100dvh;margin:0;padding:0;border:0;box-sizing:border-box;background:#04060F;gap:16px;">
+    <img src="https://i.postimg.cc/7YNtFgSG/IMG-20261124-191828-260.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid #C9A227;object-fit:cover;">
+    <div style="color:#C9A227;font-weight:700;font-size:1.1rem;letter-spacing:2px;">PIRATES DROP</div>
 </div>
-
 <div id="ban-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal" style="max-width:320px;width:90%;margin:0 auto;position:relative;background:rgba(15,15,15,0.95);border-radius:24px;border:1px solid rgba(46,204,113,0.12);box-shadow:0 8px 40px rgba(0,0,0,0.8);text-align:center;padding:30px 24px;">
+    <div class="modal-content royal-modal" style="max-width:320px;width:90%;margin:0 auto;position:relative;background:rgba(15,15,15,0.95);border-radius:24px;border:1px solid rgba(201,162,39,0.35);box-shadow:0 8px 40px rgba(0,0,0,0.8);text-align:center;padding:30px 24px;">
         <div style="font-size:60px;margin-bottom:16px;">🚫</div>
         <h3 style="color:#e74c3c;font-size:1.3rem;font-weight:700;margin-bottom:8px;">Account Banned</h3>
         <p style="color:#888;font-size:0.95rem;margin-bottom:20px;line-height:1.5;">
@@ -25,13 +37,12 @@
             Reason: Multiple accounts detected.<br>
             Please contact support for more information.
         </p>
-        <button id="close-app-btn" class="green-btn" style="padding:12px 40px;background:linear-gradient(135deg,#2ecc71,#27ae60);border:none;border-radius:60px;color:#0a0a0f;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.2s;">
+        <button id="close-app-btn" class="royal-btn" style="padding:12px 40px;background:linear-gradient(135deg,#C9A227,#122A8A);border:none;border-radius:60px;color:#0a0a0f;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.2s;">
             <i class="fas fa-times"></i> Close App
         </button>
     </div>
 </div>
-
-<div id="app" style="display:none;">
+<div id="app" style="display:none;width:100%;margin:0;padding:0;border:0;box-sizing:border-box;">
     <header class="app-header">
         <div class="header-top">
             <div class="user-info">
@@ -52,6 +63,10 @@
                         <img src="https://cdn-icons-png.flaticon.com/512/6466/6466968.png" class="gram-icon-header">
                         <span>0.00000</span>
                     </div>
+                    <div class="header-balance" id="header-kopra">
+                        <img src="data:image/svg+xml,[STRIPPED] class="gram-icon-header">
+                        <span>0</span>
+                    </div>
                 </div>
                 <button id="lang-btn" class="header-icon-btn lang-btn">
                     <img id="current-flag" src="https://flagcdn.com/w40/gb.png">
@@ -59,7 +74,6 @@
             </div>
         </div>
     </header>
-
     <div id="lang-menu" class="lang-menu" style="display:none;">
         <div class="lang-menu-content">
             <button class="lang-option" data-lang="en"><img src="https://flagcdn.com/w40/gb.png"></button>
@@ -68,34 +82,33 @@
             <button class="lang-option" data-lang="fa"><img src="https://flagcdn.com/w40/ir.png"></button>
         </div>
     </div>
-
     <main id="main-content">
         <div id="home-page" class="page active"></div>
         <div id="team-page" class="page"></div>
+        <div id="mining-page" class="page"></div>
         <div id="withdraw-page" class="page"></div>
     </main>
-
     <nav class="bottom-nav">
         <button class="nav-btn active" data-page="home-page"><i class="fas fa-home"></i><span id="nav-home">Home</span></button>
         <button class="nav-btn" data-page="team-page"><i class="fas fa-users"></i><span id="nav-team">Team</span></button>
-        <button class="nav-btn" data-page="withdraw-page"><i class="fas fa-money-bill"></i><span id="nav-withdraw">Withdraw</span></button>
+        <button class="nav-btn" data-page="mining-page"><i class="fas fa-coins"></i><span id="nav-mining">Mining</span></button>
+        <button class="nav-btn" data-page="withdraw-page"><i class="fas fa-wallet"></i><span id="nav-withdraw">Wallet</span></button>
     </nav>
 </div>
-
 <div id="add-community-task-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal">
-        <div class="modal-header green-header">
+    <div class="modal-content royal-modal">
+        <div class="modal-header royal-header">
             <h3><i class="fas fa-plus-circle"></i> Add Community Task</h3>
             <button class="modal-close" onclick="document.getElementById('add-community-task-modal').style.display='none'">&times;</button>
         </div>
         <div class="modal-body">
             <div class="form-group">
                 <label class="form-label">Name (5-20 chars)</label>
-                <input type="text" id="community-task-name" class="form-input green-input" placeholder="Task name" maxlength="20">
+                <input type="text" id="community-task-name" class="form-input royal-input" placeholder="Task name" maxlength="20">
             </div>
             <div class="form-group">
                 <label class="form-label">Link</label>
-                <input type="text" id="community-task-link" class="form-input green-input" placeholder="https://t.me/...">
+                <input type="text" id="community-task-link" class="form-input royal-input" placeholder="https://t.me/...">
             </div>
             <div class="form-group">
                 <label class="form-label">Total</label>
@@ -105,7 +118,7 @@
                     <button class="total-option" data-value="500">500</button>
                     <button class="total-option" data-value="1000">1000</button>
                     <button class="total-option" data-value="custom">Custom</button>
-                    <input type="number" id="community-task-total-custom" class="form-input green-input" placeholder="Total" style="display:none;" min="100" max="5000">
+                    <input type="number" id="community-task-total-custom" class="form-input royal-input" placeholder="Total" style="display:none;" min="100" max="5000">
                 </div>
             </div>
             <div class="form-group" id="community-verification-group" style="display:none;">
@@ -113,7 +126,7 @@
                 <div class="options-row">
                     <button class="verif-option" data-value="yes">YES</button>
                     <button class="verif-option" data-value="no">NO</button>
-                    <span id="community-verification-note" style="font-size:0.6rem;color:#2ecc71;display:none;"><i class="fas fa-info-circle"></i> Bot must be admin</span>
+                    <span id="community-verification-note" style="font-size:0.6rem;color:#C9A227;display:none;"><i class="fas fa-info-circle"></i> Bot must be admin</span>
                 </div>
             </div>
             <div class="cost-box">
@@ -122,14 +135,46 @@
                     <span id="community-total-cost-display">0.0000 GRAM</span>
                 </div>
             </div>
-            <button id="pay-add-community-task-btn" class="green-btn full-width-btn">PAY & ADD TASK</button>
+            <button id="pay-add-community-task-btn" class="royal-btn full-width-btn">PAY & ADD TASK</button>
         </div>
     </div>
 </div>
-
+<div id="add-verify-task-modal" class="modal" style="display:none;">
+    <div class="modal-content royal-modal">
+        <div class="modal-header royal-header">
+            <h3><i class="fas fa-shield-alt"></i> Add Verify Task</h3>
+            <button class="modal-close" onclick="document.getElementById('add-verify-task-modal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Name (5-20 chars)</label>
+                <input type="text" id="verify-task-name" class="form-input royal-input" placeholder="Task name" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Link</label>
+                <input type="text" id="verify-task-link" class="form-input royal-input" placeholder="https://t.me/...">
+            </div>
+            <div class="form-group" id="verify-verification-group" style="display:none;">
+                <label class="form-label">Verification</label>
+                <div class="options-row">
+                    <button class="verif-option verify-verif-option" data-value="yes">YES</button>
+                    <button class="verif-option verify-verif-option" data-value="no">NO</button>
+                    <span style="font-size:0.6rem;color:#C9A227;display:none;" id="verify-verification-note"><i class="fas fa-info-circle"></i> Bot must be admin</span>
+                </div>
+            </div>
+            <div class="cost-box">
+                <div class="cost-row">
+                    <span>Total Cost:</span>
+                    <span id="verify-total-cost-display">10 GRAM</span>
+                </div>
+            </div>
+            <button id="pay-add-verify-task-btn" class="royal-btn full-width-btn">PAY & ADD TASK</button>
+        </div>
+    </div>
+</div>
 <div id="payment-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal">
-        <div class="modal-header green-header">
+    <div class="modal-content royal-modal">
+        <div class="modal-header royal-header">
             <h3><i class="fas fa-credit-card"></i> Payment Page</h3>
             <button class="modal-close" onclick="document.getElementById('payment-modal').style.display='none'">&times;</button>
         </div>
@@ -152,16 +197,15 @@
                     <span>0.0000 GRAM</span>
                 </div>
             </div>
-            <a id="tonkeeper-link" href="#" target="_blank" class="green-btn full-width-btn">Pay with Tonkeeper</a>
-            <button id="check-payment-btn" class="green-btn full-width-btn" style="margin-top:10px;">Check Payment</button>
+            <a id="tonkeeper-link" href="#" target="_blank" class="royal-btn full-width-btn">Pay with Tonkeeper</a>
+            <button id="check-payment-btn" class="royal-btn full-width-btn" style="margin-top:10px;">Check Payment</button>
             <div id="payment-status" style="text-align:center;margin-top:10px;font-size:0.8rem;color:#888;"></div>
         </div>
     </div>
 </div>
-
 <div id="my-tasks-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal">
-        <div class="modal-header green-header">
+    <div class="modal-content royal-modal">
+        <div class="modal-header royal-header">
             <h3><i class="fas fa-tasks"></i> My Tasks</h3>
             <button class="modal-close" onclick="document.getElementById('my-tasks-modal').style.display='none'">&times;</button>
         </div>
@@ -172,7 +216,6 @@
         </div>
     </div>
 </div>
-
-<script type="module" src="js/app.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
