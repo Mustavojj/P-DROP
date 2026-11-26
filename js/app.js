@@ -95,6 +95,15 @@ const translations = {
         mining_daily_reward: "Daily Reward",
         mining_claim_hint: "You can claim when rewards reach 1 KOPRA",
         mining_claimed: "Mining rewards claimed!",
+        mining_how_title: "How Mining Works",
+        mining_how_1: "Your KOPRA balance mines automatically every day",
+        mining_how_2: "You earn 5% of your balance daily",
+        mining_how_3: "Claim when your pending rewards reach 1 KOPRA",
+        mining_example_title: "Example",
+        mining_example_text: "Balance 1000 KOPRA = 50 KOPRA every day",
+        mining_progress: "Progress to claim",
+        mining_rate_label: "Daily Rate",
+        mining_empty: "Hold KOPRA to start mining",
         add_verify_task: "Add Verify Task",
         verify_task_price: "Price: {amount} GRAM",
         verify_task_added: "Verify task added successfully!",
@@ -198,6 +207,15 @@ const translations = {
         mining_daily_reward: "المكافأة اليومية",
         mining_claim_hint: "يمكنك الاستلام عند وصول المكافآت إلى 1 KOPRA",
         mining_claimed: "تم استلام مكافآت التعدين!",
+        mining_how_title: "كيف يعمل التعدين؟",
+        mining_how_1: "رصيد KOPRA الخاص بك يعدن تلقائيا كل يوم",
+        mining_how_2: "تحصل على 5% من رصيدك يوميا",
+        mining_how_3: "استلم عندما تصل مكافآتك المعلقة إلى 1 KOPRA",
+        mining_example_title: "مثال",
+        mining_example_text: "رصيد 1000 KOPRA = 50 KOPRA كل يوم",
+        mining_progress: "التقدم نحو الاستلام",
+        mining_rate_label: "المعدل اليومي",
+        mining_empty: "احتفظ بـ KOPRA لبدء التعدين",
         add_verify_task: "إضافة مهمة تحقق",
         verify_task_price: "السعر: {amount} GRAM",
         verify_task_added: "تمت إضافة مهمة التحقق بنجاح!",
@@ -301,6 +319,15 @@ const translations = {
         mining_daily_reward: "Ежедневная награда",
         mining_claim_hint: "Вы можете забрать, когда награды достигнут 1 KOPRA",
         mining_claimed: "Награды майнинга получены!",
+        mining_how_title: "Как работает майнинг?",
+        mining_how_1: "Ваш баланс KOPRA майнит автоматически каждый день",
+        mining_how_2: "Вы получаете 5% от баланса ежедневно",
+        mining_how_3: "Забирайте, когда награды достигнут 1 KOPRA",
+        mining_example_title: "Пример",
+        mining_example_text: "Баланс 1000 KOPRA = 50 KOPRA каждый день",
+        mining_progress: "Прогресс до получения",
+        mining_rate_label: "Дневная ставка",
+        mining_empty: "Держите KOPRA, чтобы начать майнинг",
         add_verify_task: "Добавить задание проверки",
         verify_task_price: "Цена: {amount} GRAM",
         verify_task_added: "Задание проверки добавлено!",
@@ -404,6 +431,15 @@ const translations = {
         mining_daily_reward: "پاداش روزانه",
         mining_claim_hint: "وقتی پاداش‌ها به ۱ KOPRA رسید می‌توانید دریافت کنید",
         mining_claimed: "پاداش‌های استخراج دریافت شد!",
+        mining_how_title: "استخراج چگونه کار می‌کند؟",
+        mining_how_1: "موجودی KOPRA شما هر روز به صورت خودکار استخراج می‌کند",
+        mining_how_2: "روزانه ۵٪ از موجودی خود را دریافت می‌کنید",
+        mining_how_3: "وقتی پاداش‌ها به ۱ KOPRA رسید، دریافت کنید",
+        mining_example_title: "مثال",
+        mining_example_text: "موجودی ۱۰۰۰ KOPRA = روزانه ۵۰ KOPRA",
+        mining_progress: "پیشرفت تا دریافت",
+        mining_rate_label: "نرخ روزانه",
+        mining_empty: "برای شروع استخراج KOPRA نگه دارید",
         add_verify_task: "افزودن وظیفه تأیید",
         verify_task_price: "قیمت: {amount} GRAM",
         verify_task_added: "وظیفه تأیید با موفقیت اضافه شد!",
@@ -488,10 +524,10 @@ class App {
         return n.toFixed(2);
     }
     kopraIcon() {
-        return this.config.KOPRA_ICON || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f5b301'/%3E%3Ccircle cx='32' cy='32' r='24' fill='%23ffcf3f'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='28' font-weight='900' text-anchor='middle' fill='%230a0a0f'%3EK%3C/text%3E%3C/svg%3E";
+        return this.config.KOPRA_ICON || "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cpolygon%20points%3D%2732%2C3%2057%2C17.5%2057%2C46.5%2032%2C61%207%2C46.5%207%2C17.5%27%20fill%3D%27%230A1440%27%20stroke%3D%27%23C9A227%27%20stroke-width%3D%273%27%2F%3E%3Cpolygon%20points%3D%2732%2C10%2050%2C20%2050%2C44%2032%2C54%2014%2C44%2014%2C20%27%20fill%3D%27%23122A8A%27%20opacity%3D%270.65%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Arial%27%20font-size%3D%2730%27%20font-weight%3D%27900%27%20text-anchor%3D%27middle%27%20fill%3D%27%237CC4FF%27%3EK%3C%2Ftext%3E%3C%2Fsvg%3E";
     }
     gramIcon() {
-        return this.config.GRAM_ICON || 'https://cdn-icons-png.flaticon.com/512/6466/6466968.png';
+        return this.config.GRAM_ICON || 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2729%27%20fill%3D%27%23C9A227%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2723%27%20fill%3D%27%23F6DE8A%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Arial%27%20font-size%3D%2730%27%20font-weight%3D%27900%27%20text-anchor%3D%27middle%27%20fill%3D%27%230A1440%27%3EG%3C%2Ftext%3E%3C%2Fsvg%3E';
     }
     vibrate(type = 'light') {
         try {
@@ -508,7 +544,7 @@ class App {
         if (existing) existing.remove();
         const notif = document.createElement('div');
         notif.className = `notif ${type}`;
-        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-exclamation-triangle'}" style="color:${type === 'success' ? '#2ecc71' : type === 'error' ? '#e74c3c' : '#f39c12'}"></i><div><strong>${title}</strong><div style="font-size:0.8rem;color:#ccc;">${message}</div></div>`;
+        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-exclamation-triangle'}" style="color:${type === 'success' ? '#C9A227' : type === 'error' ? '#e74c3c' : '#f39c12'}"></i><div><strong>${title}</strong><div style="font-size:0.8rem;color:#ccc;">${message}</div></div>`;
         document.body.appendChild(notif);
         setTimeout(() => notif.remove(), 3500);
     }
@@ -707,7 +743,7 @@ class App {
     showNotRegisteredPage() {
         const main = document.getElementById('main-content');
         if (main) {
-            main.innerHTML = `<div style="text-align:center;padding:40px 20px;"><h3>${this.t('not_registered')}</h3><p style="color:#888;margin:16px 0;">${this.t('not_registered_message')}</p><a href="https://t.me/PiratesDropBot" class="green-btn full-width-btn">${this.t('register_now')}</a></div>`;
+            main.innerHTML = `<div style="text-align:center;padding:40px 20px;"><h3>${this.t('not_registered')}</h3><p style="color:#888;margin:16px 0;">${this.t('not_registered_message')}</p><a href="https://t.me/PiratesDropBot" class="royal-btn full-width-btn">${this.t('register_now')}</a></div>`;
         }
     }
     renderHome() {
@@ -719,7 +755,7 @@ class App {
                     <div class="promo-title"><i class="fas fa-gift"></i> ${this.t('promo_code')}</div>
                 </div>
                 <div class="promo-input-group">
-                    <input type="text" id="promo-input" class="form-input green-input" placeholder="${this.t('enter_code')}" style="flex:1;">
+                    <input type="text" id="promo-input" class="form-input royal-input" placeholder="${this.t('enter_code')}" style="flex:1;">
                     <button id="promo-submit" class="promo-submit-btn">${this.t('claim')}</button>
                 </div>
             </div>
@@ -1465,6 +1501,7 @@ class App {
                 this.showNotification('Success', `${this.t('mining_claimed')} +${this.formatKopra(result.claimed)} KOPRA`, 'success');
                 this.vibrate('success');
                 await this.loadMiningInfo();
+                this.renderMining();
                 this.renderWithdraw();
                 return true;
             }
@@ -1474,30 +1511,85 @@ class App {
             return false;
         }
     }
-    async renderWithdraw() {
-        const page = document.getElementById('withdraw-page');
+    async renderMining() {
+        const page = document.getElementById('mining-page');
         if (!page) return;
         await this.loadMiningInfo();
         const mining = this.miningInfo || {};
         const pending = mining.pending || 0;
         const dailyReward = mining.dailyReward || 0;
-        const canClaim = pending >= (this.config.MIN_CLAIM_MINING_KOPRA || 1);
+        const rate = mining.dailyRate || this.config.MINING_DAILY_RATE || 0.05;
+        const minClaim = mining.minClaim || this.config.MIN_CLAIM_MINING_KOPRA || 1;
+        const canClaim = pending >= minClaim;
+        const progress = Math.min(100, (pending / minClaim) * 100);
+        page.innerHTML = `
+            <div class="mining-hero">
+                <img class="mining-logo" src="${this.kopraIcon()}">
+                <div class="mining-hero-title">KOPRA</div>
+                <div class="mining-hero-sub">${this.t('mining')} - ${this.t('mining_daily_rate')}</div>
+                <div class="mining-balance-big"><img src="${this.kopraIcon()}"> ${this.formatKopra(this.kopraBalance)}</div>
+                <div class="mining-subtitle">${this.t('mining_balance')}</div>
+                <div class="mining-stats">
+                    <div class="mining-stat"><div class="mining-stat-value"><img src="${this.kopraIcon()}"> ${this.formatKopra(pending)}</div><div class="mining-stat-label">${this.t('mining_pending')}</div></div>
+                    <div class="mining-stat"><div class="mining-stat-value"><img src="${this.kopraIcon()}"> ${this.formatKopra(dailyReward)}</div><div class="mining-stat-label">${this.t('mining_daily_reward')}</div></div>
+                    <div class="mining-stat"><div class="mining-stat-value">${Math.round(rate * 100)}%</div><div class="mining-stat-label">${this.t('mining_rate_label')}</div></div>
+                </div>
+                <div class="mining-progress"><div class="mining-progress-fill" style="width:${progress}%"></div></div>
+                <div class="mining-hint">${this.t('mining_progress')}: ${Math.floor(progress)}% - ${this.t('mining_claim_hint')}</div>
+                <button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}><i class="fas fa-gem"></i> ${this.t('claim_mining')} ${this.formatKopra(pending)} KOPRA</button>
+            </div>
+            <div class="mining-example">
+                <div class="mining-example-title">${this.t('mining_example_title')}</div>
+                <div class="mining-example-text">${this.t('mining_example_text')}</div>
+            </div>
+            <div class="section-header"><h3><i class="fas fa-snowflake"></i> ${this.t('mining_how_title')}</h3></div>
+            <div class="mining-steps">
+                <div class="mining-step"><div class="mining-step-num">1</div><p>${this.t('mining_how_1')}</p></div>
+                <div class="mining-step"><div class="mining-step-num">2</div><p>${this.t('mining_how_2')}</p></div>
+                <div class="mining-step"><div class="mining-step-num">3</div><p>${this.t('mining_how_3')}</p></div>
+            </div>
+            ${this.kopraBalance <= 0 ? `<div class="mining-example"><div class="mining-example-text">${this.t('mining_empty')}</div></div>` : ''}
+        `;
+        const btn = document.getElementById('claim-mining-btn');
+        if (btn) btn.addEventListener('click', () => this.claimMining());
+        this._miningLoaded = true;
+    }
+    startSnowfall() {
+        if (this._snowStarted) return;
+        this._snowStarted = true;
+        const canvas = document.getElementById('snow-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+        resize();
+        window.addEventListener('resize', resize);
+        const flakes = [];
+        for (let i = 0; i < 90; i++) {
+            flakes.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: 1 + Math.random() * 3.2, s: 0.4 + Math.random() * 1.1, o: 0.35 + Math.random() * 0.55, drift: Math.random() * Math.PI * 2 });
+        }
+        const draw = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            flakes.forEach(f => {
+                f.y += f.s;
+                f.drift += 0.01;
+                f.x += Math.sin(f.drift) * 0.4;
+                if (f.y > canvas.height + 6) { f.y = -6; f.x = Math.random() * canvas.width; }
+                ctx.beginPath();
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${f.o})`;
+                ctx.fill();
+            });
+            this._snowRAF = requestAnimationFrame(draw);
+        };
+        draw();
+    }
+    async renderWithdraw() {
+        const page = document.getElementById('withdraw-page');
+        if (!page) return;
         const gramUsd = this.gramBalance * this.gramUsdPrice;
         const kopraUsd = this.kopraBalance * this.kopraUsdPrice;
         const minW = this.config.MINIMUM_WITHDRAW || 0.1;
         page.innerHTML = `
-            <div class="mining-card">
-                <div class="mining-title"><img src="${this.kopraIcon()}"> ${this.t('mining')} - ${this.t('mining_daily_rate')}</div>
-                <div class="mining-subtitle">${this.t('mining_balance')}</div>
-                <div class="mining-balance-big"><img src="${this.kopraIcon()}"> ${this.formatKopra(this.kopraBalance)}</div>
-                <div class="mining-balance-label">KOPRA</div>
-                <div class="mining-stats">
-                    <div class="mining-stat"><div class="mining-stat-value"><img src="${this.kopraIcon()}"> ${this.formatKopra(pending)}</div><div class="mining-stat-label">${this.t('mining_pending')}</div></div>
-                    <div class="mining-stat"><div class="mining-stat-value"><img src="${this.kopraIcon()}"> ${this.formatKopra(dailyReward)}</div><div class="mining-stat-label">${this.t('mining_daily_reward')}</div></div>
-                </div>
-                <button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}><i class="fas fa-pickaxe"></i> ${this.t('claim_mining')} ${this.formatKopra(pending)} KOPRA</button>
-                <div class="mining-hint">${this.t('mining_claim_hint')}</div>
-            </div>
             <div class="wallet-wide-list">
                 <div class="wallet-wide-card">
                     <div class="wallet-wide-icon"><img src="${this.gramIcon()}"></div>
@@ -1521,13 +1613,13 @@ class App {
                 <div class="form-group">
                     <label class="form-label">${this.t('amount')} (GRAM)</label>
                     <div class="input-wrapper">
-                        <input type="number" id="withdraw-amount" class="form-input green-input" placeholder="0.00000" step="0.00001" min="0">
+                        <input type="number" id="withdraw-amount" class="form-input royal-input" placeholder="0.00000" step="0.00001" min="0">
                         <button class="action-btn" id="withdraw-max-btn">${this.t('max')}</button>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">${this.t('wallet_address')}</label>
-                    <input type="text" id="withdraw-wallet" class="form-input green-input" placeholder="UQ...">
+                    <input type="text" id="withdraw-wallet" class="form-input royal-input" placeholder="UQ...">
                 </div>
                 <div class="withdraw-preview" id="withdraw-preview">${this.t('min_withdrawal_label', { amount: this.formatGram(minW) })}</div>
                 <button class="withdraw-confirm-btn" id="withdraw-confirm-btn">${this.t('confirm_withdrawal')}</button>
@@ -1536,15 +1628,13 @@ class App {
                 <span class="coming-soon-badge">${this.t('coming_soon')}</span>
                 <div class="form-group">
                     <label class="form-label">${this.t('withdraw_kopra')}</label>
-                    <input type="text" class="form-input green-input" placeholder="KOPRA" disabled>
+                    <input type="text" class="form-input royal-input" placeholder="KOPRA" disabled>
                 </div>
                 <div class="locked-note">${this.t('coming_soon')}</div>
             </div>
             <div class="section-header"><h3><i class="fas fa-history"></i> ${this.t('withdrawal_history')}</h3></div>
             <div id="withdraw-history-container" class="history-list"></div>
         `;
-        const claimMiningBtn = document.getElementById('claim-mining-btn');
-        if (claimMiningBtn) claimMiningBtn.addEventListener('click', () => this.claimMining());
         const maxBtn = document.getElementById('withdraw-max-btn');
         const amountInput = document.getElementById('withdraw-amount');
         if (maxBtn && amountInput) maxBtn.addEventListener('click', () => { amountInput.value = this.formatGram(this.gramBalance); this.updateWithdrawPreview(); });
@@ -1616,6 +1706,7 @@ class App {
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-page') === pageId));
         if (pageId === 'home-page' && !this._homeLoaded) { this.renderHome(); this._homeLoaded = true; }
         if (pageId === 'team-page') this.renderTeam();
+        if (pageId === 'mining-page') this.renderMining();
         if (pageId === 'withdraw-page') this.renderWithdraw();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -1642,6 +1733,7 @@ class App {
                 if (flag) flag.src = opt.querySelector('img')?.src || flag.src;
                 this.renderHome();
                 this.renderTeam();
+                this.renderMining();
                 this.renderWithdraw();
                 this.updateNavLabels();
                 this.updateUserStatus();
@@ -1655,6 +1747,8 @@ class App {
         if (home) home.textContent = this.t('home');
         const team = document.getElementById('nav-team');
         if (team) team.textContent = this.t('team');
+        const miningNav = document.getElementById('nav-mining');
+        if (miningNav) miningNav.textContent = this.t('mining');
         const wd = document.getElementById('nav-withdraw');
         if (wd) wd.textContent = this.t('withdraw');
     }
@@ -1701,6 +1795,7 @@ class App {
             this._homeLoaded = true;
             this.setupNavigation();
             this.setupEventListeners();
+            this.startSnowfall();
             const loader = document.getElementById('app-loader');
             if (loader) loader.style.display = 'none';
             const appEl = document.getElementById('app');
