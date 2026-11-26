@@ -29,15 +29,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css_styles.css">
 </head>
 <body>
-<div id="app-loader" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0a0a0a;gap:16px;">
-    <img src="https://i.postimg.cc/7YNtFgSG/IMG-20261124-191828-260.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid #2ecc71;object-fit:cover;">
-    <div style="color:#2ecc71;font-weight:700;font-size:1.1rem;letter-spacing:2px;">PIRATES DROP</div>
+<canvas id="snow-canvas"></canvas>
+<div id="app-loader" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#04060F;gap:16px;">
+    <img src="https://i.postimg.cc/7YNtFgSG/IMG-20261124-191828-260.jpg" style="width:80px;height:80px;border-radius:50%;border:2px solid #C9A227;object-fit:cover;">
+    <div style="color:#C9A227;font-weight:700;font-size:1.1rem;letter-spacing:2px;">PIRATES DROP</div>
 </div>
 <div id="ban-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal" style="max-width:320px;width:90%;margin:0 auto;position:relative;background:rgba(15,15,15,0.95);border-radius:24px;border:1px solid rgba(46,204,113,0.12);box-shadow:0 8px 40px rgba(0,0,0,0.8);text-align:center;padding:30px 24px;">
+    <div class="modal-content royal-modal" style="max-width:320px;width:90%;margin:0 auto;position:relative;background:rgba(15,15,15,0.95);border-radius:24px;border:1px solid rgba(201,162,39,0.35);box-shadow:0 8px 40px rgba(0,0,0,0.8);text-align:center;padding:30px 24px;">
         <div style="font-size:60px;margin-bottom:16px;">🚫</div>
         <h3 style="color:#e74c3c;font-size:1.3rem;font-weight:700;margin-bottom:8px;">Account Banned</h3>
         <p style="color:#888;font-size:0.95rem;margin-bottom:20px;line-height:1.5;">
@@ -45,7 +46,7 @@
             Reason: Multiple accounts detected.<br>
             Please contact support for more information.
         </p>
-        <button id="close-app-btn" class="green-btn" style="padding:12px 40px;background:linear-gradient(135deg,#2ecc71,#27ae60);border:none;border-radius:60px;color:#0a0a0f;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.2s;">
+        <button id="close-app-btn" class="royal-btn" style="padding:12px 40px;background:linear-gradient(135deg,#C9A227,#122A8A);border:none;border-radius:60px;color:#0a0a0f;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.2s;">
             <i class="fas fa-times"></i> Close App
         </button>
     </div>
@@ -104,19 +105,19 @@
     </nav>
 </div>
 <div id="add-community-task-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal">
-        <div class="modal-header green-header">
+    <div class="modal-content royal-modal">
+        <div class="modal-header royal-header">
             <h3><i class="fas fa-plus-circle"></i> Add Community Task</h3>
             <button class="modal-close" onclick="document.getElementById('add-community-task-modal').style.display='none'">&times;</button>
         </div>
         <div class="modal-body">
             <div class="form-group">
                 <label class="form-label">Name (5-20 chars)</label>
-                <input type="text" id="community-task-name" class="form-input green-input" placeholder="Task name" maxlength="20">
+                <input type="text" id="community-task-name" class="form-input royal-input" placeholder="Task name" maxlength="20">
             </div>
             <div class="form-group">
                 <label class="form-label">Link</label>
-                <input type="text" id="community-task-link" class="form-input green-input" placeholder="https://t.me/...">
+                <input type="text" id="community-task-link" class="form-input royal-input" placeholder="https://t.me/...">
             </div>
             <div class="form-group">
                 <label class="form-label">Total</label>
@@ -126,7 +127,7 @@
                     <button class="total-option" data-value="500">500</button>
                     <button class="total-option" data-value="1000">1000</button>
                     <button class="total-option" data-value="custom">Custom</button>
-                    <input type="number" id="community-task-total-custom" class="form-input green-input" placeholder="Total" style="display:none;" min="100" max="5000">
+                    <input type="number" id="community-task-total-custom" class="form-input royal-input" placeholder="Total" style="display:none;" min="100" max="5000">
                 </div>
             </div>
             <div class="form-group" id="community-verification-group" style="display:none;">
@@ -134,7 +135,7 @@
                 <div class="options-row">
                     <button class="verif-option" data-value="yes">YES</button>
                     <button class="verif-option" data-value="no">NO</button>
-                    <span id="community-verification-note" style="font-size:0.6rem;color:#2ecc71;display:none;"><i class="fas fa-info-circle"></i> Bot must be admin</span>
+                    <span id="community-verification-note" style="font-size:0.6rem;color:#C9A227;display:none;"><i class="fas fa-info-circle"></i> Bot must be admin</span>
                 </div>
             </div>
             <div class="cost-box">
@@ -143,31 +144,31 @@
                     <span id="community-total-cost-display">0.0000 GRAM</span>
                 </div>
             </div>
-            <button id="pay-add-community-task-btn" class="green-btn full-width-btn">PAY & ADD TASK</button>
+            <button id="pay-add-community-task-btn" class="royal-btn full-width-btn">PAY & ADD TASK</button>
         </div>
     </div>
 </div>
 <div id="add-verify-task-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal">
-        <div class="modal-header green-header">
+    <div class="modal-content royal-modal">
+        <div class="modal-header royal-header">
             <h3><i class="fas fa-shield-alt"></i> Add Verify Task</h3>
             <button class="modal-close" onclick="document.getElementById('add-verify-task-modal').style.display='none'">&times;</button>
         </div>
         <div class="modal-body">
             <div class="form-group">
                 <label class="form-label">Name (5-20 chars)</label>
-                <input type="text" id="verify-task-name" class="form-input green-input" placeholder="Task name" maxlength="20">
+                <input type="text" id="verify-task-name" class="form-input royal-input" placeholder="Task name" maxlength="20">
             </div>
             <div class="form-group">
                 <label class="form-label">Link</label>
-                <input type="text" id="verify-task-link" class="form-input green-input" placeholder="https://t.me/...">
+                <input type="text" id="verify-task-link" class="form-input royal-input" placeholder="https://t.me/...">
             </div>
             <div class="form-group" id="verify-verification-group" style="display:none;">
                 <label class="form-label">Verification</label>
                 <div class="options-row">
                     <button class="verif-option verify-verif-option" data-value="yes">YES</button>
                     <button class="verif-option verify-verif-option" data-value="no">NO</button>
-                    <span style="font-size:0.6rem;color:#2ecc71;display:none;" id="verify-verification-note"><i class="fas fa-info-circle"></i> Bot must be admin</span>
+                    <span style="font-size:0.6rem;color:#C9A227;display:none;" id="verify-verification-note"><i class="fas fa-info-circle"></i> Bot must be admin</span>
                 </div>
             </div>
             <div class="cost-box">
@@ -176,13 +177,13 @@
                     <span id="verify-total-cost-display">10 GRAM</span>
                 </div>
             </div>
-            <button id="pay-add-verify-task-btn" class="green-btn full-width-btn">PAY & ADD TASK</button>
+            <button id="pay-add-verify-task-btn" class="royal-btn full-width-btn">PAY & ADD TASK</button>
         </div>
     </div>
 </div>
 <div id="payment-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal">
-        <div class="modal-header green-header">
+    <div class="modal-content royal-modal">
+        <div class="modal-header royal-header">
             <h3><i class="fas fa-credit-card"></i> Payment Page</h3>
             <button class="modal-close" onclick="document.getElementById('payment-modal').style.display='none'">&times;</button>
         </div>
@@ -205,15 +206,15 @@
                     <span>0.0000 GRAM</span>
                 </div>
             </div>
-            <a id="tonkeeper-link" href="#" target="_blank" class="green-btn full-width-btn">Pay with Tonkeeper</a>
-            <button id="check-payment-btn" class="green-btn full-width-btn" style="margin-top:10px;">Check Payment</button>
+            <a id="tonkeeper-link" href="#" target="_blank" class="royal-btn full-width-btn">Pay with Tonkeeper</a>
+            <button id="check-payment-btn" class="royal-btn full-width-btn" style="margin-top:10px;">Check Payment</button>
             <div id="payment-status" style="text-align:center;margin-top:10px;font-size:0.8rem;color:#888;"></div>
         </div>
     </div>
 </div>
 <div id="my-tasks-modal" class="modal" style="display:none;">
-    <div class="modal-content green-modal">
-        <div class="modal-header green-header">
+    <div class="modal-content royal-modal">
+        <div class="modal-header royal-header">
             <h3><i class="fas fa-tasks"></i> My Tasks</h3>
             <button class="modal-close" onclick="document.getElementById('my-tasks-modal').style.display='none'">&times;</button>
         </div>
@@ -224,6 +225,6 @@
         </div>
     </div>
 </div>
-<script type="module" src="js/app.js"></script>
+<script src="app.js"></script>
 <script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
