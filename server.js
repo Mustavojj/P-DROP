@@ -16,7 +16,7 @@ app.set('trust proxy', 1);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 const JWT_SECRET = process.env.JWT_SECRET || 'pirates-secret-key-change-in-production';
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const KOPRA_ICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f5b301'/%3E%3Ccircle cx='32' cy='32' r='24' fill='%23ffcf3f'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='28' font-weight='900' text-anchor='middle' fill='%230a0a0f'%3EK%3C/text%3E%3C/svg%3E";
+const KOPRA_ICON = "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cpolygon%20points%3D%2732%2C3%2057%2C17.5%2057%2C46.5%2032%2C61%207%2C46.5%207%2C17.5%27%20fill%3D%27%230A1440%27%20stroke%3D%27%23C9A227%27%20stroke-width%3D%273%27%2F%3E%3Cpolygon%20points%3D%2732%2C10%2050%2C20%2050%2C44%2032%2C54%2014%2C44%2014%2C20%27%20fill%3D%27%23122A8A%27%20opacity%3D%270.65%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Arial%27%20font-size%3D%2730%27%20font-weight%3D%27900%27%20text-anchor%3D%27middle%27%20fill%3D%27%237CC4FF%27%3EK%3C%2Ftext%3E%3C%2Fsvg%3E";
 const APP_CONFIG = {
     BOT_LINK: 'https://t.me/PiratesDropBot?start=',
     TON_WALLET_ADDRESS: 'UQD9Q3Jz2a1b0fI7tHhF3Xz1kT6Qj2vE0dC0f1A2B3C4D5E6F7G8H9I',
