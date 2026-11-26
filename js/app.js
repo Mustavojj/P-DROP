@@ -639,6 +639,8 @@ class App {
         this.verifiedReferrals = userData.verified_referrals || 0;
         this.totalTasksCompleted = userData.total_tasks_completed || 0;
         this.userCompletedTasks = new Set(userData.completed_tasks || []);
+        this._specialCompleted = userData.completed_special_tasks || [];
+        if (Array.isArray(userData.completedTasks)) { userData.completedTasks.forEach(id => this.userCompletedTasks.add(id)); }
         this._userDataLoaded = true;
         this.updateHeaderBalances();
         this.updateUserStatus();
@@ -1357,3 +1359,363 @@ class App {
             container.innerHTML = `<div class="no-data"><p>${this.t('no_tasks')}</p></div>`;
         }
     }
+    renderTeam() {
+        const teamPage = document.getElementById('team-page');
+        if (!teamPage) return;
+        const gramPer = this.config.REFERRAL_REWARD_GRAM || 0.01;
+        const kopraPer = this.config.REFERRAL_REWARD_KOPRA || 500;
+        const percent = this.config.REFERRAL_TASKS_PERCENTAGE || 15;
+        const botUsername = this.config.BOT_USERNAME || 'PiratesDropBot';
+        const refLink = `https://t.me/${botUsername}?start=${this.tgUser ? this.tgUser.id : ''}`;
+        teamPage.innerHTML = `
+            <div class="team-card">
+                <div class="team-title"><i class="fas fa-users"></i> ${this.t('team')}</div>
+                <div class="earnings-highlight">
+                    <div class="earning-highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-coins"></i></div>
+                        <div class="highlight-info">
+                            <div class="highlight-label">${this.t('earn_per_referral', { amount: this.formatGram(gramPer) })}</div>
+                            <div class="highlight-value">${this.formatGram(gramPer)} GRAM</div>
+                        </div>
+                    </div>
+                    <div class="earning-highlight-item">
+                        <div class="highlight-icon"><img src="${this.kopraIcon()}" style="width:26px;height:26px;border-radius:50%;"></div>
+                        <div class="highlight-info">
+                            <div class="highlight-label">${this.t('earn_kopra_per_referral', { amount: this.formatKopra(kopraPer) })}</div>
+                            <div class="highlight-value">${this.formatKopra(kopraPer)} KOPRA</div>
+                        </div>
+                    </div>
+                    <div class="earning-highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-percentage"></i></div>
+                        <div class="highlight-info">
+                            <div class="highlight-label">${this.t('earn_percent_tasks', { percent })}</div>
+                            <div class="highlight-value">${percent}%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-stats-grid">
+                    <div class="team-stat-card"><div class="stat-number">${this.totalReferrals}</div><div class="stat-label">${this.t('total_referrals')}</div></div>
+                    <div class="team-stat-card"><div class="stat-number">${this.verifiedReferrals}</div><div class="stat-label">${this.t('verified_referrals')}</div></div>
+                </div>
+                <div class="team-link-box">${refLink}</div>
+                <button class="copy-btn" id="copy-ref-btn"><i class="fas fa-copy"></i> ${this.t('copy')}</button>
+            </div>
+            <div class="referral-earnings-card">
+                <div class="earnings-title"><i class="fas fa-wallet"></i> ${this.t('referral_earnings')}</div>
+                <div class="referral-earnings-row">
+                    <div class="referral-earning-line"><img src="${this.gramIcon()}"> ${this.formatGram(this.referralGramEarnings)} GRAM</div>
+                    <div class="referral-earning-line kopra-line"><img src="${this.kopraIcon()}"> ${this.formatKopra(this.referralKopraEarnings)} KOPRA</div>
+                </div>
+                <button class="claim-earnings-btn" id="claim-referral-btn" ${(this.referralGramEarnings < 0.001 && this.referralKopraEarnings < 1) ? 'disabled' : ''}><i class="fas fa-gift"></i> ${this.t('claim_earnings')}</button>
+            </div>
+        `;
+        const copyBtn = document.getElementById('copy-ref-btn');
+        if (copyBtn) copyBtn.addEventListener('click', () => this.copyToClipboard(refLink));
+        const claimBtn = document.getElementById('claim-referral-btn');
+        if (claimBtn) claimBtn.addEventListener('click', () => this.claimReferralEarnings());
+        this._teamLoaded = true;
+    }
+    async claimReferralEarnings() {
+        try {
+            const result = await this.fetchFromServer('/api/claim-referral-earnings', {});
+            if (result.error) {
+                this.showNotification('Error', result.error, 'error');
+                this.vibrate('error');
+                return false;
+            }
+            if (result.user) {
+                this.loadUserData(result.user);
+                const parts = [];
+                if (result.claimed > 0) parts.push(`${this.formatGram(result.claimed)} GRAM`);
+                if (result.claimedKopra > 0) parts.push(`${this.formatKopra(result.claimedKopra)} KOPRA`);
+                this.showNotification(this.t('claim_earnings'), parts.join(' + ') || this.t('claim_earnings'), 'success');
+                this.vibrate('success');
+                this.renderTeam();
+                return true;
+            }
+            return false;
+        } catch (e) {
+            this.showNotification('Error', 'Failed to claim earnings', 'error');
+            this.vibrate('error');
+            return false;
+        }
+    }
+    async loadMiningInfo() {
+        try {
+            const result = await this.fetchFromServer('/api/mining-info', {});
+            if (result.success) {
+                this.miningInfo = result;
+                this.kopraBalance = result.kopraBalance ?? this.kopraBalance;
+                this.updateHeaderBalances();
+                return result;
+            }
+        } catch (e) {}
+        return null;
+    }
+    async claimMining() {
+        try {
+            const result = await this.fetchFromServer('/api/claim-mining', {});
+            if (result.error) {
+                this.showNotification('Error', result.error, 'error');
+                this.vibrate('error');
+                return false;
+            }
+            if (result.user) {
+                this.loadUserData(result.user);
+                this.showNotification('Success', `${this.t('mining_claimed')} +${this.formatKopra(result.claimed)} KOPRA`, 'success');
+                this.vibrate('success');
+                await this.loadMiningInfo();
+                this.renderWithdraw();
+                return true;
+            }
+            return false;
+        } catch (e) {
+            this.showNotification('Error', e.message || 'Failed', 'error');
+            return false;
+        }
+    }
+    async renderWithdraw() {
+        const page = document.getElementById('withdraw-page');
+        if (!page) return;
+        await this.loadMiningInfo();
+        const mining = this.miningInfo || {};
+        const pending = mining.pending || 0;
+        const dailyReward = mining.dailyReward || 0;
+        const canClaim = pending >= (this.config.MIN_CLAIM_MINING_KOPRA || 1);
+        const gramUsd = this.gramBalance * this.gramUsdPrice;
+        const kopraUsd = this.kopraBalance * this.kopraUsdPrice;
+        const minW = this.config.MINIMUM_WITHDRAW || 0.1;
+        page.innerHTML = `
+            <div class="mining-card">
+                <div class="mining-title"><img src="${this.kopraIcon()}"> ${this.t('mining')} - ${this.t('mining_daily_rate')}</div>
+                <div class="mining-subtitle">${this.t('mining_balance')}</div>
+                <div class="mining-balance-big"><img src="${this.kopraIcon()}"> ${this.formatKopra(this.kopraBalance)}</div>
+                <div class="mining-balance-label">KOPRA</div>
+                <div class="mining-stats">
+                    <div class="mining-stat"><div class="mining-stat-value"><img src="${this.kopraIcon()}"> ${this.formatKopra(pending)}</div><div class="mining-stat-label">${this.t('mining_pending')}</div></div>
+                    <div class="mining-stat"><div class="mining-stat-value"><img src="${this.kopraIcon()}"> ${this.formatKopra(dailyReward)}</div><div class="mining-stat-label">${this.t('mining_daily_reward')}</div></div>
+                </div>
+                <button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}><i class="fas fa-pickaxe"></i> ${this.t('claim_mining')} ${this.formatKopra(pending)} KOPRA</button>
+                <div class="mining-hint">${this.t('mining_claim_hint')}</div>
+            </div>
+            <div class="wallet-wide-list">
+                <div class="wallet-wide-card">
+                    <div class="wallet-wide-icon"><img src="${this.gramIcon()}"></div>
+                    <div class="wallet-wide-info"><div class="wallet-wide-name">GRAM</div><div class="wallet-wide-amount">${this.formatGram(this.gramBalance)}</div></div>
+                    <div class="wallet-wide-usd">$${this.formatUsd(gramUsd)}</div>
+                </div>
+                <div class="wallet-wide-card kopra-card">
+                    <div class="wallet-wide-icon"><img src="${this.kopraIcon()}"></div>
+                    <div class="wallet-wide-info"><div class="wallet-wide-name">KOPRA</div><div class="wallet-wide-amount">${this.formatKopra(this.kopraBalance)}</div></div>
+                    <div class="wallet-wide-usd">$${this.formatUsd(kopraUsd)}</div>
+                </div>
+            </div>
+            <div class="wallet-card">
+                <div class="wallet-balance-item">
+                    <div class="wallet-balance-icon"><img src="${this.gramIcon()}"></div>
+                    <div class="wallet-balance-label">${this.t('balance')}</div>
+                    <div class="wallet-balance-amount">${this.formatGram(this.gramBalance)} GRAM</div>
+                </div>
+            </div>
+            <div class="withdraw-card">
+                <div class="form-group">
+                    <label class="form-label">${this.t('amount')} (GRAM)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="withdraw-amount" class="form-input green-input" placeholder="0.00000" step="0.00001" min="0">
+                        <button class="action-btn" id="withdraw-max-btn">${this.t('max')}</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">${this.t('wallet_address')}</label>
+                    <input type="text" id="withdraw-wallet" class="form-input green-input" placeholder="UQ...">
+                </div>
+                <div class="withdraw-preview" id="withdraw-preview">${this.t('min_withdrawal_label', { amount: this.formatGram(minW) })}</div>
+                <button class="withdraw-confirm-btn" id="withdraw-confirm-btn">${this.t('confirm_withdrawal')}</button>
+            </div>
+            <div class="withdraw-card locked-card">
+                <span class="coming-soon-badge">${this.t('coming_soon')}</span>
+                <div class="form-group">
+                    <label class="form-label">${this.t('withdraw_kopra')}</label>
+                    <input type="text" class="form-input green-input" placeholder="KOPRA" disabled>
+                </div>
+                <div class="locked-note">${this.t('coming_soon')}</div>
+            </div>
+            <div class="section-header"><h3><i class="fas fa-history"></i> ${this.t('withdrawal_history')}</h3></div>
+            <div id="withdraw-history-container" class="history-list"></div>
+        `;
+        const claimMiningBtn = document.getElementById('claim-mining-btn');
+        if (claimMiningBtn) claimMiningBtn.addEventListener('click', () => this.claimMining());
+        const maxBtn = document.getElementById('withdraw-max-btn');
+        const amountInput = document.getElementById('withdraw-amount');
+        if (maxBtn && amountInput) maxBtn.addEventListener('click', () => { amountInput.value = this.formatGram(this.gramBalance); this.updateWithdrawPreview(); });
+        if (amountInput) amountInput.addEventListener('input', () => this.updateWithdrawPreview());
+        const confirmBtn = document.getElementById('withdraw-confirm-btn');
+        if (confirmBtn) confirmBtn.addEventListener('click', () => this.handleWithdrawGram());
+        this.loadWithdrawHistory();
+        this._withdrawLoaded = true;
+    }
+    updateWithdrawPreview() {
+        const input = document.getElementById('withdraw-amount');
+        const preview = document.getElementById('withdraw-preview');
+        if (!input || !preview) return;
+        const val = parseFloat(input.value) || 0;
+        const fees = this.config.WITHDRAWAL_FEES || 0;
+        const net = Math.max(0, val - fees);
+        preview.textContent = val > 0 ? `You will receive: ${this.formatGram(net)} GRAM` : this.t('min_withdrawal_label', { amount: this.formatGram(this.config.MINIMUM_WITHDRAW || 0.1) });
+    }
+    async handleWithdrawGram() {
+        if (this._withdrawLock) return;
+        const amount = parseFloat(document.getElementById('withdraw-amount')?.value || 0);
+        const wallet = document.getElementById('withdraw-wallet')?.value.trim();
+        if (!amount || amount <= 0) { this.showNotification('Error', this.t('invalid_amount'), 'error'); return; }
+        if (!wallet || !wallet.startsWith('UQ') || wallet.length < 20) { this.showNotification('Error', this.t('invalid_wallet'), 'error'); return; }
+        if (amount > this.gramBalance) { this.showNotification('Error', this.t('insufficient_balance'), 'error'); return; }
+        this._withdrawLock = true;
+        try {
+            const result = await this.fetchFromServer('/api/withdraw-gram', { gramAmount: amount, walletAddress: wallet });
+            if (result.success) {
+                if (result.user) this.loadUserData(result.user);
+                this.showNotification('Success', this.t('withdrawal_success'), 'success');
+                this.vibrate('success');
+                this.renderWithdraw();
+            } else {
+                this.showNotification('Error', result.error || this.t('withdrawal_failed'), 'error');
+            }
+        } catch (e) {
+            this.showNotification('Error', e.message || this.t('withdrawal_failed'), 'error');
+        } finally {
+            this._withdrawLock = false;
+        }
+    }
+    async loadWithdrawHistory() {
+        const container = document.getElementById('withdraw-history-container');
+        if (!container) return;
+        try {
+            const result = await this.fetchFromServer('/api/get-user', {});
+            const list = result.withdrawals || this.withdrawals || [];
+            this.withdrawals = list;
+            if (list.length === 0) {
+                container.innerHTML = `<div class="no-data"><p>${this.t('no_withdrawals')}</p></div>`;
+                return;
+            }
+            container.innerHTML = list.map(w => `
+                <div class="history-item">
+                    <div><div class="history-amount"><img src="${this.gramIcon()}"> ${this.formatGram(w.gram_amount || w.amount || 0)} GRAM</div>
+                    ${w.tx_hash ? `<a class="history-explorer-link" href="https://tonviewer.com/transaction/${w.tx_hash}" target="_blank">View <i class="fas fa-external-link-alt"></i></a>` : ''}</div>
+                    <span class="history-status ${w.status || 'pending'}">${this.t(w.status || 'pending')}</span>
+                </div>
+            `).join('');
+        } catch (e) {
+            container.innerHTML = `<div class="no-data"><p>${this.t('no_withdrawals')}</p></div>`;
+        }
+    }
+    showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const page = document.getElementById(pageId);
+        if (page) page.classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-page') === pageId));
+        if (pageId === 'home-page' && !this._homeLoaded) { this.renderHome(); this._homeLoaded = true; }
+        if (pageId === 'team-page') this.renderTeam();
+        if (pageId === 'withdraw-page') this.renderWithdraw();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setupNavigation() {
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => this.showPage(btn.getAttribute('data-page')));
+        });
+    }
+    setupEventListeners() {
+        const langBtn = document.getElementById('lang-btn');
+        const langMenu = document.getElementById('lang-menu');
+        if (langBtn && langMenu) {
+            langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langMenu.style.display = langMenu.style.display === 'none' ? 'block' : 'none';
+            });
+            document.addEventListener('click', () => { langMenu.style.display = 'none'; });
+        }
+        document.querySelectorAll('.lang-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                this.lang = opt.getAttribute('data-lang') || 'en';
+                localStorage.setItem('pirates_lang', this.lang);
+                const flag = document.getElementById('current-flag');
+                if (flag) flag.src = opt.querySelector('img')?.src || flag.src;
+                this.renderHome();
+                this.renderTeam();
+                this.renderWithdraw();
+                this.updateNavLabels();
+                this.updateUserStatus();
+            });
+        });
+        const closeBtn = document.getElementById('close-app-btn');
+        if (closeBtn) closeBtn.addEventListener('click', () => { try { this.tg?.close(); } catch (e) {} });
+    }
+    updateNavLabels() {
+        const home = document.getElementById('nav-home');
+        if (home) home.textContent = this.t('home');
+        const team = document.getElementById('nav-team');
+        if (team) team.textContent = this.t('team');
+        const wd = document.getElementById('nav-withdraw');
+        if (wd) wd.textContent = this.t('withdraw');
+    }
+    async initialize() {
+        if (this.isInitialized) return;
+        this.isInitialized = true;
+        try {
+            if (window.Telegram && window.Telegram.WebApp) {
+                this.tg = window.Telegram.WebApp;
+                this.tg.ready();
+                this.tg.expand();
+                this.tgUser = this.tg.initDataUnsafe?.user || null;
+                const startParam = this.tg.initDataUnsafe?.start_param || '';
+                if (startParam) {
+                    const m = startParam.match(/(\d+)/);
+                    if (m) this.referredBy = m[1];
+                }
+            }
+            if (!this.tgUser) {
+                const params = new URLSearchParams(window.location.search);
+                const uid = params.get('userId') || params.get('id');
+                if (uid) this.tgUser = { id: uid, first_name: 'User', username: '' };
+                const ref = params.get('start') || params.get('ref');
+                if (ref) this.referredBy = ref;
+            }
+            this.lang = localStorage.getItem('pirates_lang') || 'en';
+            this.deviceId = localStorage.getItem('pirates_device_id') || ('dev_' + Math.random().toString(36).substring(2, 10));
+            localStorage.setItem('pirates_device_id', this.deviceId);
+            await this.getConfig();
+            await this.loadPrices();
+            if (this.tgUser) {
+                const ok = await this.authenticate();
+                if (ok) {
+                    try {
+                        const res = await this.fetchFromServer('/api/get-user', {});
+                        if (res.user) this.loadUserData(res.user);
+                        if (res.completedTasks) res.completedTasks.forEach(id => this.userCompletedTasks.add(id));
+                    } catch (e) {}
+                }
+            }
+            this.updateNavLabels();
+            this.updateUserInfo();
+            this.renderHome();
+            this._homeLoaded = true;
+            this.setupNavigation();
+            this.setupEventListeners();
+            const loader = document.getElementById('app-loader');
+            if (loader) loader.style.display = 'none';
+            const appEl = document.getElementById('app');
+            if (appEl) appEl.style.display = 'block';
+            if (!this.tgUser) this.showNotRegisteredPage();
+        } catch (e) {
+            console.error('Init error:', e);
+            const loader = document.getElementById('app-loader');
+            if (loader) loader.style.display = 'none';
+            const appEl = document.getElementById('app');
+            if (appEl) appEl.style.display = 'block';
+        }
+    }
+}
+window.app = new App();
+document.addEventListener('DOMContentLoaded', () => {
+    window.app.initialize();
+});
