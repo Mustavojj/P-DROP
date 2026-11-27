@@ -16,7 +16,7 @@ const translations = {
         session: "Session",
         mining_title: "Mining",
         earn_gram_line: "Earn {amount} GRAM Each Verified Referral",
-        earn_kopra_line: "Earn {amount} KOPRA Each Verified Referral",
+        earn_kopr_line: "Earn {amount} KOPR Each Verified Referral",
         earn_percent_line: "Earn a {percent}% commission",
         add_verify_task: "Add Verify Task",
         enter_code: "Enter code",
@@ -95,32 +95,32 @@ const translations = {
         min_withdrawal_label: "Minimum Withdrawal: {amount} GRAM",
         partner_tasks: "Partner Tasks",
         mining: "Mining",
-        kopra: "KOPRA",
+        kopr: "KOPR",
         coming_soon: "Coming Soon",
-        withdraw_kopra: "Withdraw KOPRA",
+        withdraw_kopr: "Withdraw KOPR",
         claim_mining: "CLAIM",
         mining_rewards: "Mining Rewards",
         mining_daily_rate: "Daily Mining 5%",
-        mining_balance: "KOPRA Balance",
+        mining_balance: "KOPR Balance",
         mining_pending: "Pending Mining Rewards",
         mining_daily_reward: "Daily Reward",
-        mining_claim_hint: "You can claim when rewards reach 1 KOPRA",
+        mining_claim_hint: "You can claim when rewards reach 1 KOPR",
         mining_claimed: "Mining rewards claimed!",
         mining_how_title: "How Mining Works",
-        mining_how_1: "Your KOPRA balance mines automatically every day",
+        mining_how_1: "Your KOPR balance mines automatically every day",
         mining_how_2: "You earn 5% of your balance daily",
-        mining_how_3: "Claim when your pending rewards reach 1 KOPRA",
+        mining_how_3: "Claim when your pending rewards reach 1 KOPR",
         mining_example_title: "Example",
-        mining_example_text: "Balance 1000 KOPRA = 50 KOPRA every day",
+        mining_example_text: "Balance 1000 KOPR = 50 KOPR every day",
         mining_progress: "Progress to claim",
         mining_rate_label: "Daily Rate",
-        mining_empty: "Hold KOPRA to start mining",
+        mining_empty: "Hold KOPR to start mining",
         add_verify_task: "Add Verify Task",
         verify_task_price: "Price: {amount} GRAM",
         verify_task_added: "Verify task added successfully!",
         task_completed: "Task completed!",
-        earn_kopra_per_referral: "Earn {amount} KOPRA each verified referral",
-        referral_kopra_earnings: "Referral KOPRA Earnings"
+        earn_kopr_per_referral: "Earn {amount} KOPR each verified referral",
+        referral_kopr_earnings: "Referral KOPR Earnings"
     },
     ar: {
         start: "بدء",
@@ -207,32 +207,32 @@ const translations = {
         min_withdrawal_label: "الحد الأدنى للسحب: {amount} GRAM",
         partner_tasks: "مهام الشركاء",
         mining: "التعدين",
-        kopra: "KOPRA",
+        kopr: "KOPR",
         coming_soon: "قريباً",
-        withdraw_kopra: "سحب KOPRA",
+        withdraw_kopr: "سحب KOPR",
         claim_mining: "استلام",
         mining_rewards: "مكافآت التعدين",
         mining_daily_rate: "التعدين اليومي 5%",
-        mining_balance: "رصيد KOPRA",
+        mining_balance: "رصيد KOPR",
         mining_pending: "مكافآت التعدين المعلقة",
         mining_daily_reward: "المكافأة اليومية",
-        mining_claim_hint: "يمكنك الاستلام عند وصول المكافآت إلى 1 KOPRA",
+        mining_claim_hint: "يمكنك الاستلام عند وصول المكافآت إلى 1 KOPR",
         mining_claimed: "تم استلام مكافآت التعدين!",
         mining_how_title: "كيف يعمل التعدين؟",
-        mining_how_1: "رصيد KOPRA الخاص بك يعدن تلقائيا كل يوم",
+        mining_how_1: "رصيد KOPR الخاص بك يعدن تلقائيا كل يوم",
         mining_how_2: "تحصل على 5% من رصيدك يوميا",
-        mining_how_3: "استلم عندما تصل مكافآتك المعلقة إلى 1 KOPRA",
+        mining_how_3: "استلم عندما تصل مكافآتك المعلقة إلى 1 KOPR",
         mining_example_title: "مثال",
-        mining_example_text: "رصيد 1000 KOPRA = 50 KOPRA كل يوم",
+        mining_example_text: "رصيد 1000 KOPR = 50 KOPR كل يوم",
         mining_progress: "التقدم نحو الاستلام",
         mining_rate_label: "المعدل اليومي",
-        mining_empty: "احتفظ بـ KOPRA لبدء التعدين",
+        mining_empty: "احتفظ بـ KOPR لبدء التعدين",
         add_verify_task: "إضافة مهمة تحقق",
         verify_task_price: "السعر: {amount} GRAM",
         verify_task_added: "تمت إضافة مهمة التحقق بنجاح!",
         task_completed: "تم إكمال المهمة!",
-        earn_kopra_per_referral: "اربح {amount} KOPRA لكل إحالة موثقة",
-        referral_kopra_earnings: "أرباح إحالة KOPRA"
+        earn_kopr_per_referral: "اربح {amount} KOPR لكل إحالة موثقة",
+        referral_kopr_earnings: "أرباح إحالة KOPR"
     },
     ru: {
         start: "Начать",
@@ -319,32 +319,32 @@ const translations = {
         min_withdrawal_label: "Минимальный вывод: {amount} GRAM",
         partner_tasks: "Партнёрские задания",
         mining: "Майнинг",
-        kopra: "KOPRA",
+        kopr: "KOPR",
         coming_soon: "Скоро",
-        withdraw_kopra: "Вывести KOPRA",
+        withdraw_kopr: "Вывести KOPR",
         claim_mining: "ЗАБРАТЬ",
         mining_rewards: "Награды майнинга",
         mining_daily_rate: "Ежедневный майнинг 5%",
-        mining_balance: "Баланс KOPRA",
+        mining_balance: "Баланс KOPR",
         mining_pending: "Ожидающие награды майнинга",
         mining_daily_reward: "Ежедневная награда",
-        mining_claim_hint: "Вы можете забрать, когда награды достигнут 1 KOPRA",
+        mining_claim_hint: "Вы можете забрать, когда награды достигнут 1 KOPR",
         mining_claimed: "Награды майнинга получены!",
         mining_how_title: "Как работает майнинг?",
-        mining_how_1: "Ваш баланс KOPRA майнит автоматически каждый день",
+        mining_how_1: "Ваш баланс KOPR майнит автоматически каждый день",
         mining_how_2: "Вы получаете 5% от баланса ежедневно",
-        mining_how_3: "Забирайте, когда награды достигнут 1 KOPRA",
+        mining_how_3: "Забирайте, когда награды достигнут 1 KOPR",
         mining_example_title: "Пример",
-        mining_example_text: "Баланс 1000 KOPRA = 50 KOPRA каждый день",
+        mining_example_text: "Баланс 1000 KOPR = 50 KOPR каждый день",
         mining_progress: "Прогресс до получения",
         mining_rate_label: "Дневная ставка",
-        mining_empty: "Держите KOPRA, чтобы начать майнинг",
+        mining_empty: "Держите KOPR, чтобы начать майнинг",
         add_verify_task: "Добавить задание проверки",
         verify_task_price: "Цена: {amount} GRAM",
         verify_task_added: "Задание проверки добавлено!",
         task_completed: "Задание выполнено!",
-        earn_kopra_per_referral: "Зарабатывай {amount} KOPRA за каждого подтверждённого реферала",
-        referral_kopra_earnings: "Реферальный доход KOPRA"
+        earn_kopr_per_referral: "Зарабатывай {amount} KOPR за каждого подтверждённого реферала",
+        referral_kopr_earnings: "Реферальный доход KOPR"
     },
     fa: {
         start: "شروع",
@@ -431,34 +431,87 @@ const translations = {
         min_withdrawal_label: "حداقل برداشت: {amount} GRAM",
         partner_tasks: "وظایف شریک",
         mining: "استخراج",
-        kopra: "KOPRA",
+        kopr: "KOPR",
         coming_soon: "به زودی",
-        withdraw_kopra: "برداشت KOPRA",
+        withdraw_kopr: "برداشت KOPR",
         claim_mining: "دریافت",
         mining_rewards: "پاداش‌های استخراج",
         mining_daily_rate: "استخراج روزانه ۵٪",
-        mining_balance: "موجودی KOPRA",
+        mining_balance: "موجودی KOPR",
         mining_pending: "پاداش‌های استخراج در انتظار",
         mining_daily_reward: "پاداش روزانه",
-        mining_claim_hint: "وقتی پاداش‌ها به ۱ KOPRA رسید می‌توانید دریافت کنید",
+        mining_claim_hint: "وقتی پاداش‌ها به ۱ KOPR رسید می‌توانید دریافت کنید",
         mining_claimed: "پاداش‌های استخراج دریافت شد!",
         mining_how_title: "استخراج چگونه کار می‌کند؟",
-        mining_how_1: "موجودی KOPRA شما هر روز به صورت خودکار استخراج می‌کند",
+        mining_how_1: "موجودی KOPR شما هر روز به صورت خودکار استخراج می‌کند",
         mining_how_2: "روزانه ۵٪ از موجودی خود را دریافت می‌کنید",
-        mining_how_3: "وقتی پاداش‌ها به ۱ KOPRA رسید، دریافت کنید",
+        mining_how_3: "وقتی پاداش‌ها به ۱ KOPR رسید، دریافت کنید",
         mining_example_title: "مثال",
-        mining_example_text: "موجودی ۱۰۰۰ KOPRA = روزانه ۵۰ KOPRA",
+        mining_example_text: "موجودی ۱۰۰۰ KOPR = روزانه ۵۰ KOPR",
         mining_progress: "پیشرفت تا دریافت",
         mining_rate_label: "نرخ روزانه",
-        mining_empty: "برای شروع استخراج KOPRA نگه دارید",
+        mining_empty: "برای شروع استخراج KOPR نگه دارید",
         add_verify_task: "افزودن وظیفه تأیید",
         verify_task_price: "قیمت: {amount} GRAM",
         verify_task_added: "وظیفه تأیید با موفقیت اضافه شد!",
         task_completed: "وظیفه انجام شد!",
-        earn_kopra_per_referral: "برای هر معرفی تأیید شده {amount} KOPRA کسب کنید",
-        referral_kopra_earnings: "درآمد معرفی KOPRA"
+        earn_kopr_per_referral: "برای هر معرفی تأیید شده {amount} KOPR کسب کنید",
+        referral_kopr_earnings: "درآمد معرفی KOPR"
     }
 };
+translations.en.change_language = "Change Language";
+translations.en.close = "Close";
+translations.en.available_tasks = "Available Tasks";
+translations.en.ready_to_claim = "Ready to Claim";
+translations.en.active = "Active";
+translations.en.not_active = "Not Active";
+translations.en.hourly = "Hourly";
+translations.en.monthly = "Monthly";
+translations.en.community = "Community";
+translations.en.partner = "Partner";
+translations.ar.change_language = "تغيير اللغة";
+translations.ar.close = "إغلاق";
+translations.ar.available_tasks = "المهام المتاحة";
+translations.ar.ready_to_claim = "جاهز للاستلام";
+translations.ar.active = "نشط";
+translations.ar.not_active = "غير نشط";
+translations.ar.hourly = "بالساعة";
+translations.ar.monthly = "شهري";
+translations.ar.community = "المجتمع";
+translations.ar.partner = "شريك";
+translations.ru.change_language = "Сменить язык";
+translations.ru.close = "Закрыть";
+translations.ru.available_tasks = "Доступные задания";
+translations.ru.ready_to_claim = "Готово к получению";
+translations.ru.active = "Активно";
+translations.ru.not_active = "Не активно";
+translations.ru.hourly = "В час";
+translations.ru.monthly = "В месяц";
+translations.ru.community = "Сообщество";
+translations.ru.partner = "Партнёр";
+translations.fa.change_language = "تغییر زبان";
+translations.fa.close = "بستن";
+translations.fa.available_tasks = "وظایف موجود";
+translations.fa.ready_to_claim = "آماده دریافت";
+translations.fa.active = "فعال";
+translations.fa.not_active = "غیرفعال";
+translations.fa.hourly = "ساعتی";
+translations.fa.monthly = "ماهانه";
+translations.fa.community = "جامعه";
+translations.fa.partner = "شریک";
+translations.tr = {
+    start: "Başlat", claim: "Al", done: "Bitti", verify_account: "Hesabınızı Doğrulayın", verify_bonus: "Hesabı Doğrula", verified: "Doğrulandı", unverified: "Doğrulanmadı", promo_code: "Promosyon Kodu", tasks: "Görevler", referral_commissions: "Referans Komisyonları", mining_title: "Madencilik", earn_gram_line: "Her Doğrulanan Referans İçin {amount} GRAM Kazan", earn_kopr_line: "Her Doğrulanan Referans İçin {amount} KOPR Kazan", earn_percent_line: "%{percent} komisyon kazan", add_verify_task: "Doğrulama Görevi Ekle", enter_code: "Kodu gir", community_tasks: "Topluluk Görevleri", add_task: "Görev Ekle", my_tasks: "Görevlerim", team: "Takım", withdraw: "Cüzdan", home: "Ana Sayfa", gram: "GRAM", balance: "Bakiye", referral_link: "Referans Linki", copy: "Kopyala", copied: "Kopyalandı!", total_referrals: "Toplam Referans", verified_referrals: "Doğrulanan Referans", referral_earnings: "Referans Kazancı", claim_earnings: "AL", withdraw_gram: "GRAM Çek", amount: "Miktar", wallet_address: "Cüzdan Adresi", confirm_withdrawal: "Çekimi Onayla", withdrawal_history: "Çekim Geçmişi", no_withdrawals: "Henüz çekim yok", pending: "BEKLİYOR", completed: "ÖDENDİ", processing: "İŞLENİYOR", name: "İsim", link: "Bağlantı", total: "Toplam", verification: "Doğrulama", total_cost: "Toplam Maliyet", pay_add_task: "ÖDE VE GÖREV EKLE", payment_page: "Ödeme Sayfası", wallet: "Cüzdan", memo: "Not", amount_label: "Miktar", pay_tonkeeper: "Tonkeeper ile Öde", check_payment: "Ödemeyi Kontrol Et", payment_verified: "Ödeme doğrulandı!", payment_failed: "Ödeme doğrulaması başarısız.", payment_checking: "Ödeme kontrol ediliyor...", loading: "Yükleniyor...", no_tasks: "Görev yok", insufficient_balance: "Yetersiz GRAM bakiyesi", invalid_amount: "Geçersiz miktar", withdrawal_success: "Çekim başarılı!", withdrawal_failed: "Çekim başarısız", verify_success: "Hesap doğrulandı!", already_verified: "Hesap zaten doğrulandı", max: "MAKS", daily: "Günlük", go: "GİT", min_withdrawal_label: "Minimum Çekim: {amount} GRAM", partner_tasks: "Partner Görevleri", mining: "Madencilik", kopr: "KOPR", coming_soon: "Yakında", withdraw_kopr: "KOPR Çek", claim_mining: "AL", mining_claimed: "Madencilik ödülleri alındı!", change_language: "Dili Değiştir", close: "Kapat", available_tasks: "Mevcut Görevler", ready_to_claim: "Almaya Hazır", active: "Aktif", not_active: "Aktif Değil", hourly: "Saatlik", monthly: "Aylık", community: "Topluluk", partner: "Partner"
+};
+translations.fr = {
+    start: "Commencer", claim: "Réclamer", done: "Terminé", verify_account: "Vérifiez Votre Compte", verify_bonus: "Vérifier le Compte", verified: "Vérifié", unverified: "Non vérifié", promo_code: "Code Promo", tasks: "Tâches", referral_commissions: "Commissions de Parrainage", mining_title: "Minage", earn_gram_line: "Gagnez {amount} GRAM par parrainage vérifié", earn_kopr_line: "Gagnez {amount} KOPR par parrainage vérifié", earn_percent_line: "Gagnez une commission de {percent}%", add_verify_task: "Ajouter une Tâche de Vérification", enter_code: "Entrez le code", community_tasks: "Tâches Communautaires", add_task: "Ajouter une Tâche", my_tasks: "Mes Tâches", team: "Équipe", withdraw: "Portefeuille", home: "Accueil", gram: "GRAM", balance: "Solde", referral_link: "Lien de Parrainage", copy: "Copier", copied: "Copié!", total_referrals: "Total des Parrainages", verified_referrals: "Parrainages Vérifiés", referral_earnings: "Gains de Parrainage", claim_earnings: "RÉCLAMER", withdraw_gram: "Retirer GRAM", amount: "Montant", wallet_address: "Adresse du Portefeuille", confirm_withdrawal: "Confirmer le Retrait", withdrawal_history: "Historique des Retraits", no_withdrawals: "Aucun retrait", pending: "EN ATTENTE", completed: "PAYÉ", processing: "EN COURS", name: "Nom", link: "Lien", total: "Total", verification: "Vérification", total_cost: "Coût Total", pay_add_task: "PAYER ET AJOUTER", payment_page: "Page de Paiement", wallet: "Portefeuille", memo: "Mémo", amount_label: "Montant", pay_tonkeeper: "Payer avec Tonkeeper", check_payment: "Vérifier le Paiement", payment_verified: "Paiement vérifié!", payment_failed: "Échec de la vérification.", payment_checking: "Vérification...", loading: "Chargement...", no_tasks: "Aucune tâche", insufficient_balance: "Solde GRAM insuffisant", invalid_amount: "Montant invalide", withdrawal_success: "Retrait réussi!", withdrawal_failed: "Retrait échoué", verify_success: "Compte vérifié!", already_verified: "Compte déjà vérifié", max: "MAX", daily: "Quotidien", go: "ALLER", min_withdrawal_label: "Retrait Minimum: {amount} GRAM", partner_tasks: "Tâches Partenaires", mining: "Minage", kopr: "KOPR", coming_soon: "Bientôt", withdraw_kopr: "Retirer KOPR", claim_mining: "RÉCLAMER", mining_claimed: "Récompenses de minage réclamées!", change_language: "Changer de Langue", close: "Fermer", available_tasks: "Tâches Disponibles", ready_to_claim: "Prêt à Réclamer", active: "Actif", not_active: "Inactif", hourly: "Horaire", monthly: "Mensuel", community: "Communauté", partner: "Partenaire"
+};
+translations.es = {
+    start: "Iniciar", claim: "Reclamar", done: "Hecho", verify_account: "Verifica Tu Cuenta", verify_bonus: "Verificar Cuenta", verified: "Verificado", unverified: "No verificado", promo_code: "Código Promocional", tasks: "Tareas", referral_commissions: "Comisiones de Referidos", mining_title: "Minería", earn_gram_line: "Gana {amount} GRAM por cada referido verificado", earn_kopr_line: "Gana {amount} KOPR por cada referido verificado", earn_percent_line: "Gana una comisión del {percent}%", add_verify_task: "Añadir Tarea de Verificación", enter_code: "Introduce el código", community_tasks: "Tareas de la Comunidad", add_task: "Añadir Tarea", my_tasks: "Mis Tareas", team: "Equipo", withdraw: "Billetera", home: "Inicio", gram: "GRAM", balance: "Saldo", referral_link: "Enlace de Referido", copy: "Copiar", copied: "¡Copiado!", total_referrals: "Total de Referidos", verified_referrals: "Referidos Verificados", referral_earnings: "Ganancias por Referidos", claim_earnings: "RECLAMAR", withdraw_gram: "Retirar GRAM", amount: "Cantidad", wallet_address: "Dirección de Billetera", confirm_withdrawal: "Confirmar Retiro", withdrawal_history: "Historial de Retiros", no_withdrawals: "Sin retiros aún", pending: "PENDIENTE", completed: "PAGADO", processing: "PROCESANDO", name: "Nombre", link: "Enlace", total: "Total", verification: "Verificación", total_cost: "Coste Total", pay_add_task: "PAGAR Y AÑADIR", payment_page: "Página de Pago", wallet: "Billetera", memo: "Nota", amount_label: "Cantidad", pay_tonkeeper: "Pagar con Tonkeeper", check_payment: "Comprobar Pago", payment_verified: "¡Pago verificado!", payment_failed: "Falló la verificación.", payment_checking: "Comprobando pago...", loading: "Cargando...", no_tasks: "Sin tareas", insufficient_balance: "Saldo GRAM insuficiente", invalid_amount: "Cantidad inválida", withdrawal_success: "¡Retiro exitoso!", withdrawal_failed: "Falló el retiro", verify_success: "¡Cuenta verificada!", already_verified: "Cuenta ya verificada", max: "MÁX", daily: "Diario", go: "IR", min_withdrawal_label: "Retiro Mínimo: {amount} GRAM", partner_tasks: "Tareas de Socios", mining: "Minería", kopr: "KOPR", coming_soon: "Próximamente", withdraw_kopr: "Retirar KOPR", claim_mining: "RECLAMAR", mining_claimed: "¡Recompensas de minería reclamadas!", change_language: "Cambiar Idioma", close: "Cerrar", available_tasks: "Tareas Disponibles", ready_to_claim: "Listo para Reclamar", active: "Activo", not_active: "Inactivo", hourly: "Por Hora", monthly: "Mensual", community: "Comunidad", partner: "Socio"
+};
+translations.ur = {
+    start: "شروع", claim: "وصول", done: "مکمل", verify_account: "اپنا اکاؤنٹ تصدیق کریں", verify_bonus: "اکاؤنٹ تصدیق کریں", verified: "تصدیق شدہ", unverified: "غیر تصدیق شدہ", promo_code: "پرومو کوڈ", tasks: "ٹاسکس", referral_commissions: "ریفرل کمیشن", mining_title: "مائننگ", earn_gram_line: "ہر تصدیق شدہ ریفرل پر {amount} GRAM کمائیں", earn_kopr_line: "ہر تصدیق شدہ ریفرل پر {amount} KOPR کمائیں", earn_percent_line: "{percent}% کمیشن کمائیں", add_verify_task: "تصدیق ٹاسک شامل کریں", enter_code: "کوڈ درج کریں", community_tasks: "کمیونٹی ٹاسکس", add_task: "ٹاسک شامل کریں", my_tasks: "میرے ٹاسکس", team: "ٹیم", withdraw: "والیٹ", home: "ہوم", gram: "GRAM", balance: "بیلنس", referral_link: "ریفرل لنک", copy: "کاپی", copied: "کاپی ہو گیا!", total_referrals: "کل ریفرلز", verified_referrals: "تصدیق شدہ ریفرلز", referral_earnings: "ریفرل آمدنی", claim_earnings: "وصول کریں", withdraw_gram: "GRAM نکالیں", amount: "رقم", wallet_address: "والیٹ ایڈریس", confirm_withdrawal: "نکالنے کی تصدیق", withdrawal_history: "نکالنے کی تاریخ", no_withdrawals: "ابھی کوئی نکالنا نہیں", pending: "زیر التواء", completed: "ادا شدہ", processing: "جاری", name: "نام", link: "لنک", total: "کل", verification: "تصدیق", total_cost: "کل لاگت", pay_add_task: "ادائیگی اور ٹاسک شامل کریں", payment_page: "ادائیگی صفحہ", wallet: "والیٹ", memo: "میمو", amount_label: "رقم", pay_tonkeeper: "Tonkeeper سے ادائیگی", check_payment: "ادائیگی چیک کریں", payment_verified: "ادائیگی تصدیق ہو گئی!", payment_failed: "ادائیگی تصدیق ناکام۔", payment_checking: "ادائیگی چیک ہو رہی ہے...", loading: "لوڈ ہو رہا ہے...", no_tasks: "کوئی ٹاسک نہیں", insufficient_balance: "GRAM بیلنس ناکافی", invalid_amount: "غلط رقم", withdrawal_success: "نکالنا کامیاب!", withdrawal_failed: "نکالنا ناکام", verify_success: "اکاؤنٹ تصدیق ہو گیا!", already_verified: "اکاؤنٹ پہلے سے تصدیق شدہ", max: "زیادہ سے زیادہ", daily: "روزانہ", go: "جائیں", min_withdrawal_label: "کم از کم نکالنا: {amount} GRAM", partner_tasks: "پارٹنر ٹاسکس", mining: "مائننگ", kopr: "KOPR", coming_soon: "جلد آ رہا ہے", withdraw_kopr: "KOPR نکالیں", claim_mining: "وصول کریں", mining_claimed: "مائننگ انعامات وصول ہو گئے!", change_language: "زبان تبدیل کریں", close: "بند کریں", available_tasks: "دستیاب ٹاسکس", ready_to_claim: "وصول کے لیے تیار", active: "فعال", not_active: "غیر فعال", hourly: "فی گھنٹہ", monthly: "ماہانہ", community: "کمیونٹی", partner: "پارٹنر"
+};
+
 
 class App {
     constructor() {
@@ -470,10 +523,10 @@ class App {
         this.isAuthenticated = false;
         this.deviceId = null;
         this.gramBalance = 0;
-        this.kopraBalance = 0;
+        this.koprBalance = 0;
         this.verified = false;
         this.referralGramEarnings = 0;
-        this.referralKopraEarnings = 0;
+        this.referralKoprEarnings = 0;
         this.totalReferrals = 0;
         this.verifiedReferrals = 0;
         this.userCompletedTasks = new Set();
@@ -511,7 +564,7 @@ class App {
         this.paymentMode = 'community';
         this.miningInfo = null;
         this.gramUsdPrice = 0.95;
-        this.kopraUsdPrice = 0.001;
+        this.koprUsdPrice = 0.001;
         this.pendingVerifyTaskTimer = null;
     }
     t(key, params = {}) {
@@ -523,19 +576,23 @@ class App {
     }
     formatGram(num) {
         const n = parseFloat(num) || 0;
-        return n.toFixed(5);
+        return String(parseFloat(n.toFixed(5)));
     }
-    formatKopra(num) {
+    formatKopr(num) {
         const n = parseFloat(num) || 0;
         if (Number.isInteger(n)) return String(n);
-        return n.toFixed(2);
+        return String(parseFloat(n.toFixed(4)));
+    }
+    formatKoprPrecise(num) {
+        const n = parseFloat(num) || 0;
+        return String(parseFloat(n.toFixed(8)));
     }
     formatUsd(num) {
         const n = parseFloat(num) || 0;
         return n.toFixed(2);
     }
-    kopraIcon() {
-        return this.config.KOPRA_ICON || 'https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png';
+    koprIcon() {
+        return this.config.KOPR_ICON || 'https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png';
     }
     gramIcon() {
         return this.config.GRAM_ICON || 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp';
@@ -557,7 +614,7 @@ class App {
         if (existing) existing.remove();
         const notif = document.createElement('div');
         notif.className = `notif ${type}`;
-        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-exclamation-triangle'}" style="color:${type === 'success' ? '#4AA8FF' : type === 'error' ? '#e74c3c' : '#f39c12'}"></i><div><strong>${title}</strong><div style="font-size:0.8rem;color:#ccc;">${message}</div></div>`;
+        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-exclamation-triangle'}" style="color:${type === 'success' ? '#4AA8FF' : type === 'error' ? '#e74c3c' : '#00A8FF'}"></i><div><strong>${title}</strong><div style="font-size:0.8rem;color:#ccc;">${message}</div></div>`;
         document.body.appendChild(notif);
         setTimeout(() => notif.remove(), 3500);
     }
@@ -566,7 +623,7 @@ class App {
             const response = await fetch(`${this.serverUrl}/api/config`);
             if (response.ok) {
                 this.config = await response.json();
-                if (this.config.KOPRA_USD_PRICE) this.kopraUsdPrice = this.config.KOPRA_USD_PRICE;
+                if (this.config.KOPR_USD_PRICE) this.koprUsdPrice = this.config.KOPR_USD_PRICE;
                 if (this.config.GRAM_USD_PRICE) this.gramUsdPrice = this.config.GRAM_USD_PRICE;
             }
         } catch (e) {}
@@ -577,8 +634,8 @@ class App {
             if (response.ok) {
                 const data = await response.json();
                 if (data.gramUsd) this.gramUsdPrice = data.gramUsd;
-                if (data.kopraUsd) this.kopraUsdPrice = data.kopraUsd;
-                if (data.kopraIcon) this.config.KOPRA_ICON = data.kopraIcon;
+                if (data.koprUsd) this.koprUsdPrice = data.koprUsd;
+                if (data.koprIcon) this.config.KOPR_ICON = data.koprIcon;
             }
         } catch (e) {}
     }
@@ -680,10 +737,10 @@ class App {
     async loadUserData(userData) {
         if (!userData) return;
         this.gramBalance = userData.gram_balance || 0;
-        this.kopraBalance = userData.kopra_balance || 0;
+        this.koprBalance = userData.kopr_balance || 0;
         this.verified = userData.verified || false;
         this.referralGramEarnings = userData.referral_gram_earnings || 0;
-        this.referralKopraEarnings = userData.referral_kopra_earnings || 0;
+        this.referralKoprEarnings = userData.referral_kopr_earnings || 0;
         this.totalReferrals = userData.total_referrals || 0;
         this.verifiedReferrals = userData.verified_referrals || 0;
         this.totalTasksCompleted = userData.total_tasks_completed || 0;
@@ -703,12 +760,12 @@ class App {
             const gimg = gramEl.querySelector('img');
             if (gimg) gimg.src = this.gramIcon();
         }
-        const kopraEl = document.getElementById('header-kopra');
-        if (kopraEl) {
-            const span = kopraEl.querySelector('span');
-            if (span) span.textContent = this.formatKopra(this.kopraBalance);
-            const img = kopraEl.querySelector('img');
-            if (img) img.src = this.kopraIcon();
+        const koprEl = document.getElementById('header-kopr');
+        if (koprEl) {
+            const span = koprEl.querySelector('span');
+            if (span) span.textContent = this.formatKopr(this.koprBalance);
+            const img = koprEl.querySelector('img');
+            if (img) img.src = this.koprIcon();
         }
     }
     updateUserStatus() {
@@ -759,7 +816,7 @@ class App {
     showNotRegisteredPage() {
         const main = document.getElementById('main-content');
         if (main) {
-            main.innerHTML = `<div style="text-align:center;padding:40px 20px;"><h3>${this.t('not_registered')}</h3><p style="color:#888;margin:16px 0;">${this.t('not_registered_message')}</p><a href="https://t.me/PiratesDropBot" class="royal-btn full-width-btn">${this.t('register_now')}</a></div>`;
+            main.innerHTML = `<div style="text-align:center;padding:40px 20px;"><h3>${this.t('not_registered')}</h3><p style="color:#888;margin:16px 0;">${this.t('not_registered_message')}</p><a href="https://t.me/KoprBot" class="royal-btn full-width-btn">${this.t('register_now')}</a></div>`;
         }
     }
     async renderHome() {
@@ -768,23 +825,23 @@ class App {
         await this.loadMiningInfo();
         const mining = this.miningInfo || {};
         const pending = mining.pending || 0;
-        const dailyReward = mining.dailyReward || (24 + this.kopraBalance * 0.05);
+        const dailyReward = mining.dailyReward || (24 + this.koprBalance * 0.05);
         const rate = mining.dailyRate || this.config.MINING_DAILY_RATE || 0.05;
-        const minClaim = mining.minClaim || this.config.MIN_CLAIM_MINING_KOPRA || 1;
+        const minClaim = mining.minClaim || this.config.MIN_CLAIM_MINING_KOPR || 1;
         const canClaim = pending >= minClaim;
         const miningActive = true;
         const minerClass = miningActive ? 'active' : 'inactive';
-        const activeMiner = miningActive ? { name: 'KOPRA Miner' } : null;
-        const speedPerHour = this.formatKopra(dailyReward / 24);
-        const dailySpeed = this.formatKopra(dailyReward);
-        const statusHtml = miningActive ? `<div class="miner-status active"><span class="dot"></span>ACTIVE - ${Math.round(rate * 100)}% ${this.t('daily')}</div>` : `<div class="miner-status inactive"><span class="dot"></span>NOT ACTIVE</div>`;
-        const actionHtml = `<button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}><img src="${this.kopraIcon()}" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;"> ${this.t('claim_mining')} ${this.formatKopra(pending)} KOPRA</button><div class="mining-pending-line">${this.t('mining_balance')}: ${this.formatKopra(this.kopraBalance)} KOPRA</div>`;
-        const monthlySpeed = this.formatKopra(dailyReward * 30);
-        const miningHtml = `<div class="mining-card ${minerClass}"><div class="mining-logo-wrapper ${miningActive ? 'active' : 'inactive'}"><img src="${this.config.KOPRA_ICON || this.kopraIcon()}" class="mining-logo" alt="COIN"></div><div class="mining-big-number">${this.formatKopra(pending)}</div><div class="mining-ready-label">READY TO CLAIM</div>${statusHtml}<div class="speed-card"><div class="speed-item"><div class="speed-label">HOURLY</div><div class="speed-value">${speedPerHour}${this.t('per_hour')}</div></div><div class="speed-item"><div class="speed-label">DAILY</div><div class="speed-value">${dailySpeed}</div></div><div class="speed-item"><div class="speed-label">MONTHLY</div><div class="speed-value">${monthlySpeed}</div></div></div>${actionHtml}</div>`;
+        const activeMiner = miningActive ? { name: 'KOPR Miner' } : null;
+        const speedPerHour = this.formatKopr(dailyReward / 24);
+        const dailySpeed = this.formatKopr(dailyReward);
+        const statusHtml = miningActive ? `<div class="miner-status active"><span class="dot"></span>${this.t('active')}</div>` : `<div class="miner-status inactive"><span class="dot"></span>NOT ACTIVE</div>`;
+        const actionHtml = `<button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}><img src="${this.koprIcon()}" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;"> <span id="claim-mining-label">${this.t('claim_mining')} ${this.formatKoprPrecise(pending)} KOPR</span></button>`;
+        const monthlySpeed = this.formatKopr(dailyReward * 30);
+        const miningHtml = `<div class="mining-card ${minerClass}"><div class="mining-logo-wrapper"><img src="${this.config.KOPR_ICON || this.koprIcon()}" class="mining-logo" alt="KOPR"></div><div class="mining-big-number" id="mining-pending-amount">${this.formatKoprPrecise(pending)}</div><div class="mining-ready-label">${this.t('ready_to_claim')}</div>${statusHtml}<div class="speed-card"><div class="speed-item"><div class="speed-label">${this.t('hourly')}</div><div class="speed-value">${speedPerHour}${this.t('per_hour')}</div></div><div class="speed-item"><div class="speed-label">${this.t('daily')}</div><div class="speed-value">${dailySpeed}</div></div><div class="speed-item"><div class="speed-label">${this.t('monthly')}</div><div class="speed-value">${monthlySpeed}</div></div></div>${actionHtml}</div>`;
         const promoHtml = `
             <div class="promo-card glass-card">
                 <div class="promo-header">
-                    <div class="promo-title"><img src="${this.gramIcon()}" class="banner-logo" alt="GRAM"> ${this.t('promo_code')}</div>
+                    <div class="promo-title"><i class="fas fa-ticket-alt"></i> ${this.t('promo_code')}</div>
                 </div>
                 <div class="promo-input-group">
                     <input type="text" id="promo-input" class="form-input royal-input" placeholder="${this.t('enter_code')}" style="flex:1;">
@@ -799,7 +856,7 @@ class App {
             const done = completedFromServer.includes(task.id) || isCompleted;
             return `
                 <div class="verify-task-item glass-card" data-task-id="${task.id}" data-task-type="special">
-                    <div class="task-icon"><img src="${this.gramIcon()}" alt="GRAM"></div>
+                    <div class="task-icon"><i class="fas fa-clipboard-list"></i></div>
                     <div class="task-info"><h4>${task.title}</h4></div>
                     <button class="task-btn ${done ? 'done' : 'start-btn'}" data-task-id="${task.id}" data-task-type="special" data-url="${task.url}">${done ? this.t('done') : this.t('start')}</button>
                 </div>
@@ -807,25 +864,25 @@ class App {
         }).join('');
         homePage.innerHTML = `
             <div class="verify-card glass-card">
-                <div class="hunter-banner"><img src="${this.gramIcon()}" class="banner-logo" alt="GRAM"> ${this.t('verify_account')}</div>
+                <div class="verify-title-bar"><div class="hunter-banner"><i class="fas fa-shield-alt"></i> ${this.t('verify_account')}</div><button class="verify-add-plus" id="add-verify-task-btn" title="${this.t('add_verify_task')}">+</button></div>
                 <div class="verify-tasks" id="verify-special-tasks">
                     ${specialHtml}
                 </div>
                 <div id="verify-db-tasks-container"></div>
-                <button class="verify-add-card" id="add-verify-task-btn"><span class="task-icon"><img src="${this.gramIcon()}" alt="GRAM"></span><span class="verify-add-text">${this.t('add_verify_task')}</span><span class="verify-add-arrow"><i class="fas fa-chevron-right"></i></span></button>
                 <button class="verify-btn" id="verify-account-btn" ${this.verified ? 'disabled' : ''}>
                     <i class="fas fa-shield-alt"></i> ${this.verified ? this.t('verified') : this.t('verify_bonus')}
                 </button>
             </div>
-            <div class="hunter-banner"><img src="${this.kopraIcon()}" class="banner-logo" alt="KOPRA"> ${this.t('mining_title')}</div>
+            <div class="hunter-banner"><i class="fas fa-hammer"></i> ${this.t('mining_title')}</div>
             ${miningHtml}
-            <div class="hunter-banner"><img src="${this.gramIcon()}" class="banner-logo" alt="GRAM"> ${this.t('promo_code')}</div>
+            <div class="hunter-banner"><i class="fas fa-ticket-alt"></i> ${this.t('promo_code')}</div>
             ${promoHtml}
         `;
         this.attachHomeHandlers();
         this.loadVerifyDbTasksList();
         const claimBtn = document.getElementById('claim-mining-btn');
         if (claimBtn) claimBtn.addEventListener('click', () => { this.vibrate('success'); this.claimMining(); });
+        this.startMiningTicker();
     }
     renderTasks() {
         const tasksPage = document.getElementById('tasks-page');
@@ -833,9 +890,9 @@ class App {
         const commCount = (this.communityTasks || []).length;
         const partCount = (this.partnerTasks || []).length;
         tasksPage.innerHTML = `
-            <div class="hunter-banner"><img src="${this.gramIcon()}" class="banner-logo" alt="GRAM"> AVAILABLE TASKS</div>
-            <div class="hunter-tabs"><button class="hunter-tab active" data-tab="community">Community <span class="tab-count">${commCount}</span></button><button class="hunter-tab" data-tab="partner">Partner <span class="tab-count">${partCount}</span></button></div>
-            <div class="hunter-actions"><button class="hunter-add" id="add-community-task-btn-tasks">+ Add Task</button><button class="hunter-my" id="my-tasks-btn-tasks">My Tasks</button></div>
+            <div class="hunter-banner"><i class="fas fa-clipboard-list"></i> ${this.t('available_tasks')}</div>
+            <div class="hunter-tabs"><button class="hunter-tab active" data-tab="community">${this.t('community')} <span class="tab-count">${commCount}</span></button><button class="hunter-tab" data-tab="partner">${this.t('partner')} <span class="tab-count">${partCount}</span></button></div>
+            <div class="hunter-actions"><button class="hunter-add" id="add-community-task-btn-tasks">+ ${this.t('add_task')}</button><button class="hunter-my" id="my-tasks-btn-tasks">${this.t('my_tasks')}</button></div>
             <div id="community-tasks-container" class="tasks-list"><div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div></div>
             <div id="partner-tasks-container" class="tasks-list" style="display:none;"><div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div></div>
         `;
@@ -915,7 +972,7 @@ class App {
             }
             container.innerHTML = tasks.map(task => `
                 <div class="verify-task-item" data-task-id="${task.id}" data-task-type="verify">
-                    <div class="task-icon"><img src="${this.gramIcon()}" alt="GRAM"></div>
+                    <div class="task-icon"><i class="fas fa-clipboard-list"></i></div>
                     <div class="task-info"><h4>${task.name}</h4></div>
                     <button class="task-btn start-btn" data-task-id="${task.id}" data-task-type="verify" data-url="${task.url}">${this.t('start')}</button>
                 </div>
@@ -998,10 +1055,10 @@ class App {
                     this.loadVerifyDbTasksList();
                 }
                 let msg = this.t('task_completed');
-                if (result.reward > 0 || result.kopraReward > 0) {
+                if (result.reward > 0 || result.koprReward > 0) {
                     const parts = [];
                     if (result.reward > 0) parts.push(`+${this.formatGram(result.reward)} GRAM`);
-                    if (result.kopraReward > 0) parts.push(`+${this.formatKopra(result.kopraReward)} KOPRA`);
+                    if (result.koprReward > 0) parts.push(`+${this.formatKopr(result.koprReward)} KOPR`);
                     msg = parts.join('  ');
                 }
                 this.showNotification('Success', msg, 'success');
@@ -1072,16 +1129,16 @@ class App {
                 container.innerHTML = `<div class="no-data"><i class="fas fa-tasks"></i><p>${this.t('no_tasks')}</p></div>`;
                 return;
             }
-            const kopraReward = this.config.TASK_REWARD_KOPRA || 100;
+            const koprReward = this.config.TASK_REWARD_KOPR || 100;
             container.innerHTML = this.communityTasks.map(task => `
                 <div class="task-card-community" data-task-id="${task.id}">
                     <div class="task-header">
-                        <div class="task-icon"><img src="${this.kopraIcon()}" alt="KOPRA"></div>
+                        <div class="task-icon"><img src="${this.koprIcon()}" alt="KOPR"></div>
                         <div class="task-info">
                             <h4>${task.name}</h4>
                             <div class="task-reward">
                                 <span class="reward-badge"><img src="${this.gramIcon()}"> ${this.formatGram(task.reward || 0.001)} GRAM</span>
-                                <span class="reward-badge kopra-badge"><img src="${this.kopraIcon()}"> ${this.formatKopra(task.reward_kopra || kopraReward)} KOPRA</span>
+                                <span class="reward-badge kopr-badge"><img src="${this.koprIcon()}"> ${this.formatKopr(task.reward_kopr || koprReward)} KOPR</span>
                             </div>
                         </div>
                         <button class="task-btn start-btn" data-task-id="${task.id}" data-task-type="community" data-url="${task.url}">${this.t('start')}</button>
@@ -1123,16 +1180,16 @@ class App {
                 container.innerHTML = `<div class="no-data"><i class="fas fa-handshake"></i><p>${this.t('no_tasks')}</p></div>`;
                 return;
             }
-            const kopraReward = this.config.TASK_REWARD_KOPRA || 100;
+            const koprReward = this.config.TASK_REWARD_KOPR || 100;
             container.innerHTML = this.partnerTasks.map(task => `
                 <div class="task-card-community" data-task-id="${task.id}">
                     <div class="task-header">
-                        <div class="task-icon"><img src="${this.gramIcon()}" alt="GRAM"></div>
+                        <div class="task-icon"><i class="fas fa-clipboard-list"></i></div>
                         <div class="task-info">
                             <h4>${task.name}</h4>
                             <div class="task-reward">
                                 <span class="reward-badge"><img src="${this.gramIcon()}"> ${this.formatGram(task.reward || 0.001)} GRAM</span>
-                                <span class="reward-badge kopra-badge"><img src="${this.kopraIcon()}"> ${this.formatKopra(task.reward_kopra || kopraReward)} KOPRA</span>
+                                <span class="reward-badge kopr-badge"><img src="${this.koprIcon()}"> ${this.formatKopr(task.reward_kopr || koprReward)} KOPR</span>
                             </div>
                         </div>
                         <button class="task-btn start-btn" data-task-id="${task.id}" data-task-type="partner" data-url="${task.url}">${this.t('start')}</button>
@@ -1435,17 +1492,17 @@ class App {
         const teamPage = document.getElementById('team-page');
         if (!teamPage) return;
         const gramPer = this.config.REFERRAL_REWARD_GRAM || 0.01;
-        const kopraPer = this.config.REFERRAL_REWARD_KOPRA || 500;
+        const koprPer = this.config.REFERRAL_REWARD_KOPR || 500;
         const percent = this.config.REFERRAL_TASKS_PERCENTAGE || 15;
-        const botUsername = this.config.BOT_USERNAME || 'PiratesDropBot';
+        const botUsername = this.config.BOT_USERNAME || 'KoprBot';
         const refLink = `https://t.me/${botUsername}?start=${this.tgUser ? this.tgUser.id : ''}`;
         const canClaimGram = this.referralGramEarnings >= 0.001;
-        const canClaimKopra = this.referralKopraEarnings >= 1;
+        const canClaimKopr = this.referralKoprEarnings >= 1;
         teamPage.innerHTML = `
             <div class="team-card glass-card">
-                <div class="hunter-banner"><img src="${this.gramIcon()}" class="banner-logo" alt="GRAM"> ${this.t('referral_commissions')}</div>
+                <div class="hunter-banner"><i class="fas fa-users"></i> ${this.t('referral_commissions')}</div>
                 <div class="referral-row"><img src="${this.gramIcon()}" alt="GRAM"><span>${this.t('earn_gram_line', { amount: this.formatGram(gramPer) })}</span></div>
-                <div class="referral-row"><img src="${this.kopraIcon()}" alt="KOPRA"><span>${this.t('earn_kopra_line', { amount: this.formatKopra(kopraPer) })}</span></div>
+                <div class="referral-row"><img src="${this.koprIcon()}" alt="KOPR"><span>${this.t('earn_kopr_line', { amount: this.formatKopr(koprPer) })}</span></div>
                 <div class="referral-row"><span class="pct">%</span><span>${this.t('earn_percent_line', { percent })}</span></div>
                 <div class="team-stats-grid">
                     <div class="team-stat-card"><div class="stat-number">${this.totalReferrals}</div><div class="stat-label">${this.t('total_referrals')}</div></div>
@@ -1455,9 +1512,9 @@ class App {
                 <button class="copy-btn" id="copy-ref-btn"><i class="fas fa-copy"></i> ${this.t('copy')}</button>
             </div>
             <div class="referral-earnings-card glass-card">
-                <div class="hunter-banner"><img src="${this.kopraIcon()}" class="banner-logo" alt="KOPRA"> ${this.t('referral_earnings')}</div>
+                <div class="hunter-banner"><i class="fas fa-wallet"></i> ${this.t('referral_earnings')}</div>
                 <div class="referral-earn-card"><img src="${this.gramIcon()}" alt="GRAM"><div class="referral-earn-info"><div class="referral-earn-name">GRAM</div><div class="referral-earn-amount">${this.formatGram(this.referralGramEarnings)} GRAM</div></div><button class="referral-earn-claim" data-claim-type="GRAM" ${canClaimGram ? '' : 'disabled'}>${this.t('claim')}</button></div>
-                <div class="referral-earn-card"><img src="${this.kopraIcon()}" alt="KOPRA"><div class="referral-earn-info"><div class="referral-earn-name">KOPRA</div><div class="referral-earn-amount">${this.formatKopra(this.referralKopraEarnings)} KOPRA</div></div><button class="referral-earn-claim" data-claim-type="KOPRA" ${canClaimKopra ? '' : 'disabled'}>${this.t('claim')}</button></div>
+                <div class="referral-earn-card"><img src="${this.koprIcon()}" alt="KOPR"><div class="referral-earn-info"><div class="referral-earn-name">KOPR</div><div class="referral-earn-amount">${this.formatKopr(this.referralKoprEarnings)} KOPR</div></div><button class="referral-earn-claim" data-claim-type="KOPR" ${canClaimKopr ? '' : 'disabled'}>${this.t('claim')}</button></div>
             </div>
         `;
         const copyBtn = document.getElementById('copy-ref-btn');
@@ -1476,7 +1533,7 @@ class App {
                 this.loadUserData(result.user);
                 const parts = [];
                 if (result.claimed > 0) parts.push(`${this.formatGram(result.claimed)} GRAM`);
-                if (result.claimedKopra > 0) parts.push(`${this.formatKopra(result.claimedKopra)} KOPRA`);
+                if (result.claimedKopr > 0) parts.push(`${this.formatKopr(result.claimedKopr)} KOPR`);
                 this.showNotification(this.t('claim_earnings'), parts.join(' + ') || this.t('claim_earnings'), 'success');
                 this.vibrate('success');
                 this.renderTeam();
@@ -1494,12 +1551,31 @@ class App {
             const result = await this.fetchFromServer('/api/mining-info', {});
             if (result.success) {
                 this.miningInfo = result;
-                this.kopraBalance = result.kopraBalance ?? this.kopraBalance;
+                this.koprBalance = result.koprBalance ?? this.koprBalance;
+                if (result.serverNow) this.serverTimeOffset = result.serverNow - Date.now();
                 this.updateHeaderBalances();
                 return result;
             }
         } catch (e) {}
         return null;
+    }
+    startMiningTicker() {
+        if (this._miningTimer) clearInterval(this._miningTimer);
+        const mining = this.miningInfo || {};
+        const lastClaim = mining.lastClaim || mining.last_claim_time || Date.now();
+        const dailyReward = mining.dailyReward || (24 + this.koprBalance * 0.05);
+        const minClaim = mining.minClaim || 1;
+        this._miningTimer = setInterval(() => {
+            const now = Date.now() + (this.serverTimeOffset || 0);
+            const elapsedDays = Math.max(0, Math.min(30, (now - lastClaim) / 86400000));
+            const pending = dailyReward * elapsedDays;
+            const big = document.getElementById('mining-pending-amount');
+            if (big) big.textContent = this.formatKoprPrecise(pending);
+            const label = document.getElementById('claim-mining-label');
+            if (label) label.textContent = `${this.t('claim_mining')} ${this.formatKoprPrecise(pending)} KOPR`;
+            const btn = document.getElementById('claim-mining-btn');
+            if (btn) btn.disabled = pending < minClaim;
+        }, 1000);
     }
     async claimMining() {
         this.vibrate('success');
@@ -1512,7 +1588,7 @@ class App {
             }
             if (result.user) {
                 this.loadUserData(result.user);
-                this.showNotification('Success', `${this.t('mining_claimed')} +${this.formatKopra(result.claimed)} KOPRA`, 'success');
+                this.showNotification('Success', `${this.t('mining_claimed')} +${this.formatKopr(result.claimed)} KOPR`, 'success');
                 this.vibrate('success');
                 await this.loadMiningInfo();
                 this.renderHome();
@@ -1558,7 +1634,7 @@ class App {
         const page = document.getElementById('withdraw-page');
         if (!page) return;
         const gramUsd = this.gramBalance * this.gramUsdPrice;
-        const kopraUsd = this.kopraBalance * this.kopraUsdPrice;
+        const koprUsd = this.koprBalance * this.koprUsdPrice;
         const minW = this.config.MINIMUM_WITHDRAW || 0.1;
         page.innerHTML = `
             <div class="withdraw-card glass-card">
@@ -1579,13 +1655,13 @@ class App {
             </div>
             <div class="withdraw-card glass-card" style="position:relative;overflow:hidden;">
                 <div class="withdraw-locked">
-                    <div class="wallet-balance-compact"><img src="${this.kopraIcon()}" alt="KOPRA"><div class="wb-info"><div class="wb-label">KOPRA ${this.t('balance')}</div><div class="wb-amount">${this.formatKopra(this.kopraBalance)} KOPRA</div></div><div class="wb-usd">$${this.formatUsd(kopraUsd)}</div></div>
-                    <div class="form-group"><label class="form-label">${this.t('withdraw_kopra')}</label><input type="text" class="form-input royal-input" placeholder="KOPRA" disabled></div>
+                    <div class="wallet-balance-compact"><img src="${this.koprIcon()}" alt="KOPR"><div class="wb-info"><div class="wb-label">KOPR ${this.t('balance')}</div><div class="wb-amount">${this.formatKopr(this.koprBalance)} KOPR</div></div><div class="wb-usd">$${this.formatUsd(koprUsd)}</div></div>
+                    <div class="form-group"><label class="form-label">${this.t('withdraw_kopr')}</label><input type="text" class="form-input royal-input" placeholder="KOPR" disabled></div>
                     <button class="withdraw-confirm-btn" disabled>${this.t('confirm_withdrawal')}</button>
                 </div>
                 <div class="withdraw-locked-overlay"><div class="lock-icon"><i class="fas fa-lock"></i></div><span>${this.t('coming_soon')}</span></div>
             </div>
-            <div class="hunter-banner"><img src="${this.gramIcon()}" class="banner-logo" alt="GRAM"> ${this.t('withdrawal_history')}</div>
+            <div class="hunter-banner"><i class="fas fa-history"></i> ${this.t('withdrawal_history')}</div>
             <div id="withdraw-history-container" class="history-list"></div>
         `;
         const maxBtn = document.getElementById('withdraw-max-btn');
@@ -1676,20 +1752,30 @@ class App {
         document.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) this.vibrate('light'); });
         document.querySelectorAll('img').forEach(img => { img.setAttribute('draggable', 'false'); });
         const langBtn = document.getElementById('lang-btn');
-        const langMenu = document.getElementById('lang-menu');
-        if (langBtn && langMenu) {
+        const langModal = document.getElementById('lang-modal');
+        const langClose = document.getElementById('lang-modal-close');
+        if (langBtn && langModal) {
             langBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                langMenu.style.display = langMenu.style.display === 'none' ? 'block' : 'none';
+                this.vibrate('light');
+                const title = document.getElementById('lang-modal-title');
+                if (title) title.textContent = this.t('change_language');
+                const closeBtn = document.getElementById('lang-modal-close');
+                if (closeBtn) closeBtn.textContent = this.t('close');
+                langModal.style.display = 'flex';
             });
-            document.addEventListener('click', () => { langMenu.style.display = 'none'; });
+            if (langClose) langClose.addEventListener('click', () => { this.vibrate('light'); langModal.style.display = 'none'; });
+            langModal.addEventListener('click', (e) => { if (e.target === langModal) langModal.style.display = 'none'; });
         }
         document.querySelectorAll('.lang-option').forEach(opt => {
             opt.addEventListener('click', () => {
+                this.vibrate('success');
                 this.lang = opt.getAttribute('data-lang') || 'en';
-                localStorage.setItem('pirates_lang', this.lang);
+                localStorage.setItem('kopr_lang', this.lang);
                 const flag = document.getElementById('current-flag');
                 if (flag) flag.src = opt.querySelector('img')?.src || flag.src;
+                const lm = document.getElementById('lang-modal');
+                if (lm) lm.style.display = 'none';
                 this.renderHome();
                 this.renderTasks();
                 this.renderTeam();
@@ -1733,7 +1819,7 @@ class App {
                 const ref = params.get('start') || params.get('ref');
                 if (ref) this.referredBy = ref;
             }
-            this.lang = localStorage.getItem('pirates_lang') || 'en';
+            this.lang = localStorage.getItem('kopr_lang') || 'en';
             this.deviceId = localStorage.getItem('pirates_device_id') || ('dev_' + Math.random().toString(36).substring(2, 10));
             localStorage.setItem('pirates_device_id', this.deviceId);
             await this.getConfig();
