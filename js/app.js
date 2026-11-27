@@ -566,6 +566,8 @@ class App {
         this.gramUsdPrice = 0.95;
         this.koprUsdPrice = 0.001;
         this.pendingVerifyTaskTimer = null;
+        this._refreshing = false;
+        this._lastAuthError = null;
     }
     t(key, params = {}) {
         let text = translations[this.lang]?.[key] || translations['en'][key] || key;
@@ -592,10 +594,12 @@ class App {
         return n.toFixed(2);
     }
     koprIcon() {
-        return this.config.KOPR_ICON || 'https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png';
+        const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><polygon points="32,3 60,28 32,61 4,28" fill="#00A8FF"/><polygon points="32,3 60,28 32,28" fill="#4CC9FF"/><text x="32" y="42" font-size="30" text-anchor="middle" fill="white" font-weight="900" font-family="Arial">K</text></svg>';
+        return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
     }
     gramIcon() {
-        return this.config.GRAM_ICON || 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp';
+        const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><polygon points="32,3 60,28 32,61 4,28" fill="#00A8FF"/><polygon points="32,3 60,28 32,28" fill="#B3E5FF"/><text x="32" y="42" font-size="30" text-anchor="middle" fill="white" font-weight="900" font-family="Arial">G</text></svg>';
+        return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
     }
     vibrate(type = 'light') {
         try { if (navigator.vibrate) navigator.vibrate(type === 'success' ? [40, 30, 40] : type === 'error' ? [80, 40, 80] : 30); } catch (e) {}
@@ -660,16 +664,19 @@ class App {
             });
             const result = await response.json();
             if (result.error === 'Invalid token' || result.error === 'Token expired' || result.error === 'No token provided') {
-                const refreshed = await this.refreshToken();
-                if (refreshed) {
-                    return this.fetchFromServer(endpoint, data);
-                } else {
-                    this.isAuthenticated = false;
-                    this.showNotification('Error', 'Session expired. Please restart the app.', 'error');
-                    throw new Error('Auth required');
-                }
+                if (this._refreshing) throw new Error('Auth required');
+                this._refreshing = true;
+                try {
+                    const refreshed = await this.refreshTokenDirect();
+                    if (refreshed) {
+                        this._refreshing = false;
+                        return this.fetchFromServer(endpoint, data);
+                    }
+                } finally { this._refreshing = false; }
+                this.isAuthenticated = false;
+                throw new Error('Auth required');
             }
-            if (result.error === 'user_not_registered') {
+            if (result.error === 'user_not_registered' || result.error === 'User not found') {
                 this.showNotRegisteredPage();
                 throw new Error('Not registered');
             }
@@ -714,26 +721,31 @@ class App {
             if (result.success && result.token) {
                 this.jwtToken = result.token;
                 this.isAuthenticated = true;
+                this._lastAuthError = null;
                 this.loadUserData(result.user);
                 return true;
             }
-            return false;
-        } catch (e) {
-            return false;
-        }
-    }
-    async refreshToken() {
-        try {
-            const result = await this.fetchFromServer('/api/refresh', {});
-            if (result.token) {
-                this.jwtToken = result.token;
-                return true;
+            this._lastAuthError = result.error || 'Auth failed';
+            if (result.error === 'User not found' || result.error === 'user_not_registered') {
+                this.showNotRegisteredPage();
             }
             return false;
         } catch (e) {
+            this._lastAuthError = e.message || 'Network error';
             return false;
         }
     }
+    async refreshTokenDirect() {
+        try {
+            const headers = { 'Content-Type': 'application/json' };
+            if (this.jwtToken) headers['Authorization'] = `Bearer ${this.jwtToken}`;
+            const res = await fetch(`${this.serverUrl}/api/refresh`, { method: 'POST', headers, body: JSON.stringify({}) });
+            const result = await res.json();
+            if (result.token) { this.jwtToken = result.token; return true; }
+            return false;
+        } catch (e) { return false; }
+    }
+    async refreshToken() { return this.refreshTokenDirect(); }
     async loadUserData(userData) {
         if (!userData) return;
         this.gramBalance = userData.gram_balance || 0;
@@ -785,8 +797,16 @@ class App {
             nameEl.textContent = this.tgUser.first_name || this.tgUser.username || 'User';
         }
         const photoEl = document.getElementById('user-photo');
+        const fallbackEl = document.getElementById('user-photo-fallback');
         if (photoEl && this.tgUser?.photo_url) {
+            photoEl.onerror = () => { photoEl.style.display = 'none'; if (fallbackEl) fallbackEl.style.display = 'flex'; };
+            photoEl.style.display = 'block';
             photoEl.src = this.tgUser.photo_url;
+            if (fallbackEl) fallbackEl.textContent = (this.tgUser.first_name || 'U').charAt(0).toUpperCase();
+        } else if (fallbackEl) {
+            fallbackEl.textContent = (this.tgUser?.first_name || 'U').charAt(0).toUpperCase();
+            fallbackEl.style.display = 'flex';
+            if (photoEl) photoEl.style.display = 'none';
         }
     }
     async checkMembership(channel) {
@@ -814,10 +834,36 @@ class App {
         if (modal) modal.style.display = 'flex';
     }
     showNotRegisteredPage() {
-        const main = document.getElementById('main-content');
-        if (main) {
-            main.innerHTML = `<div style="text-align:center;padding:40px 20px;"><h3>${this.t('not_registered')}</h3><p style="color:#888;margin:16px 0;">${this.t('not_registered_message')}</p><a href="https://t.me/KoprBot" class="royal-btn full-width-btn">${this.t('register_now')}</a></div>`;
-        }
+        const home = document.getElementById('home-page');
+        const target = home || document.getElementById('main-content');
+        if (!target) return;
+        target.innerHTML = `<div style="text-align:center;padding:40px 20px;"><h3>${this.t('not_registered')}</h3><p style="color:#888;margin:16px 0;">${this.t('not_registered_message')}</p><a href="https://t.me/${this.config.BOT_USERNAME || 'KoprBot'}" target="_blank" class="royal-btn full-width-btn">${this.t('register_now')}</a><button id="retry-auth-btn" class="royal-btn full-width-btn" style="margin-top:12px;background:#0A1226;border:1px solid rgba(76,201,255,.4)">Retry</button></div>`;
+        const retryBtn = document.getElementById('retry-auth-btn');
+        if (retryBtn) retryBtn.addEventListener('click', async () => {
+            retryBtn.textContent = 'Checking...';
+            this.readTelegramUser();
+            const ok = await this.authenticate();
+            if (ok) { this.renderHome(); this._homeLoaded = true; }
+            else retryBtn.textContent = 'Still Not Registered - ' + (this._lastAuthError || 'Try Again');
+        });
+    }
+    readTelegramUser() {
+        try {
+            if (window.Telegram && window.Telegram.WebApp) {
+                this.tg = window.Telegram.WebApp;
+                const u = this.tg.initDataUnsafe?.user;
+                if (u && u.id) { this.tgUser = u; return true; }
+                const initData = this.tg.initData || '';
+                const m = initData.match(/user=([^&]+)/);
+                if (m) { try { const parsed = JSON.parse(decodeURIComponent(m[1])); if (parsed && parsed.id) { this.tgUser = parsed; return true; } } catch (e) {} }
+            }
+        } catch (e) {}
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const uid = params.get('userId') || params.get('id') || params.get('tgWebAppStartParam');
+            if (uid && /^\d+$/.test(uid)) { this.tgUser = { id: Number(uid), first_name: 'User', username: '' }; return true; }
+        } catch (e) {}
+        return !!this.tgUser;
     }
     async renderHome() {
         const homePage = document.getElementById('home-page');
@@ -1772,8 +1818,8 @@ class App {
                 this.vibrate('success');
                 this.lang = opt.getAttribute('data-lang') || 'en';
                 localStorage.setItem('kopr_lang', this.lang);
-                const flag = document.getElementById('current-flag');
-                if (flag) flag.src = opt.querySelector('img')?.src || flag.src;
+                const flagText = document.getElementById('current-flag-text');
+                if (flagText) flagText.textContent = (opt.getAttribute('data-lang') || 'en').toUpperCase();
                 const lm = document.getElementById('lang-modal');
                 if (lm) lm.style.display = 'none';
                 this.renderHome();
@@ -1801,21 +1847,21 @@ class App {
         if (this.isInitialized) return;
         this.isInitialized = true;
         try {
+            this.readTelegramUser();
+            if (this.tg) { try { this.tg.ready(); this.tg.expand(); } catch (e) {} }
             if (window.Telegram && window.Telegram.WebApp) {
-                this.tg = window.Telegram.WebApp;
-                this.tg.ready();
-                this.tg.expand();
-                this.tgUser = this.tg.initDataUnsafe?.user || null;
-                const startParam = this.tg.initDataUnsafe?.start_param || '';
+                const startParam = window.Telegram.WebApp.initDataUnsafe?.start_param || '';
                 if (startParam) {
                     const m = startParam.match(/(\d+)/);
                     if (m) this.referredBy = m[1];
                 }
             }
             if (!this.tgUser) {
+                await new Promise(r => setTimeout(r, 500));
+                this.readTelegramUser();
+            }
+            if (!this.tgUser) {
                 const params = new URLSearchParams(window.location.search);
-                const uid = params.get('userId') || params.get('id');
-                if (uid) this.tgUser = { id: uid, first_name: 'User', username: '' };
                 const ref = params.get('start') || params.get('ref');
                 if (ref) this.referredBy = ref;
             }
@@ -1845,7 +1891,7 @@ class App {
             if (loader) loader.style.display = 'none';
             const appEl = document.getElementById('app');
             if (appEl) appEl.style.display = 'block';
-            if (!this.tgUser) this.showNotRegisteredPage();
+            if (!this.tgUser && !this.isAuthenticated) this.showNotRegisteredPage();
         } catch (e) {
             console.error('Init error:', e);
             const loader = document.getElementById('app-loader');
