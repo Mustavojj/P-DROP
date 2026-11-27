@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="styles.css">
 <style>
-html,body{margin:0;padding:0;width:100%;height:100%;background:#070A12;color:#F2F4F8;font-family:Inter,system-ui,Arial,sans-serif;overflow-x:hidden}
+html,body{margin:0;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;padding:0;width:100%;height:100%;background:#070A12;color:#F2F4F8;font-family:Inter,system-ui,Arial,sans-serif;overflow-x:hidden}
 #snow-canvas{position:fixed;inset:0;width:100vw;height:100dvh;pointer-events:none;z-index:60;opacity:.55}
 #app-loader{min-height:100dvh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#070A12;padding:24px;text-align:center}
 #app-loader img{width:92px;height:92px;border-radius:22px;object-fit:cover}
@@ -43,10 +43,10 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
 .bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:flex;justify-content:space-between;gap:4px;background:#10151F;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:6px}
 </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" oncopy="return false" oncut="return false" onpaste="return false">
 <canvas id="snow-canvas"></canvas>
 <div id="app-loader">
-    <img src="https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png">
+    <img draggable="false" oncontextmenu="return false" src="https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png">
     <div>PIRATES DROP</div>
 </div>
 <div id="ban-modal" class="modal" style="display:none;">
@@ -68,7 +68,7 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
         <div class="header-top">
             <div class="user-info">
                 <div class="avatar-wrapper">
-                    <img id="user-photo" class="user-avatar" src="https://i.ibb.co/W4FRWY3z/c53854a65b5a.jpg">
+                    <img draggable="false" oncontextmenu="return false" id="user-photo" class="user-avatar" src="https://i.ibb.co/W4FRWY3z/c53854a65b5a.jpg">
                 </div>
                 <div class="user-details">
                     <span id="user-name" class="user-name">User</span>
@@ -81,38 +81,38 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
             <div class="header-actions">
                 <div class="header-balances" id="header-balances">
                     <div class="header-balance" id="header-gram">
-                        <img src="https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp" class="gram-icon-header">
+                        <img draggable="false" oncontextmenu="return false" src="https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp" class="gram-icon-header">
                         <span>0.00000</span>
                     </div>
                     <div class="header-balance" id="header-kopra">
-                        <img src="https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png" class="gram-icon-header">
+                        <img draggable="false" oncontextmenu="return false" src="https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png" class="gram-icon-header">
                         <span>0</span>
                     </div>
                 </div>
                 <button id="lang-btn" class="header-icon-btn lang-btn">
-                    <img id="current-flag" src="https://flagcdn.com/w40/gb.png">
+                    <img draggable="false" oncontextmenu="return false" id="current-flag" src="https://flagcdn.com/w40/gb.png">
                 </button>
             </div>
         </div>
     </header>
     <div id="lang-menu" class="lang-menu" style="display:none;">
         <div class="lang-menu-content">
-            <button class="lang-option" data-lang="en"><img src="https://flagcdn.com/w40/gb.png"></button>
-            <button class="lang-option" data-lang="ar"><img src="https://flagcdn.com/w40/sa.png"></button>
-            <button class="lang-option" data-lang="ru"><img src="https://flagcdn.com/w40/ru.png"></button>
-            <button class="lang-option" data-lang="fa"><img src="https://flagcdn.com/w40/ir.png"></button>
+            <button class="lang-option" data-lang="en"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/gb.png"></button>
+            <button class="lang-option" data-lang="ar"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/sa.png"></button>
+            <button class="lang-option" data-lang="ru"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/ru.png"></button>
+            <button class="lang-option" data-lang="fa"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/ir.png"></button>
         </div>
     </div>
     <main id="main-content">
         <div id="home-page" class="page active"></div>
+        <div id="tasks-page" class="page"></div>
         <div id="team-page" class="page"></div>
-        <div id="mining-page" class="page"></div>
         <div id="withdraw-page" class="page"></div>
     </main>
     <nav class="bottom-nav">
         <button class="nav-btn active" data-page="home-page"><i class="fas fa-home"></i><span id="nav-home">Home</span></button>
+        <button class="nav-btn" data-page="tasks-page"><i class="fas fa-tasks"></i><span id="nav-tasks">Tasks</span></button>
         <button class="nav-btn" data-page="team-page"><i class="fas fa-users"></i><span id="nav-team">Team</span></button>
-        <button class="nav-btn" data-page="mining-page"><i class="fas fa-coins"></i><span id="nav-mining">Mining</span></button>
         <button class="nav-btn" data-page="withdraw-page"><i class="fas fa-wallet"></i><span id="nav-withdraw">Wallet</span></button>
     </nav>
 </div>
