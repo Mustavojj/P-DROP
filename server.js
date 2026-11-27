@@ -6,47 +6,45 @@ const rateLimit = require('express-rate-limit');
 const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 const app = express();
-app.use(cors({
-    origin: true,
-    credentials: true
-}));
-app.use(express.json());
+app.use((req, res, next) => { res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('X-Frame-Options', 'DENY'); res.setHeader('Referrer-Policy', 'no-referrer'); res.setHeader('Content-Security-Policy', "default-src 'self'"); next(); });
+app.use(cors({ origin: (origin, cb) => cb(null, true), credentials: true }));
+app.use(express.json({ limit: '20kb' }));
 app.use(cookieParser());
 app.set('trust proxy', 1);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 const JWT_SECRET = process.env.JWT_SECRET || 'pirates-secret-key-change-in-production';
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const KOPRA_ICON = "https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png";
+const KOPR_ICON = "https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png";
 const APP_CONFIG = {
-    BOT_LINK: 'https://t.me/PiratesDropBot?start=',
+    BOT_LINK: 'https://t.me/KoprBot?start=',
     TON_WALLET_ADDRESS: 'UQD9Q3Jz2a1b0fI7tHhF3Xz1kT6Qj2vE0dC0f1A2B3C4D5E6F7G8H9I',
     PAYMENT_WALLET: 'UQD9Q3Jz2a1b0fI7tHhF3Xz1kT6Qj2vE0dC0f1A2B3C4D5E6F7G8H9I',
-    OFFICIAL_CHANNEL_URL: 'https://t.me/PiratesDrop',
-    PAYOUTS_CHANNEL_URL: 'https://t.me/PiratesDropPayouts',
+    OFFICIAL_CHANNEL_URL: 'https://t.me/Kopr',
+    PAYOUTS_CHANNEL_URL: 'https://t.me/KoprPayouts',
     GRAM_ICON: 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp',
     TASK_IMAGE: 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp',
-    KOPRA_ICON: KOPRA_ICON,
+    KOPR_ICON: KOPR_ICON,
     VERIFY_BONUS: 0,
     REFERRAL_REWARD_GRAM: 0.01,
-    REFERRAL_REWARD_KOPRA: 500,
+    REFERRAL_REWARD_KOPR: 500,
     REFERRAL_TASKS_PERCENTAGE: 15,
     MIN_CLAIM_GRAM: 0.001,
     SOCIAL_TASK_REWARD: 0.001,
-    TASK_REWARD_KOPRA: 100,
+    TASK_REWARD_KOPR: 100,
     PRICE_PER_100: 0.20,
     VERIFY_TASK_PRICE: 10,
     MINING_DAILY_RATE: 0.05,
     MINING_BASE_DAILY: 24,
-    MIN_CLAIM_MINING_KOPRA: 1,
-    KOPRA_USD_PRICE: 0.001,
+    MIN_CLAIM_MINING_KOPR: 1,
+    KOPR_USD_PRICE: 0.001,
     GRAM_USD_PRICE: 0.95,
     TASK_VERIFICATION_DELAY: 10,
     MINIMUM_WITHDRAW: 0.10,
     MAXIMUM_WITHDRAW: 100,
     WITHDRAWAL_FEES: 0.01,
     SPECIAL_TASKS: [
-        { id: 'task_join_pirates', title: 'Join Pirates Drop', description: '', url: 'https://t.me/PiratesDrop', icon: 'fa-users', reward: 0 },
-        { id: 'task_join_payouts', title: 'Join Payouts Channel', description: '', url: 'https://t.me/PiratesDropPayouts', icon: 'fa-money-bill-wave', reward: 0 },
+        { id: 'task_join_pirates', title: 'Join Kopr Drop', description: '', url: 'https://t.me/Kopr', icon: 'fa-users', reward: 0 },
+        { id: 'task_join_payouts', title: 'Join Payouts Channel', description: '', url: 'https://t.me/KoprPayouts', icon: 'fa-money-bill-wave', reward: 0 },
         { id: 'task_join_ultra', title: 'Join Ultra Wallet', description: '', url: 'https://t.me/UltraWallet', icon: 'fa-wallet', reward: 0 },
         { id: 'task_join_moneyhub', title: 'Join Money Hub', description: '', url: 'https://t.me/MoneyHub', icon: 'fa-coins', reward: 0 },
         { id: 'task_join_masterx', title: 'Join Master X', description: '', url: 'https://t.me/MasterX', icon: 'fa-star', reward: 0 }
@@ -72,16 +70,22 @@ async function getGramUsdPrice() {
 function getCurrentTime() {
     return Date.now();
 }
-function getMiningPending(user) {
+function getLastClaimTime(user) { return user.last_claim_time || user.mining_last_claim || user.created_at || Date.now(); }
+function getKoprBalance(user) { const v = user.kopr_balance; if (typeof v === 'number') return v; return 0; }
+function getMiningPending(user, nowMs) {
     if (!user) return 0;
-    const balance = user.kopra_balance || 0;
+    const now = nowMs || Date.now();
+    const balance = getKoprBalance(user);
     const base = APP_CONFIG.MINING_BASE_DAILY || 24;
     const rate = APP_CONFIG.MINING_DAILY_RATE || 0.05;
     const daily = base + balance * rate;
-    const last = user.mining_last_claim || user.created_at || Date.now();
-    const elapsedDays = Math.max(0, (Date.now() - last) / 86400000);
+    const last = getLastClaimTime(user);
+    if (last > now) return 0;
+    const elapsedDays = Math.max(0, Math.min(30, (now - last) / 86400000));
     return daily * elapsedDays;
 }
+function isValidId(v) { return typeof v === 'string' && /^[a-zA-Z0-9_-]{1,80}$/.test(v); }
+function isValidUrl(v) { try { const u = new URL(v); return u.protocol === 'https:' && v.length <= 500; } catch (e) { return false; } }
 const withdrawLocks = new Map();
 const generalLimiter = rateLimit({
     windowMs: 60 * 1000,
@@ -182,15 +186,15 @@ async function incrementGram(userId, amount) {
         return true;
     }
 }
-async function incrementKopra(userId, amount) {
+async function incrementKopr(userId, amount) {
     try {
-        const { data, error } = await supabase.rpc('increment_kopra', { user_id: userId, amount: amount });
+        const { data, error } = await supabase.rpc('increment_kopr', { user_id: userId, amount: amount });
         if (error) throw error;
         return data;
     } catch (e) {
         const user = await getUser(userId);
         if (!user) return null;
-        await updateUser(userId, { kopra_balance: (user.kopra_balance || 0) + amount });
+        await updateUser(userId, { kopr_balance: (user.kopr_balance || 0) + amount });
         return true;
     }
 }
@@ -276,7 +280,7 @@ app.get('/api/config', (req, res) => {
 });
 app.get('/api/prices', async (req, res) => {
     const gramUsd = await getGramUsdPrice();
-    res.json({ gramUsd: gramUsd, kopraUsd: APP_CONFIG.KOPRA_USD_PRICE || 0.001, kopraIcon: APP_CONFIG.KOPRA_ICON });
+    res.json({ gramUsd: gramUsd, koprUsd: APP_CONFIG.KOPR_USD_PRICE || 0.001, koprIcon: APP_CONFIG.KOPR_ICON });
 });
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
@@ -403,10 +407,10 @@ app.post('/api/auth', async (req, res) => {
                 device_id: deviceId || null,
                 referred_by: referredBy || null,
                 gram_balance: 0,
-                kopra_balance: 0,
+                kopr_balance: 0,
                 referral_gram_earnings: 0,
-                referral_kopra_earnings: 0,
-                mining_last_claim: getCurrentTime(),
+                referral_kopr_earnings: 0,
+                last_claim_time: getCurrentTime(), mining_last_claim: getCurrentTime(),
                 verified: false,
                 verification_completed: false,
                 total_referrals: 0,
@@ -536,17 +540,20 @@ app.post('/api/mining-info', authenticate, async (req, res) => {
         const userId = req._userId;
         const user = await getUser(userId);
         if (!user) return res.status(404).json({ error: 'User not found' });
-        const pending = getMiningPending(user);
-        const kopraBalance = user.kopra_balance || 0;
+        const serverNow = Date.now();
+        const pending = getMiningPending(user, serverNow);
+        const koprBalance = getKoprBalance(user);
         res.json({
             success: true,
-            kopraBalance: kopraBalance,
+            koprBalance: koprBalance,
             pending: pending,
-            dailyReward: (APP_CONFIG.MINING_BASE_DAILY || 24) + kopraBalance * (APP_CONFIG.MINING_DAILY_RATE || 0.05),
+            dailyReward: (APP_CONFIG.MINING_BASE_DAILY || 24) + koprBalance * (APP_CONFIG.MINING_DAILY_RATE || 0.05),
             dailyRate: APP_CONFIG.MINING_DAILY_RATE || 0.05,
-            canClaim: pending >= (APP_CONFIG.MIN_CLAIM_MINING_KOPRA || 1),
-            minClaim: APP_CONFIG.MIN_CLAIM_MINING_KOPRA || 1,
-            lastClaim: user.mining_last_claim || null
+            canClaim: pending >= (APP_CONFIG.MIN_CLAIM_MINING_KOPR || 1),
+            minClaim: APP_CONFIG.MIN_CLAIM_MINING_KOPR || 1,
+            lastClaim: getLastClaimTime(user),
+            last_claim_time: getLastClaimTime(user),
+            serverNow: serverNow
         });
     } catch (error) {
         logFailure('/api/mining-info', req._userId, req.ip, error);
@@ -558,22 +565,30 @@ app.post('/api/claim-mining', authenticate, strictLimiter, async (req, res) => {
         const userId = req._userId;
         const user = await getUser(userId);
         if (!user) return res.status(404).json({ error: 'User not found' });
-        const pending = getMiningPending(user);
-        const minClaim = APP_CONFIG.MIN_CLAIM_MINING_KOPRA || 1;
+        const serverNow = Date.now();
+        const lastClaim = getLastClaimTime(user);
+        if (lastClaim > serverNow) return res.status(400).json({ error: 'Invalid claim time' });
+        const elapsedMs = serverNow - lastClaim;
+        if (elapsedMs < 0 || elapsedMs > 30 * 86400000) return res.status(400).json({ error: 'Invalid claim window' });
+        const pending = getMiningPending(user, serverNow);
+        const minClaim = APP_CONFIG.MIN_CLAIM_MINING_KOPR || 1;
         if (pending < minClaim) {
-            return res.status(400).json({ error: `Minimum claim: ${minClaim} KOPRA` });
+            return res.status(400).json({ error: `Minimum claim: ${minClaim} KOPR` });
         }
+        const expectedDaily = (APP_CONFIG.MINING_BASE_DAILY || 24) + getKoprBalance(user) * (APP_CONFIG.MINING_DAILY_RATE || 0.05);
+        const maxAllowed = expectedDaily * Math.min(30, elapsedMs / 86400000) + 0.001;
+        if (pending > maxAllowed) return res.status(400).json({ error: 'Invalid claim amount' });
         const { data: locked } = await supabase
             .from('users')
-            .update({ mining_last_claim: getCurrentTime() })
+            .update({ last_claim_time: serverNow, mining_last_claim: serverNow })
             .eq('id', userId)
-            .eq('mining_last_claim', user.mining_last_claim)
+            .eq('last_claim_time', lastClaim)
             .select()
             .single();
         if (!locked) {
-            await updateUser(userId, { mining_last_claim: getCurrentTime() });
+            await updateUser(userId, { last_claim_time: serverNow, mining_last_claim: serverNow });
         }
-        await incrementKopra(userId, pending);
+        await incrementKopr(userId, pending);
         const freshUser = await getUser(userId);
         res.json({
             success: true,
@@ -589,6 +604,7 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
     try {
         const userId = req._userId;
         const { taskId, taskType, channel } = req.body;
+        if (!isValidId(taskId) || !['special', 'community', 'partner', 'verify'].includes(taskType)) return res.status(400).json({ error: 'Invalid task' });
         const user = await getUser(userId);
         if (!user) return res.status(404).json({ error: 'User not found' });
         if (taskType === 'special') {
@@ -617,7 +633,7 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
                 success: true,
                 user: freshUser,
                 reward: 0,
-                kopraReward: 0
+                koprReward: 0
             });
             return;
         }
@@ -646,10 +662,10 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
             }
         }
         let rewardGram = 0;
-        let rewardKopra = 0;
+        let rewardKopr = 0;
         if (task.category !== 'verify') {
             rewardGram = task.reward || APP_CONFIG.SOCIAL_TASK_REWARD || 0.001;
-            rewardKopra = task.reward_kopra || APP_CONFIG.TASK_REWARD_KOPRA || 100;
+            rewardKopr = task.reward_kopr || APP_CONFIG.TASK_REWARD_KOPR || 100;
         }
         await supabase.from('user_completed_tasks').insert([{
             user_id: userId,
@@ -662,8 +678,8 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
         if (rewardGram > 0) {
             await incrementGram(userId, rewardGram);
         }
-        if (rewardKopra > 0) {
-            await incrementKopra(userId, rewardKopra);
+        if (rewardKopr > 0) {
+            await incrementKopr(userId, rewardKopr);
         }
         await updateUser(userId, {
             total_tasks_completed: (user.total_tasks_completed || 0) + 1,
@@ -684,7 +700,7 @@ app.post('/api/complete-task', authenticate, strictLimiter, async (req, res) => 
             success: true,
             user: freshUser,
             reward: rewardGram,
-            kopraReward: rewardKopra
+            koprReward: rewardKopr
         });
     } catch (error) {
         logFailure('/api/complete-task', req._userId, req.ip, error);
@@ -733,11 +749,11 @@ app.post('/api/verify-account', authenticate, strictLimiter, async (req, res) =>
             const referrer = await getUser(user.referred_by);
             if (referrer) {
                 await incrementGram(referrer.id, APP_CONFIG.REFERRAL_REWARD_GRAM || 0.01);
-                await incrementKopra(referrer.id, APP_CONFIG.REFERRAL_REWARD_KOPRA || 500);
+                await incrementKopr(referrer.id, APP_CONFIG.REFERRAL_REWARD_KOPR || 500);
                 await updateUser(referrer.id, {
                     verified_referrals: (referrer.verified_referrals || 0) + 1,
                     referral_gram_earnings: (referrer.referral_gram_earnings || 0) + (APP_CONFIG.REFERRAL_REWARD_GRAM || 0.01),
-                    referral_kopra_earnings: (referrer.referral_kopra_earnings || 0) + (APP_CONFIG.REFERRAL_REWARD_KOPRA || 500)
+                    referral_kopr_earnings: (referrer.referral_kopr_earnings || 0) + (APP_CONFIG.REFERRAL_REWARD_KOPR || 500)
                 });
             }
         }
@@ -758,16 +774,16 @@ app.post('/api/claim-referral-earnings', authenticate, strictLimiter, async (req
         const user = await getUser(userId);
         if (!user) return res.status(404).json({ error: 'User not found' });
         const gramEarnings = user.referral_gram_earnings || 0;
-        const kopraEarnings = user.referral_kopra_earnings || 0;
-        if (gramEarnings < (APP_CONFIG.MIN_CLAIM_GRAM || 0.001) && kopraEarnings < 1) {
+        const koprEarnings = user.referral_kopr_earnings || 0;
+        if (gramEarnings < (APP_CONFIG.MIN_CLAIM_GRAM || 0.001) && koprEarnings < 1) {
             return res.status(400).json({ error: 'Minimum claim not reached' });
         }
         const { data: locked } = await supabase
             .from('users')
-            .update({ referral_gram_earnings: 0, referral_kopra_earnings: 0 })
+            .update({ referral_gram_earnings: 0, referral_kopr_earnings: 0 })
             .eq('id', userId)
             .eq('referral_gram_earnings', gramEarnings)
-            .eq('referral_kopra_earnings', kopraEarnings)
+            .eq('referral_kopr_earnings', koprEarnings)
             .select()
             .single();
         if (!locked) {
@@ -776,15 +792,15 @@ app.post('/api/claim-referral-earnings', authenticate, strictLimiter, async (req
         if (gramEarnings > 0) {
             await incrementGram(userId, gramEarnings);
         }
-        if (kopraEarnings > 0) {
-            await incrementKopra(userId, kopraEarnings);
+        if (koprEarnings > 0) {
+            await incrementKopr(userId, koprEarnings);
         }
         const freshUser = await getUser(userId);
         res.json({
             success: true,
             user: freshUser,
             claimed: gramEarnings,
-            claimedKopra: kopraEarnings
+            claimedKopr: koprEarnings
         });
     } catch (error) {
         logFailure('/api/claim-referral-earnings', req._userId, req.ip, error);
@@ -832,9 +848,9 @@ app.post('/api/claim-promo-code', authenticate, strictLimiter, async (req, res) 
         if (gramMatch) {
             await incrementGram(userId, parseFloat(gramMatch[1]));
         }
-        const kopraMatch = rewardText.match(/([0-9.]+)\s*KOPRA/i);
-        if (kopraMatch) {
-            await incrementKopra(userId, parseFloat(kopraMatch[1]));
+        const koprMatch = rewardText.match(/([0-9.]+)\s*KOPR/i);
+        if (koprMatch) {
+            await incrementKopr(userId, parseFloat(koprMatch[1]));
         }
         const freshUser = await getUser(userId);
         res.json({
@@ -905,13 +921,13 @@ app.post('/api/check-payment', authenticate, strictLimiter, async (req, res) => 
         let requiredAmount = 0;
         let total = 0;
         let reward = APP_CONFIG.SOCIAL_TASK_REWARD || 0.001;
-        let rewardKopra = APP_CONFIG.TASK_REWARD_KOPRA || 100;
+        let rewardKopr = APP_CONFIG.TASK_REWARD_KOPR || 100;
         let category = 'community';
         if (isVerify) {
             requiredAmount = APP_CONFIG.VERIFY_TASK_PRICE || 10;
             total = 1000000000;
             reward = 0;
-            rewardKopra = 0;
+            rewardKopr = 0;
             category = 'verify';
             if (!taskData.name || taskData.name.length < 5 || taskData.name.length > 20) {
                 return res.status(400).json({ error: 'Name must be 5-20 characters' });
@@ -972,7 +988,7 @@ app.post('/api/check-payment', authenticate, strictLimiter, async (req, res) => 
             total: total,
             total_completed: 0,
             reward: reward,
-            reward_kopra: rewardKopra,
+            reward_kopr: rewardKopr,
             verification: taskData.verification || false,
             status: 'active',
             created_at: getCurrentTime()
@@ -1127,7 +1143,7 @@ app.post('/api/withdraw-gram', authenticate, veryStrictLimiter, async (req, res)
 });
 const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, '0.0.0.0', () => {
-    console.log(`PIRATES DROP server running on port ${PORT}`);
+    console.log(`KOPR server running on port ${PORT}`);
 });
 server.on('error', (error) => {
     console.error('Server error:', error);
