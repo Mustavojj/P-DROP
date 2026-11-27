@@ -524,10 +524,10 @@ class App {
         return n.toFixed(2);
     }
     kopraIcon() {
-        return this.config.KOPRA_ICON || "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Cpolygon%20points%3D%2732%2C3%2057%2C17.5%2057%2C46.5%2032%2C61%207%2C46.5%207%2C17.5%27%20fill%3D%27%230A1440%27%20stroke%3D%27%23C9A227%27%20stroke-width%3D%273%27%2F%3E%3Cpolygon%20points%3D%2732%2C10%2050%2C20%2050%2C44%2032%2C54%2014%2C44%2014%2C20%27%20fill%3D%27%23122A8A%27%20opacity%3D%270.65%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Arial%27%20font-size%3D%2730%27%20font-weight%3D%27900%27%20text-anchor%3D%27middle%27%20fill%3D%27%237CC4FF%27%3EK%3C%2Ftext%3E%3C%2Fsvg%3E";
+        return this.config.KOPRA_ICON || 'https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png';
     }
     gramIcon() {
-        return this.config.GRAM_ICON || 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2729%27%20fill%3D%27%23C9A227%27%2F%3E%3Ccircle%20cx%3D%2732%27%20cy%3D%2732%27%20r%3D%2723%27%20fill%3D%27%23F6DE8A%27%2F%3E%3Ctext%20x%3D%2732%27%20y%3D%2743%27%20font-family%3D%27Arial%27%20font-size%3D%2730%27%20font-weight%3D%27900%27%20text-anchor%3D%27middle%27%20fill%3D%27%230A1440%27%3EG%3C%2Ftext%3E%3C%2Fsvg%3E';
+        return this.config.GRAM_ICON || 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp';
     }
     vibrate(type = 'light') {
         try {
@@ -544,7 +544,7 @@ class App {
         if (existing) existing.remove();
         const notif = document.createElement('div');
         notif.className = `notif ${type}`;
-        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-exclamation-triangle'}" style="color:${type === 'success' ? '#C9A227' : type === 'error' ? '#e74c3c' : '#f39c12'}"></i><div><strong>${title}</strong><div style="font-size:0.8rem;color:#ccc;">${message}</div></div>`;
+        notif.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-times-circle' : 'fa-exclamation-triangle'}" style="color:${type === 'success' ? '#4AA8FF' : type === 'error' ? '#e74c3c' : '#f39c12'}"></i><div><strong>${title}</strong><div style="font-size:0.8rem;color:#ccc;">${message}</div></div>`;
         document.body.appendChild(notif);
         setTimeout(() => notif.remove(), 3500);
     }
@@ -687,6 +687,8 @@ class App {
         if (gramEl) {
             const span = gramEl.querySelector('span');
             if (span) span.textContent = this.formatGram(this.gramBalance);
+            const gimg = gramEl.querySelector('img');
+            if (gimg) gimg.src = this.gramIcon();
         }
         const kopraEl = document.getElementById('header-kopra');
         if (kopraEl) {
@@ -1564,8 +1566,8 @@ class App {
         resize();
         window.addEventListener('resize', resize);
         const flakes = [];
-        for (let i = 0; i < 90; i++) {
-            flakes.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: 1 + Math.random() * 3.2, s: 0.4 + Math.random() * 1.1, o: 0.35 + Math.random() * 0.55, drift: Math.random() * Math.PI * 2 });
+        for (let i = 0; i < 45; i++) {
+            flakes.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: 0.8 + Math.random() * 2.1, s: 0.4 + Math.random() * 1.1, o: 0.18 + Math.random() * 0.32, drift: Math.random() * Math.PI * 2 });
         }
         const draw = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
