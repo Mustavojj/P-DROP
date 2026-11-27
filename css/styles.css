@@ -1,385 +1,250 @@
-:root{
-  --bg:#070A12;
-  --bg-2:#0A0E18;
-  --card:#10151F;
-  --card-2:#121826;
-  --card-3:#0D121C;
-  --surface:#151B2A;
-  --border:rgba(255,255,255,.07);
-  --border-2:rgba(255,255,255,.08);
-  --border-3:rgba(255,255,255,.06);
-  --text:#F2F4F8;
-  --text-2:#C7CDDB;
-  --muted:#8A93A8;
-  --muted-2:#5C657A;
-  --blue:#4AA8FF;
-  --blue-soft:#8FCBFF;
-  --gold:#E3C566;
-  --gold-soft:#F2DE9A;
-  --green:#2ECC8F;
-  --red:#FF6B6B;
-  --orange:#F39C12;
-  --radius:20px;
-  --radius-sm:14px;
-  --radius-md:12px;
+<!DOCTYPE html>
+<html lang="en">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
 }
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden}
-body{position:relative}
-a{color:var(--blue-soft);text-decoration:none}
-button{font-family:inherit;cursor:pointer}
-input{font-family:inherit}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>KOPR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles.css">
+<style>
+html,body{margin:0;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;padding:0;width:100%;height:100%;background:#050B1A;color:#F2F4F8;font-family:Inter,system-ui,Arial,sans-serif;overflow-x:hidden}
 #snow-canvas{position:fixed;inset:0;width:100vw;height:100dvh;pointer-events:none;z-index:60;opacity:.55}
-#app-loader{min-height:100dvh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--bg);padding:24px;text-align:center}
-#app-loader img{width:92px;height:92px;border-radius:22px;object-fit:cover}
-#app-loader div{color:var(--gold);font-weight:800;letter-spacing:2px;font-size:15px}
+#app-loader{min-height:100dvh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#050B1A;padding:24px;text-align:center}
+#app-loader img{width:110px;height:110px;object-fit:contain}
+#app-loader div{color:#4CC9FF;font-weight:900;letter-spacing:4px;font-size:22px}
 #app{width:100%;min-height:100dvh;padding-bottom:96px}
-.app-header{position:sticky;top:0;z-index:50;background:rgba(7,10,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 16px 12px}
-.header-top{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:480px;margin:0 auto}
-.user-info{display:flex;align-items:center;gap:10px;min-width:0}
-.avatar-wrapper{width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,.12)}
-.user-avatar{width:100%;height:100%;object-fit:cover}
-.user-details{min-width:0}
-.user-name{display:block;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
-.user-status{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);margin-top:2px}
-.user-status.verified{color:var(--green)}
-.user-status.verified i{color:var(--green)}
-.user-status.unverified i{color:var(--red)}
-.header-actions{display:flex;gap:6px;align-items:center}
-.header-balances{display:flex;gap:6px}
-.header-balance{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700}
-.header-balance img{width:18px;height:18px;border-radius:50%;object-fit:cover}
-.header-icon-btn,.lang-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border-2);background:var(--card);color:var(--text);display:flex;align-items:center;justify-content:center}
-.header-icon-btn img,.lang-btn img{width:20px;height:14px;border-radius:3px;object-fit:cover}
-.lang-menu{display:none;position:absolute;right:16px;top:56px;z-index:80;background:var(--card-2);border:1px solid var(--border-2);border-radius:14px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.4)}
-.lang-menu-content{display:flex;gap:6px}
-.lang-option{border:0;background:transparent;padding:6px;border-radius:10px}
-.lang-option img{width:28px;height:20px;border-radius:4px;object-fit:cover}
+.app-header{position:sticky;top:0;z-index:50;background:#070D1F;border-top:1px solid rgba(76,201,255,.35);border-bottom:1px solid rgba(76,201,255,.18);padding:8px 10px;margin:0}
 main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px}
-.page{display:none;width:100%}
-.page.active{display:block}
-.section-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 2px 10px}
-.section-header h3{margin:0;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
-.section-header h3 i{color:var(--blue);font-size:14px}
-.promo-card,.verify-card,.team-card,.referral-earnings-card,.wallet-card,.withdraw-card,.mining-hero,.wallet-wide-card,.mining-example,.mining-steps,.team-link-box{position:relative;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:12px}
-.promo-card:before,.verify-card:before,.team-card:before,.mining-hero:before,.wallet-wide-card:before,.withdraw-card:before,.referral-earnings-card:before{content:"";position:absolute;top:0;left:20px;right:20px;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);border-radius:999px;opacity:.28;pointer-events:none}
-.promo-header{margin-bottom:12px}
-.promo-title{font-size:13px;font-weight:700;color:var(--text-2);display:flex;align-items:center;gap:8px}
-.promo-title i{color:var(--blue)}
-.promo-input-group{display:flex;gap:8px}
-.form-group{margin-bottom:12px}
-.form-label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:7px}
-.form-input,.royal-input,.green-input{width:100%;background:var(--bg-2);border:1px solid var(--border-2);border-radius:12px;padding:12px 13px;color:var(--text);font-size:14px;outline:none}
-.form-input:focus,.royal-input:focus{border-color:var(--blue)}
-.form-input::placeholder{color:var(--muted-2)}
-.input-wrapper{display:flex;gap:8px;align-items:center}
-.input-wrapper .form-input{flex:1}
-.royal-btn,.promo-submit-btn,.claim-earnings-btn,.mining-claim-btn,.withdraw-confirm-btn,.copy-btn,.verify-btn,.green-btn,.full-width-btn{background:var(--blue);color:#fff;border:0;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:700}
-.royal-btn:disabled,.mining-claim-btn:disabled,.verify-btn:disabled{opacity:.45;cursor:not-allowed}
-.mining-claim-btn{background:var(--gold);color:#1A1405}
-.promo-submit-btn{padding:12px 16px;white-space:nowrap}
-.promo-submit-btn.active{background:var(--blue)}
-.verify-card h3{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px}
-.verify-card h3 i{color:var(--gold)}
-.verify-tasks{display:flex;flex-direction:column;gap:8px}
-.verify-task-item,.task-card-community,.my-task-item,.history-item{display:flex;align-items:center;gap:12px;background:var(--card-3);border:1px solid var(--border-3);border-radius:16px;padding:12px 13px;margin-bottom:8px}
-.task-icon{width:36px;height:36px;flex-shrink:0;border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:15px}
-.task-icon img{width:22px;height:22px;border-radius:50%;object-fit:cover}
-.task-info{flex:1;min-width:0}
-.task-info h4{margin:0;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.task-info p{margin:4px 0 0;font-size:12px;color:var(--muted)}
-.task-reward,.reward-badge,.kopra-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(74,168,255,.1);border:1px solid rgba(74,168,255,.18);color:var(--blue-soft);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;white-space:nowrap}
-.task-reward img,.reward-badge img,.kopra-badge img{width:16px;height:16px;border-radius:50%;object-fit:cover}
-.task-btn,.start-btn,.claim-btn,.add-btn,.verify-add-btn,.my-tasks-btn,.action-btn{background:var(--gold);color:#1A1405;border:0;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;white-space:nowrap}
-.task-btn.done,.start-btn.done{background:#1A2333;color:var(--muted);border:1px solid var(--border-2)}
-.add-btn,.my-tasks-btn{width:36px;height:36px;padding:0;border-radius:50%;background:var(--surface);color:var(--text-2);display:flex;align-items:center;justify-content:center}
-.verify-add-box{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-3)}
-.verify-add-price{font-size:13px;font-weight:700;color:var(--gold)}
-.verify-add-btn{background:var(--surface);color:var(--text);border:1px solid var(--border-2);border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700}
-.verify-btn{width:100%;margin-top:12px;background:var(--gold);color:#1A1405}
-.tasks-list{display:flex;flex-direction:column;gap:8px}
-.task-header{display:flex;align-items:center;gap:10px}
-.task-loading{text-align:center;color:var(--muted);padding:18px;font-size:13px}
-.no-data{text-align:center;color:var(--muted);padding:20px;font-size:13px}
-.team-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.team-title i{color:var(--blue)}
-.earnings-highlight{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.earning-highlight-item{display:flex;align-items:center;gap:10px;background:var(--card-3);border:1px solid var(--border-3);border-radius:14px;padding:12px}
-.highlight-icon{width:36px;height:36px;border-radius:10px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--blue);flex-shrink:0}
-.highlight-icon img{width:22px;height:22px;border-radius:50%;object-fit:cover}
-.highlight-info{flex:1;min-width:0}
-.highlight-label{font-size:12px;color:var(--muted)}
-.highlight-value{font-size:14px;font-weight:700;margin-top:2px}
-.team-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.team-stat-card{background:var(--card-3);border:1px solid var(--border-3);border-radius:14px;padding:14px;text-align:center}
-.stat-number{font-size:22px;font-weight:800}
-.stat-label{font-size:12px;color:var(--muted);margin-top:4px}
-.team-link-box{background:var(--bg-2);border:1px dashed rgba(255,255,255,.14);border-radius:12px;padding:12px;font-size:12px;word-break:break-all;color:var(--text-2);margin-bottom:10px}
-.copy-btn{width:100%;background:var(--surface);color:var(--text);border:1px solid var(--border-2);border-radius:12px;padding:11px;font-weight:700}
-.earnings-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.earnings-title i{color:var(--gold)}
-.referral-earnings-row{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
-.referral-earning-line{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700}
-.referral-earning-line img{width:20px;height:20px;border-radius:50%;object-fit:cover}
-.claim-earnings-btn{width:100%}
-.mining-hero{text-align:center;padding:20px 16px}
-.mining-logo{width:64px;height:64px;border-radius:18px;object-fit:cover;margin-bottom:8px}
-.mining-hero-title{font-size:16px;font-weight:800;letter-spacing:1px}
-.mining-hero-sub{font-size:12px;color:var(--muted);margin:4px 0 14px}
-.mining-balance-big{display:flex;align-items:center;justify-content:center;gap:10px;font-size:34px;font-weight:800;letter-spacing:-.5px}
-.mining-balance-big img{width:30px;height:30px;border-radius:50%;object-fit:cover}
-.mining-subtitle{font-size:12px;color:var(--muted);margin-top:4px}
-.mining-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:16px 0 12px}
-.mining-stat{background:var(--card-3);border:1px solid var(--border-3);border-radius:14px;padding:12px 6px}
-.mining-stat-value{display:flex;align-items:center;justify-content:center;gap:6px;font-size:15px;font-weight:800}
-.mining-stat-value img{width:18px;height:18px;border-radius:50%;object-fit:cover}
-.mining-stat-label{font-size:11px;color:var(--muted);margin-top:5px}
-.mining-progress{height:6px;background:var(--bg-2);border-radius:999px;overflow:hidden;margin:6px 0 8px}
-.mining-progress-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-soft));border-radius:999px}
-.mining-hint{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5}
-.mining-example{text-align:center}
-.mining-example-title{font-size:13px;font-weight:700;margin-bottom:6px}
-.mining-example-text{font-size:13px;color:var(--text-2);line-height:1.5}
-.mining-steps{display:flex;flex-direction:column;gap:8px}
-.mining-step{display:flex;gap:10px;align-items:flex-start;background:var(--card-3);border:1px solid var(--border-3);border-radius:14px;padding:12px}
-.mining-step p{margin:0;font-size:13px;color:var(--text-2);line-height:1.5}
-.mining-step-num{width:24px;height:24px;flex-shrink:0;border-radius:50%;background:var(--surface);color:var(--blue-soft);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
-.wallet-wide-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
-.wallet-wide-card{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;position:relative}
-.wallet-wide-icon img{width:38px;height:38px;border-radius:50%;object-fit:cover}
-.wallet-wide-info{flex:1;min-width:0}
-.wallet-wide-name{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.5px}
-.wallet-wide-amount{font-size:22px;font-weight:800;margin-top:3px}
-.wallet-wide-usd{font-size:13px;color:var(--muted);font-weight:600}
-.wallet-card{padding:14px 16px}
-.wallet-balance-item{display:flex;align-items:center;gap:10px}
-.wallet-balance-icon img{width:28px;height:28px;border-radius:50%;object-fit:cover}
-.wallet-balance-label{font-size:13px;color:var(--muted);flex:1}
-.wallet-balance-amount{font-size:15px;font-weight:800}
-.withdraw-preview{font-size:12px;color:var(--muted);background:var(--bg-2);border-radius:10px;padding:10px;margin:10px 0}
-.withdraw-confirm-btn{width:100%}
-.locked-card{opacity:.75}
-.coming-soon-badge{display:inline-block;background:rgba(227,197,102,.14);color:var(--gold);border:1px solid rgba(227,197,102,.25);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:700;margin-bottom:10px}
-.locked-note{font-size:12px;color:var(--muted);margin-top:8px}
-.history-list{display:flex;flex-direction:column;gap:8px}
-.history-amount{display:flex;align-items:center;gap:7px;font-weight:700;font-size:14px}
-.history-amount img{width:18px;height:18px;border-radius:50%;object-fit:cover}
-.history-explorer-link{font-size:11px;color:var(--blue-soft)}
-.history-status{font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--surface);color:var(--text-2)}
-.history-status.pending{color:var(--gold)}
-.history-status.completed,.history-status.approved{color:var(--green)}
-.history-status.rejected{color:var(--red)}
-.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:flex;justify-content:space-between;gap:4px;background:rgba(16,21,31,.97);border:1px solid var(--border-2);border-radius:20px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.35)}
-.nav-btn{flex:1;border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border-radius:14px;font-size:11px;font-weight:600;position:relative}
-.nav-btn i{font-size:18px}
-.nav-btn.active{color:var(--blue-soft);background:rgba(74,168,255,.1)}
-.nav-btn.active:after{content:"";width:4px;height:4px;border-radius:50%;background:var(--gold);position:absolute;bottom:3px}
-.modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.62);backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
-.modal[style*="flex"]{display:flex}
-.modal-content{width:100%;max-width:480px;background:var(--card-2);border:1px solid var(--border-2);border-radius:20px 20px 0 0;padding:18px;max-height:86vh;overflow:auto}
-.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.modal-header h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px}
-.modal-close{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:var(--surface);color:var(--text);font-size:18px;line-height:1}
-.modal-body{display:flex;flex-direction:column;gap:10px}
-.copy-box{background:var(--bg-2);border:1px solid var(--border-2);border-radius:12px;padding:12px;font-size:12px;word-break:break-all;color:var(--text-2)}
-.cost-box{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:12px}
-.cost-row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;color:var(--text-2)}
-.options-row,.verif-option{display:flex;flex-wrap:wrap;gap:8px}
-.total-option,.verif-option button,.verify-verif-option{border:1px solid rgba(255,255,255,.1);background:var(--surface);color:var(--text);border-radius:999px;padding:8px 14px;font-size:12px;font-weight:600}
-.total-option.selected,.verif-option button.selected{border-color:var(--blue);color:var(--blue-soft);background:rgba(74,168,255,.1)}
-.my-task-delete{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--red);border-radius:999px;padding:6px 12px;font-size:12px}
-.notif{position:fixed;left:16px;right:16px;bottom:96px;z-index:300;max-width:448px;margin:0 auto;background:var(--card-2);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;box-shadow:0 12px 32px rgba(0,0,0,.4)}
-.notif strong{font-size:13px}
-.notif div{font-size:12px;color:var(--text-2);line-height:1.4}
-@media(max-width:360px){.mining-stats{grid-template-columns:1fr 1fr}.header-balance span{font-size:11px}.user-name{max-width:100px}}
-.gram-icon-header{width:18px;height:18px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.kopra-card{border-color:rgba(74,168,255,.16)}
-.kopra-line{color:var(--blue-soft)}
-.my-task-item{flex-direction:column;align-items:stretch;gap:8px}
-.my-task-name{margin:0;font-size:14px;font-weight:600}
-.my-task-info{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.my-task-stat{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--text-2);font-weight:600}
-.my-task-stat img{width:15px;height:15px;border-radius:50%;object-fit:cover}
-.notif.success{border-color:rgba(46,204,143,.25)}
-.notif.error{border-color:rgba(255,107,107,.3)}
-.royal-modal,.royal-header{background:var(--card-2);border-color:var(--border-2)}
-*{ -webkit-tap-highlight-color:transparent; -webkit-touch-callout:none; }
-html,body{ -webkit-touch-callout:none; }
-body{ -webkit-user-select:none; user-select:none; }
-input,textarea{ -webkit-user-select:text; user-select:text; -webkit-touch-callout:default; }
-img{ -webkit-touch-callout:none; -webkit-user-drag:none; user-select:none; pointer-events:none; }
-button, a{ -webkit-touch-callout:none; }
-button:active, a:active, .nav-btn:active{ background:inherit; outline:none; box-shadow:none; }
-button:focus, a:focus, input:focus{ outline:none; }
-.section-header{ margin:22px 2px 12px; }
-.section-header h3, .section-title{ margin:0; font-size:19px; font-weight:900; letter-spacing:.2px; line-height:1.25; display:flex; align-items:center; gap:9px; color:var(--text); }
-.section-header h3 i{ font-size:17px; color:var(--gold); }
-.glass-card, .glass-frame{ position:relative; overflow:hidden; background:linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.02) 55%, rgba(255,255,255,.04)); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.14); }
-.glass-card:before, .glass-frame:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.22), transparent); transform:skewX(-18deg); pointer-events:none; z-index:0; }
-.glass-card > *, .glass-frame > *{ position:relative; z-index:1; }
-.promo-card, .verify-card, .team-card, .referral-earnings-card, .wallet-card, .withdraw-card, .wallet-wide-card, .mining-card, .task-card-community, .verify-task-item{ position:relative; overflow:hidden; }
-.promo-card:before, .verify-card:before, .team-card:before, .wallet-wide-card:before, .withdraw-card:before, .referral-earnings-card:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.16), transparent); transform:skewX(-18deg); pointer-events:none; z-index:0; }
-.user-status{ display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:999px; background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03)); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.16); position:relative; overflow:hidden; font-weight:800; font-size:11px; }
-.user-status:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.35), transparent); transform:skewX(-18deg); }
-.user-status.verified{ color:var(--green); border-color:rgba(46,204,143,.35); }
-.user-status.unverified{ color:#FF9B9B; border-color:rgba(255,107,107,.3); }
-.header-balance{ position:relative; overflow:hidden; background:linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.02)); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.14); }
-.header-balance:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.25), transparent); transform:skewX(-18deg); }
-.task-reward, .reward-badge, .kopra-badge{ position:relative; overflow:hidden; background:linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.02)); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.14); color:var(--text); }
-.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .green-btn, .full-width-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .my-tasks-btn, .action-btn, .promo-submit-btn.active{ background:linear-gradient(135deg,#FFF3B0 0%, #F6DE8A 22%, #E3C566 48%, #C9A227 72%, #F6DE8A 100%) !important; color:#1A1405 !important; border:1px solid rgba(255,255,255,.55) !important; box-shadow:0 6px 18px rgba(227,197,102,.28), inset 0 1px 0 rgba(255,255,255,.7), inset 0 -1px 0 rgba(0,0,0,.12) !important; position:relative; overflow:hidden; }
-.royal-btn:before, .promo-submit-btn:before, .claim-earnings-btn:before, .mining-claim-btn:before, .withdraw-confirm-btn:before, .copy-btn:before, .verify-btn:before, .task-btn:before{ content:""; position:absolute; top:0; left:-30%; width:45%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.75), transparent); transform:skewX(-18deg); pointer-events:none; }
-.royal-btn:active, .task-btn:active, .promo-submit-btn:active, .copy-btn:active, .verify-btn:active{ transform:scale(.98); filter:brightness(1.05); background:linear-gradient(135deg,#FFF3B0,#E3C566,#C9A227) !important; }
-.task-btn.done, .start-btn.done{ background:#1A2333 !important; color:#8A93A8 !important; border:1px solid var(--border) !important; box-shadow:none !important; }
-.add-btn, .my-tasks-btn{ width:38px; height:38px; padding:0; border-radius:50%; }
-.verify-add-card{ display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:13px 14px; color:var(--text); margin-top:12px; position:relative; overflow:hidden; }
-.verify-add-card:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.18), transparent); transform:skewX(-18deg); }
-.verify-add-card .task-icon{ background:linear-gradient(135deg,#FFF3B0,#E3C566,#C9A227); color:#1A1405; }
-.verify-add-card .verify-add-text{ flex:1; font-size:14px; font-weight:800; }
-.verify-add-card .verify-add-arrow{ width:32px; height:32px; border-radius:999px; background:linear-gradient(135deg,#FFF3B0,#E3C566,#C9A227); color:#1A1405; display:flex; align-items:center; justify-content:center; font-size:13px; }
-.notif{ background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(18,24,38,.95)); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.16); border-radius:16px; padding:13px 14px; box-shadow:0 16px 40px rgba(0,0,0,.5); overflow:hidden; position:fixed; animation:notifIn .28s ease; }
-.notif:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.22), transparent); transform:skewX(-18deg); }
-.notif strong{ font-size:14px; font-weight:900; }
-.notif div{ font-size:12px; color:var(--text-2); }
-@keyframes notifIn{ from{ transform:translateY(10px); opacity:0; } to{ transform:translateY(0); opacity:1; } }
-
-.mining-card{ background:linear-gradient(160deg, rgba(255,255,255,.09), rgba(16,21,31,.95) 55%); border:1px solid rgba(255,255,255,.14); border-radius:22px; padding:20px 16px; text-align:center; position:relative; overflow:hidden; margin-bottom:12px; }
-.mining-card:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.2), transparent); transform:skewX(-18deg); }
-.mining-card.active{ border-color:rgba(227,197,102,.4); }
-.mining-logo-wrapper{ width:76px; height:76px; margin:0 auto 10px; border-radius:22px; background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.16); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-.mining-logo-wrapper.active{ box-shadow:0 0 0 3px rgba(227,197,102,.18), 0 10px 28px rgba(227,197,102,.22); }
-.mining-logo-wrapper.inactive{ opacity:.7; }
-.mining-logo-wrapper .mining-logo{ width:58px; height:58px; border-radius:16px; object-fit:cover; }
-.miner-name-display{ font-size:17px; font-weight:900; letter-spacing:.2px; }
-.miner-status{ display:inline-flex; align-items:center; gap:7px; margin:7px 0 14px; padding:6px 12px; border-radius:999px; font-size:12px; font-weight:800; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); }
-.miner-status.active{ color:var(--green); border-color:rgba(46,204,143,.35); }
-.miner-status.inactive{ color:var(--muted); }
-.miner-status .dot{ width:8px; height:8px; border-radius:50%; background:currentColor; box-shadow:0 0 10px currentColor; }
-.speed-card{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin:0 0 14px; }
-.speed-item{ background:rgba(10,14,24,.7); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:11px 6px; }
-.speed-label{ font-size:11px; color:var(--muted); font-weight:700; }
-.speed-value{ font-size:13px; font-weight:900; margin-top:4px; }
-.mining-claim-btn{ width:100%; }
-.mining-pending-line{ font-size:12px; color:var(--text-2); margin:8px 0 0; }
-
-.referral-row{ display:flex; align-items:center; gap:11px; background:rgba(10,14,24,.65); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:12px; margin-bottom:8px; position:relative; overflow:hidden; }
-.referral-row:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.14), transparent); transform:skewX(-18deg); }
-.referral-row img{ width:28px; height:28px; border-radius:50%; object-fit:cover; flex-shrink:0; }
-.referral-row .pct{ width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#FFF3B0,#E3C566,#C9A227); color:#1A1405; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
-.referral-row span{ font-size:14px; font-weight:700; line-height:1.35; }
-
-.referral-earn-card{ display:flex; align-items:center; gap:12px; background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:14px; margin-bottom:10px; position:relative; overflow:hidden; }
-.referral-earn-card:before{ content:""; position:absolute; top:0; left:-30%; width:55%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.16), transparent); transform:skewX(-18deg); }
-.referral-earn-card img{ width:38px; height:38px; border-radius:50%; object-fit:cover; }
-.referral-earn-info{ flex:1; min-width:0; }
-.referral-earn-name{ font-size:11px; color:var(--muted); font-weight:800; letter-spacing:.5px; }
-.referral-earn-amount{ font-size:20px; font-weight:900; margin-top:2px; }
-.referral-earn-claim{ padding:9px 18px; font-size:13px; border-radius:999px; white-space:nowrap; }
-
-.withdraw-locked{ position:relative; filter:blur(1.2px) saturate(.7); opacity:.78; }
-.withdraw-locked-overlay{ position:absolute; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:rgba(7,10,18,.38); backdrop-filter:blur(1px); border-radius:20px; filter:none; }
-.withdraw-locked-overlay .lock-icon{ width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,#FFF3B0,#E3C566,#C9A227); color:#1A1405; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 10px 28px rgba(0,0,0,.4); }
-.withdraw-locked-overlay span{ font-size:13px; font-weight:900; letter-spacing:1px; background:#0A0E18; border:1px solid rgba(255,255,255,.16); padding:6px 14px; border-radius:999px; }
-.wallet-balance-compact{ display:flex; align-items:center; gap:10px; background:rgba(10,14,24,.6); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:11px 12px; margin-bottom:12px; }
-.wallet-balance-compact img{ width:28px; height:28px; border-radius:50%; object-fit:cover; }
-.wallet-balance-compact .wb-info{ flex:1; }
-.wallet-balance-compact .wb-label{ font-size:11px; color:var(--muted); font-weight:800; letter-spacing:.5px; }
-.wallet-balance-compact .wb-amount{ font-size:17px; font-weight:900; }
-.wallet-balance-compact .wb-usd{ font-size:12px; color:var(--muted); font-weight:700; }
-
-:root{ --bg:#121214; --bg-2:#121214; --card:#1E1E22; --card-2:#242429; --card-3:#1A1A1E; --surface:#242429; --border:#2A2A30; --border-2:#2E2E35; --border-3:#2A2A30; --text:#FFFFFF; --text-2:#D1D1D6; --muted:#8A8A92; --muted-2:#6E6E76; --blue:#4AA8FF; --blue-soft:#8FCBFF; --gold:#FFC107; --gold-soft:#FFD54F; --gold-2:#FF8A00; --green:#2ECC8F; --red:#FF6B6B; --orange:#FF8A00; --radius:20px; --radius-sm:14px; --radius-md:16px; }
-body{ background:#121214; color:#FFFFFF; }
-.glass-card:before, .glass-frame:before, .promo-card:before, .verify-card:before, .team-card:before, .wallet-wide-card:before, .withdraw-card:before, .referral-earnings-card:before, .royal-btn:before, .promo-submit-btn:before, .claim-earnings-btn:before, .mining-claim-btn:before, .withdraw-confirm-btn:before, .copy-btn:before, .verify-btn:before, .task-btn:before, .referral-row:before, .referral-earn-card:before, .verify-add-card:before, .mining-card:before{ display:none !important; }
-.glass-card, .glass-frame{ background:#1E1E22; border:1px solid #2A2A30; backdrop-filter:none; }
-.app-header{ background:#121214; }
-.app-header .header-top{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; margin:12px 12px 0; padding:12px; }
-.avatar-wrapper{ border:2px solid #FFC107; border-radius:50%; }
-.avatar-wrapper img{ border-radius:50%; }
-.user-name{ color:#FFFFFF; font-weight:800; font-size:16px; }
-.user-status{ background:#2A2A30; border:1px solid #2A2A30; color:#D1D1D6; }
-.user-status.verified{ color:#2ECC8F; }
-.header-balance{ background:#2A2A30; border:1px solid #2A2A30; color:#FFC107; font-weight:800; }
-.header-balance:before{ display:none; }
-.section-header{ margin:16px 0 10px; }
-.section-header h3, .section-title{ color:#FFC107; font-size:16px; font-weight:900; letter-spacing:1px; text-transform:uppercase; justify-content:center; text-align:center; }
-.section-header h3 i{ color:#FFC107; }
-.hunter-banner{ background:#1E1E22; border:1px solid #2A2A30; border-radius:16px; padding:14px; text-align:center; color:#FFC107; font-size:16px; font-weight:900; letter-spacing:1px; text-transform:uppercase; display:flex; align-items:center; justify-content:center; gap:9px; margin:16px 0 10px; }
-.hunter-banner i{ color:#FFC107; }
-.promo-card{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; padding:16px; }
-.promo-title{ color:#FFC107; font-weight:900; letter-spacing:.5px; }
-.promo-input-group input{ background:#121214; border:1px solid #2A2A30; border-radius:999px; color:#FFFFFF; }
-.promo-input-group input::placeholder{ color:#6E6E76; }
-.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .my-tasks-btn, .action-btn, .referral-earn-claim{ background:linear-gradient(135deg,#FFD54F 0%, #FFB300 45%, #FF8A00 100%) !important; color:#1A1200 !important; border:none !important; border-radius:999px !important; font-weight:800 !important; box-shadow:0 8px 20px rgba(255,165,0,.28) !important; }
-.royal-btn:active, .task-btn:active, .promo-submit-btn:active{ transform:scale(.97); filter:brightness(1.03); }
-.task-btn.done{ background:#2A2A30 !important; color:#8A8A92 !important; box-shadow:none !important; }
-.verify-card{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; padding:16px; }
-.verify-add-card{ background:linear-gradient(135deg,#FFD54F,#FFB300,#FF8A00) !important; color:#1A1200 !important; border-radius:999px !important; padding:14px !important; justify-content:center; font-weight:900; }
-.verify-add-card .task-icon{ display:none; }
-.verify-add-card .verify-add-text{ flex:none; text-align:center; }
-.verify-add-card .verify-add-arrow{ display:none; }
-.task-card-community, .verify-task-item{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; padding:14px; margin-bottom:10px; }
-.task-icon{ width:52px; height:52px; border-radius:50%; background:#2E2A14; color:#FFC107; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-.task-icon img{ display:none; }
-.task-info h4{ color:#FFFFFF; font-size:15px; font-weight:700; }
-.task-reward, .reward-badge, .kopra-badge{ background:#2A2A30; border:none; color:#FFC107; border-radius:999px; padding:4px 10px; font-size:12px; font-weight:800; }
-.reward-badge img, .kopra-badge img{ width:14px; height:14px; }
-.mining-card{ background:#1E1E22; border:1px solid #2A2A30; border-radius:24px; padding:24px 16px; text-align:center; }
-.mining-logo-wrapper{ width:72px; height:72px; border-radius:50%; background:#2A2A2A; border:1px solid #2E2E35; margin:0 auto 14px; }
-.mining-logo-wrapper .mining-logo{ width:56px; height:56px; border-radius:50%; }
-.mining-big-number{ font-size:36px; font-weight:900; color:#FFC107; letter-spacing:1px; line-height:1.1; }
-.mining-ready-label{ font-size:12px; letter-spacing:2px; color:#8A8A92; font-weight:800; margin:6px 0 10px; text-transform:uppercase; }
-.miner-status{ background:#2A2A30; border:1px solid #2A2A30; color:#8A8A92; }
-.miner-status.active{ color:#2ECC8F; }
-.speed-card{ gap:8px; }
-.speed-item{ background:#121214; border:1px solid #2A2A30; border-radius:14px; padding:12px 6px; }
-.speed-label{ color:#8A8A92; font-size:11px; letter-spacing:1px; text-transform:uppercase; }
-.speed-value{ color:#FFC107; font-size:14px; }
-.mining-claim-btn{ padding:16px; font-size:15px; font-weight:900; letter-spacing:.5px; }
-.team-card, .referral-earnings-card, .withdraw-card, .wallet-wide-card, .wallet-card{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; }
-.referral-row{ background:#121214; border:1px solid #2A2A30; border-radius:14px; }
-.referral-row span{ color:#FFFFFF; }
-.referral-row .pct{ background:linear-gradient(135deg,#FFD54F,#FF8A00); color:#1A1200; }
-.referral-earn-card{ background:#121214; border:1px solid #2A2A30; border-radius:18px; }
-.referral-earn-name{ color:#8A8A92; }
-.referral-earn-amount{ color:#FFFFFF; }
-.wallet-balance-compact{ background:#121214; border:1px solid #2A2A30; border-radius:14px; }
-.hunter-tabs{ display:flex; background:#1E1E22; border:1px solid #2A2A30; border-radius:999px; padding:4px; gap:4px; margin:10px 0; }
-.hunter-tab{ flex:1; background:transparent; border:none; color:#8A8A92; font-size:13px; font-weight:700; padding:10px 6px; border-radius:999px; }
-.hunter-tab.active{ background:linear-gradient(135deg,#FFD54F,#FFB300,#FF8A00); color:#1A1200; font-weight:900; }
-.hunter-tab .tab-count{ background:#121214; color:#FFC107; font-size:11px; padding:2px 7px; border-radius:999px; margin-left:5px; }
-.hunter-tab.active .tab-count{ background:#1A1200; color:#FFC107; }
-.hunter-actions{ display:flex; gap:10px; margin:12px 0; }
-.hunter-actions .hunter-add{ flex:1; background:linear-gradient(135deg,#FFD54F,#FFB300,#FF8A00); color:#1A1200; border:none; border-radius:999px; padding:13px; font-weight:900; font-size:14px; }
-.hunter-actions .hunter-my{ flex:1; background:#2E2A14; color:#FFC107; border:1px solid #3A2E0A; border-radius:999px; padding:13px; font-weight:900; font-size:14px; }
-.bottom-nav{ position:fixed; left:12px; right:12px; bottom:12px; background:#1E1E22; border:1px solid #2A2A30; border-radius:999px; padding:6px; box-shadow:0 12px 30px rgba(0,0,0,.5); }
-.nav-btn{ background:transparent; color:#8A8A92; border-radius:999px; padding:10px 6px; }
-.nav-btn.active{ background:linear-gradient(135deg,#FFD54F,#FFB300,#FF8A00); color:#1A1200; }
-.nav-btn i{ font-size:18px; }
-.notif{ background:#1E1E22; border:1px solid #2A2A30; }
-.form-input, .royal-input{ background:#121214; border:1px solid #2A2A30; color:#FFFFFF; border-radius:999px; }
-.form-input::placeholder{ color:#6E6E76; }
-
-:root{ --gold:#FFCC00; --gold-soft:#FFE600; --gold-2:#FF8A00; }
-button:disabled, .royal-btn:disabled, .promo-submit-btn:disabled, .task-btn:disabled, .mining-claim-btn:disabled, .withdraw-confirm-btn:disabled, .copy-btn:disabled, .verify-btn:disabled, .referral-earn-claim:disabled{ background:#2A2A30 !important; color:#6E6E76 !important; opacity:.38 !important; filter:grayscale(1) brightness(.7) !important; box-shadow:none !important; border:1px solid #2A2A30 !important; cursor:not-allowed; }
-.task-btn.done{ background:#2A2A30 !important; color:#6E6E76 !important; opacity:.38 !important; filter:grayscale(1) brightness(.7) !important; box-shadow:none !important; }
-.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .referral-earn-claim, .hunter-add{ background:linear-gradient(135deg,#FFE600 0%, #FFC107 40%, #FF8A00 100%) !important; color:#1A1200 !important; box-shadow:0 8px 22px rgba(255,180,0,.45), inset 0 1px 0 rgba(255,255,255,.65) !important; }
-.hunter-banner, .section-title, .promo-title{ background:linear-gradient(135deg,#FFE600,#FFC107,#FF8A00); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; filter:drop-shadow(0 0 12px rgba(255,200,0,.35)); font-weight:900; }
-.hunter-banner{ background-color:#1E1E22; background-image:none; -webkit-text-fill-color:#FFC107; color:#FFC107; border:1px solid rgba(255,200,0,.35); box-shadow:0 0 0 1px rgba(255,200,0,.12), 0 10px 30px rgba(255,165,0,.18), inset 0 1px 0 rgba(255,255,255,.18); text-shadow:0 0 18px rgba(255,200,0,.45); }
-.hunter-banner .banner-logo{ -webkit-text-fill-color:initial; }
-.banner-logo{ width:26px; height:26px; border-radius:50%; object-fit:cover; flex-shrink:0; box-shadow:0 0 12px rgba(255,200,0,.5); background:#1A1A1E; }
-.glass-card, .verify-card, .team-card, .referral-earnings-card, .withdraw-card, .mining-card, .promo-card, .task-card-community, .verify-task-item, .wallet-wide-card, .wallet-card{ background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03) 55%, rgba(255,255,255,.06)) !important; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.18) !important; box-shadow:0 12px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18); position:relative; overflow:hidden; }
-.glass-card:before, .verify-card:before, .team-card:before, .referral-earnings-card:before, .withdraw-card:before, .mining-card:before, .promo-card:before, .task-card-community:before, .verify-task-item:before{ content:""; display:block !important; position:absolute; top:0; left:-30%; width:50%; height:100%; background:linear-gradient(105deg, transparent, rgba(255,255,255,.28), transparent); transform:skewX(-18deg); pointer-events:none; z-index:0; animation:shineMove 3.5s ease-in-out infinite; }
-.glass-card > *, .verify-card > *, .team-card > *, .referral-earnings-card > *, .withdraw-card > *, .mining-card > *, .promo-card > *, .task-card-community > *, .verify-task-item > *{ position:relative; z-index:1; }
-@keyframes shineMove{ 0%{ left:-30%; } 60%{ left:130%; } 100%{ left:130%; } }
-.user-status{ background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.03)); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.2); box-shadow:inset 0 1px 0 rgba(255,255,255,.2); }
-.header-balance{ background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03)); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.18); }
-.task-icon{ background:#1A1A1E; border:1px solid rgba(255,200,0,.4); box-shadow:0 0 14px rgba(255,200,0,.3); overflow:hidden; }
-.task-icon img{ display:block !important; width:100% !important; height:100% !important; object-fit:cover; border-radius:50%; }
-.verify-add-card .task-icon{ display:flex; }
-.verify-add-card .task-icon img{ display:block !important; width:100%; height:100%; object-fit:cover; }
-.mining-big-number{ background:linear-gradient(135deg,#FFE600,#FFC107,#FF8A00); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; filter:drop-shadow(0 0 14px rgba(255,200,0,.45)); }
-.speed-value{ color:#FFCC00; text-shadow:0 0 12px rgba(255,200,0,.45); }
-.reward-badge img, .kopra-badge img{ width:16px !important; height:16px !important; border-radius:50%; box-shadow:0 0 8px rgba(255,200,0,.4); }
-.mining-logo-wrapper{ border:1px solid rgba(255,200,0,.45); box-shadow:0 0 22px rgba(255,200,0,.35); }
-.mining-logo-wrapper .mining-logo{ display:block !important; }
-.hunter-tab.active{ background:linear-gradient(135deg,#FFE600,#FFC107,#FF8A00) !important; box-shadow:0 6px 18px rgba(255,180,0,.45); }
-.nav-btn.active{ background:linear-gradient(135deg,#FFE600,#FFC107,#FF8A00) !important; box-shadow:0 6px 18px rgba(255,180,0,.4); }
+.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:flex;justify-content:space-between;gap:4px;background:#0A1226;border:1px solid rgba(76,201,255,.22);border-radius:20px;padding:6px}
+</style>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false" oncopy="return false" oncut="return false" onpaste="return false">
+<canvas id="snow-canvas"></canvas>
+<div id="app-loader">
+    <img draggable="false" oncontextmenu="return false" src="https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png">
+    <div>KOPR</div>
+</div>
+<div id="ban-modal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width:320px;width:90%;margin:0 auto;position:relative;background:#121826;border-radius:24px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 40px rgba(0,0,0,0.8);text-align:center;padding:30px 24px;">
+        <div style="font-size:60px;margin-bottom:16px;">🚫</div>
+        <h3 style="color:#e74c3c;font-size:1.3rem;font-weight:700;margin-bottom:8px;">Account Banned</h3>
+        <p style="color:#888;font-size:0.95rem;margin-bottom:20px;line-height:1.5;">
+            Your account has been banned.<br>
+            Reason: Multiple accounts detected.<br>
+            Please contact support for more information.
+        </p>
+        <button id="close-app-btn" class="royal-btn" style="padding:12px 40px;background:linear-gradient(135deg,#4CC9FF,#0066FF);border:none;border-radius:60px;color:#0a0a0f;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.2s;">
+            <i class="fas fa-times"></i> Close App
+        </button>
+    </div>
+</div>
+<div id="app" style="display:none;">
+    <header class="app-header">
+        <div class="header-top">
+            <div class="user-info">
+                <div class="avatar-wrapper">
+                    <img draggable="false" oncontextmenu="return false" id="user-photo" class="user-avatar" src="https://i.ibb.co/W4FRWY3z/c53854a65b5a.jpg">
+                </div>
+                <div class="user-details">
+                    <span id="user-name" class="user-name">User</span>
+                    <div id="user-status" class="user-status unverified">
+                        <i class="fas fa-circle-xmark"></i>
+                        <span>Unverified</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="header-balances" id="header-balances">
+                    <div class="header-balance" id="header-gram">
+                        <img draggable="false" oncontextmenu="return false" src="https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp" class="gram-icon-header">
+                        <span>0.00000</span>
+                    </div>
+                    <div class="header-balance" id="header-kopr">
+                        <img draggable="false" oncontextmenu="return false" src="https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png" class="gram-icon-header">
+                        <span>0</span>
+                    </div>
+                </div>
+                <button id="lang-btn" class="header-icon-btn lang-btn">
+                    <img draggable="false" oncontextmenu="return false" id="current-flag" src="https://flagcdn.com/w40/gb.png">
+                </button>
+            </div>
+        </div>
+    </header>
+    <div id="lang-modal" class="modal" style="display:none;">
+        <div class="modal-content lang-modal-content">
+            <h3 id="lang-modal-title">Change Language</h3>
+            <div class="lang-list">
+                <button class="lang-option" data-lang="en"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/gb.png"><span>English</span></button>
+                <button class="lang-option" data-lang="ar"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/sa.png"><span>العربية</span></button>
+                <button class="lang-option" data-lang="ru"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/ru.png"><span>Русский</span></button>
+                <button class="lang-option" data-lang="fa"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/ir.png"><span>فارسی</span></button>
+                <button class="lang-option" data-lang="tr"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/tr.png"><span>Türkçe</span></button>
+                <button class="lang-option" data-lang="fr"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/fr.png"><span>Français</span></button>
+                <button class="lang-option" data-lang="es"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/es.png"><span>Español</span></button>
+                <button class="lang-option" data-lang="ur"><img draggable="false" oncontextmenu="return false" src="https://flagcdn.com/w40/pk.png"><span>اردو</span></button>
+            </div>
+            <button class="modal-close-btn" id="lang-modal-close">Close</button>
+        </div>
+    </div>
+    <main id="main-content">
+        <div id="home-page" class="page active"></div>
+        <div id="tasks-page" class="page"></div>
+        <div id="team-page" class="page"></div>
+        <div id="withdraw-page" class="page"></div>
+    </main>
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-page="home-page"><i class="fas fa-home"></i><span id="nav-home">Home</span></button>
+        <button class="nav-btn" data-page="tasks-page"><i class="fas fa-tasks"></i><span id="nav-tasks">Tasks</span></button>
+        <button class="nav-btn" data-page="team-page"><i class="fas fa-users"></i><span id="nav-team">Team</span></button>
+        <button class="nav-btn" data-page="withdraw-page"><i class="fas fa-wallet"></i><span id="nav-withdraw">Wallet</span></button>
+    </nav>
+</div>
+<div id="add-community-task-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <div class="modal-header modal-header">
+            <h3><i class="fas fa-plus-circle"></i> Add Community Task</h3>
+            <button class="modal-close" onclick="document.getElementById('add-community-task-modal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Name (5-20 chars)</label>
+                <input type="text" id="community-task-name" class="form-input royal-input" placeholder="Task name" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Link</label>
+                <input type="text" id="community-task-link" class="form-input royal-input" placeholder="https://t.me/...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Total</label>
+                <div class="options-row">
+                    <button class="total-option" data-value="100">100</button>
+                    <button class="total-option" data-value="250">250</button>
+                    <button class="total-option" data-value="500">500</button>
+                    <button class="total-option" data-value="1000">1000</button>
+                    <button class="total-option" data-value="custom">Custom</button>
+                    <input type="number" id="community-task-total-custom" class="form-input royal-input" placeholder="Total" style="display:none;" min="100" max="5000">
+                </div>
+            </div>
+            <div class="form-group" id="community-verification-group" style="display:none;">
+                <label class="form-label">Verification</label>
+                <div class="options-row">
+                    <button class="verif-option" data-value="yes">YES</button>
+                    <button class="verif-option" data-value="no">NO</button>
+                    <span id="community-verification-note" style="font-size:0.6rem;color:#4AA8FF;display:none;"><i class="fas fa-info-circle"></i> Bot must be admin</span>
+                </div>
+            </div>
+            <div class="cost-box">
+                <div class="cost-row">
+                    <span>Total Cost:</span>
+                    <span id="community-total-cost-display">0.0000 GRAM</span>
+                </div>
+            </div>
+            <button id="pay-add-community-task-btn" class="royal-btn full-width-btn">PAY & ADD TASK</button>
+        </div>
+    </div>
+</div>
+<div id="add-verify-task-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <div class="modal-header modal-header">
+            <h3><i class="fas fa-shield-alt"></i> Add Verify Task</h3>
+            <button class="modal-close" onclick="document.getElementById('add-verify-task-modal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Name (5-20 chars)</label>
+                <input type="text" id="verify-task-name" class="form-input royal-input" placeholder="Task name" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Link</label>
+                <input type="text" id="verify-task-link" class="form-input royal-input" placeholder="https://t.me/...">
+            </div>
+            <div class="form-group" id="verify-verification-group" style="display:none;">
+                <label class="form-label">Verification</label>
+                <div class="options-row">
+                    <button class="verif-option verify-verif-option" data-value="yes">YES</button>
+                    <button class="verif-option verify-verif-option" data-value="no">NO</button>
+                    <span style="font-size:0.6rem;color:#4AA8FF;display:none;" id="verify-verification-note"><i class="fas fa-info-circle"></i> Bot must be admin</span>
+                </div>
+            </div>
+            <div class="cost-box">
+                <div class="cost-row">
+                    <span>Total Cost:</span>
+                    <span id="verify-total-cost-display">10 GRAM</span>
+                </div>
+            </div>
+            <button id="pay-add-verify-task-btn" class="royal-btn full-width-btn">PAY & ADD TASK</button>
+        </div>
+    </div>
+</div>
+<div id="payment-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <div class="modal-header modal-header">
+            <h3><i class="fas fa-credit-card"></i> Payment Page</h3>
+            <button class="modal-close" onclick="document.getElementById('payment-modal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Wallet <span style="color:#888;font-size:0.6rem;">(Click to copy)</span></label>
+                <div class="copy-box" id="payment-wallet-display" onclick="window.app?.copyToClipboard(this.textContent.trim())">
+                    <span>-</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Memo <span style="color:#888;font-size:0.6rem;">(Click to copy)</span></label>
+                <div class="copy-box" id="payment-memo-display" onclick="window.app?.copyToClipboard(this.textContent.trim())">
+                    <span>-</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Amount <span style="color:#888;font-size:0.6rem;">(Click to copy)</span></label>
+                <div class="copy-box" id="payment-amount-display" onclick="window.app?.copyToClipboard(this.textContent.trim())">
+                    <span>0.0000 GRAM</span>
+                </div>
+            </div>
+            <a id="tonkeeper-link" href="#" target="_blank" class="royal-btn full-width-btn">Pay with Tonkeeper</a>
+            <button id="check-payment-btn" class="royal-btn full-width-btn" style="margin-top:10px;">Check Payment</button>
+            <div id="payment-status" style="text-align:center;margin-top:10px;font-size:0.8rem;color:#888;"></div>
+        </div>
+    </div>
+</div>
+<div id="my-tasks-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <div class="modal-header modal-header">
+            <h3><i class="fas fa-tasks"></i> My Tasks</h3>
+            <button class="modal-close" onclick="document.getElementById('my-tasks-modal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="my-tasks-container">
+                <div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>Loading...</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/app.js"></script>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
+</html>
