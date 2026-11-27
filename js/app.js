@@ -8,6 +8,17 @@ const translations = {
         verified: "Verified",
         unverified: "Unverified",
         promo_code: "Promo Code",
+        tasks: "Tasks",
+        referral_commissions: "Referral Commissions",
+        no_miner: "No Miner",
+        speed: "Speed",
+        per_hour: "/h",
+        session: "Session",
+        mining_title: "Mining",
+        earn_gram_line: "Earn {amount} GRAM Each Verified Referral",
+        earn_kopra_line: "Earn {amount} KOPRA Each Verified Referral",
+        earn_percent_line: "Earn a {percent}% commission",
+        add_verify_task: "Add Verify Task",
         enter_code: "Enter code",
         community_tasks: "Community Tasks",
         add_task: "Add Task",
@@ -530,6 +541,7 @@ class App {
         return this.config.GRAM_ICON || 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp';
     }
     vibrate(type = 'light') {
+        try { if (navigator.vibrate) navigator.vibrate(type === 'success' ? [20, 30, 20] : type === 'error' ? [60] : 15); } catch (e) {}
         try {
             if (this.tg?.HapticFeedback) {
                 if (type === 'success') this.tg.HapticFeedback.notificationOccurred('success');
@@ -733,6 +745,7 @@ class App {
         return match ? match[1] : '';
     }
     copyToClipboard(text) {
+        this.vibrate('success');
         try {
             navigator.clipboard.writeText(text);
             this.showNotification(this.t('copied'), text, 'success');
@@ -748,11 +761,26 @@ class App {
             main.innerHTML = `<div style="text-align:center;padding:40px 20px;"><h3>${this.t('not_registered')}</h3><p style="color:#888;margin:16px 0;">${this.t('not_registered_message')}</p><a href="https://t.me/PiratesDropBot" class="royal-btn full-width-btn">${this.t('register_now')}</a></div>`;
         }
     }
-    renderHome() {
+    async renderHome() {
         const homePage = document.getElementById('home-page');
         if (!homePage) return;
+        await this.loadMiningInfo();
+        const mining = this.miningInfo || {};
+        const pending = mining.pending || 0;
+        const dailyReward = mining.dailyReward || 0;
+        const rate = mining.dailyRate || this.config.MINING_DAILY_RATE || 0.05;
+        const minClaim = mining.minClaim || this.config.MIN_CLAIM_MINING_KOPRA || 1;
+        const canClaim = pending >= minClaim;
+        const miningActive = this.kopraBalance > 0;
+        const minerClass = miningActive ? 'active' : 'inactive';
+        const activeMiner = miningActive ? { name: 'KOPRA Miner' } : null;
+        const speedPerHour = this.formatKopra(dailyReward / 24);
+        const dailySpeed = this.formatKopra(dailyReward);
+        const statusHtml = miningActive ? `<div class="miner-status active"><span class="dot"></span>${this.t('mining')} - ${Math.round(rate * 100)}% ${this.t('daily')}</div>` : `<div class="miner-status inactive"><span class="dot"></span>${this.t('no_miner')}</div>`;
+        const actionHtml = `<button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}>${this.t('claim_mining')} ${this.formatKopra(pending)} KOPRA</button><div class="mining-pending-line">${this.t('mining_balance')}: ${this.formatKopra(this.kopraBalance)} KOPRA - ${this.t('mining_claim_hint')}</div>`;
+        const miningHtml = `<div class="mining-card ${minerClass}"><div class="mining-logo-wrapper ${miningActive ? 'active' : 'inactive'}"><img src="${this.config.KOPRA_ICON || this.kopraIcon()}" class="mining-logo" alt="COIN"></div><div class="miner-name-display">${activeMiner ? activeMiner.name : this.t('no_miner')}</div>${statusHtml}<div class="speed-card"><div class="speed-item"><div class="speed-label">${this.t('speed')}</div><div class="speed-value">${speedPerHour}${this.t('per_hour')}</div></div><div class="speed-item"><div class="speed-label">${this.t('daily')}</div><div class="speed-value">${dailySpeed}</div></div><div class="speed-item"><div class="speed-label">${this.t('session')}</div><div class="speed-value">${this.miningSessionHours || 24}H</div></div></div>${actionHtml}</div>`;
         const promoHtml = `
-            <div class="promo-card">
+            <div class="promo-card glass-card">
                 <div class="promo-header">
                     <div class="promo-title"><i class="fas fa-gift"></i> ${this.t('promo_code')}</div>
                 </div>
@@ -768,47 +796,48 @@ class App {
             const completedFromServer = this._specialCompleted || [];
             const done = completedFromServer.includes(task.id) || isCompleted;
             return `
-                <div class="verify-task-item" data-task-id="${task.id}" data-task-type="special">
+                <div class="verify-task-item glass-card" data-task-id="${task.id}" data-task-type="special">
                     <div class="task-icon"><i class="fas ${task.icon || 'fa-users'}"></i></div>
                     <div class="task-info"><h4>${task.title}</h4></div>
                     <button class="task-btn ${done ? 'done' : 'start-btn'}" data-task-id="${task.id}" data-task-type="special" data-url="${task.url}">${done ? this.t('done') : this.t('start')}</button>
                 </div>
             `;
         }).join('');
-        const verifyPrice = this.config.VERIFY_TASK_PRICE || 10;
         homePage.innerHTML = `
-            ${promoHtml}
-            <div class="verify-card">
-                <h3><i class="fas fa-shield-alt"></i> ${this.t('verify_account')}</h3>
+            <div class="verify-card glass-card">
+                <h3 class="section-title"><i class="fas fa-shield-alt"></i> ${this.t('verify_account')}</h3>
                 <div class="verify-tasks" id="verify-special-tasks">
                     ${specialHtml}
                 </div>
                 <div id="verify-db-tasks-container"></div>
-                <div class="verify-add-box">
-                    <span class="verify-add-price">${this.t('verify_task_price', { amount: verifyPrice })}</span>
-                    <button class="verify-add-btn" id="add-verify-task-btn">${this.t('add_verify_task')}</button>
-                </div>
+                <button class="verify-add-card" id="add-verify-task-btn"><span class="task-icon"><i class="fas fa-plus"></i></span><span class="verify-add-text">${this.t('add_verify_task')}</span><span class="verify-add-arrow"><i class="fas fa-chevron-right"></i></span></button>
                 <button class="verify-btn" id="verify-account-btn" ${this.verified ? 'disabled' : ''}>
                     <i class="fas fa-shield-alt"></i> ${this.verified ? this.t('verified') : this.t('verify_bonus')}
                 </button>
             </div>
-            <div class="section-header">
-                <h3><i class="fas fa-users"></i> ${this.t('community_tasks')}</h3>
-                <button class="my-tasks-btn" id="my-tasks-btn" title="${this.t('my_tasks')}"><i class="fas fa-list"></i></button>
-                <button class="add-btn" id="add-community-task-btn"><i class="fas fa-plus-circle"></i></button>
-            </div>
-            <div id="community-tasks-container" class="tasks-list">
-                <div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div>
-            </div>
-            <div class="section-header">
-                <h3><i class="fas fa-handshake"></i> ${this.t('partner_tasks')}</h3>
-            </div>
-            <div id="partner-tasks-container" class="tasks-list">
-                <div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div>
-            </div>
+            <div class="section-header"><h3><i class="fas fa-coins"></i> ${this.t('mining_title')}</h3></div>
+            ${miningHtml}
+            <div class="section-header"><h3><i class="fas fa-gift"></i> ${this.t('promo_code')}</h3></div>
+            ${promoHtml}
         `;
         this.attachHomeHandlers();
         this.loadVerifyDbTasksList();
+        const claimBtn = document.getElementById('claim-mining-btn');
+        if (claimBtn) claimBtn.addEventListener('click', () => { this.vibrate('success'); this.claimMining(); });
+    }
+    renderTasks() {
+        const tasksPage = document.getElementById('tasks-page');
+        if (!tasksPage) return;
+        tasksPage.innerHTML = `
+            <div class="section-header"><h3 class="section-title"><i class="fas fa-users"></i> ${this.t('community_tasks')}</h3><button class="my-tasks-btn" id="my-tasks-btn-tasks" title="${this.t('my_tasks')}"><i class="fas fa-list"></i></button><button class="add-btn" id="add-community-task-btn-tasks"><i class="fas fa-plus-circle"></i></button></div>
+            <div id="community-tasks-container" class="tasks-list"><div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div></div>
+            <div class="section-header"><h3 class="section-title"><i class="fas fa-handshake"></i> ${this.t('partner_tasks')}</h3></div>
+            <div id="partner-tasks-container" class="tasks-list"><div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div></div>
+        `;
+        const myBtn = document.getElementById('my-tasks-btn-tasks');
+        if (myBtn) myBtn.addEventListener('click', () => { this.vibrate('light'); this.showMyTasksModal(); });
+        const addBtn = document.getElementById('add-community-task-btn-tasks');
+        if (addBtn) addBtn.addEventListener('click', () => { this.vibrate('light'); this.showAddCommunityTaskModal(); });
         this.loadCommunityTasksList();
         this.loadPartnerTasksList();
     }
@@ -819,24 +848,14 @@ class App {
             promoInput.addEventListener('input', () => {
                 promoBtn.classList.toggle('active', promoInput.value.trim().length > 0);
             });
-            promoBtn.addEventListener('click', () => this.claimPromoCode());
+            promoBtn.addEventListener('click', () => { this.vibrate('success'); this.claimPromoCode(); });
         }
         const verifyBtn = document.getElementById('verify-account-btn');
         if (verifyBtn) {
-            verifyBtn.addEventListener('click', () => this.verifyAccount());
+            verifyBtn.addEventListener('click', () => { this.vibrate('success'); this.verifyAccount(); });
         }
-        const addVerifyBtn = document.getElementById('add-verify-task-btn');
-        if (addVerifyBtn) {
-            addVerifyBtn.addEventListener('click', () => this.showAddVerifyTaskModal());
-        }
-        const addCommunityBtn = document.getElementById('add-community-task-btn');
-        if (addCommunityBtn) {
-            addCommunityBtn.addEventListener('click', () => this.showAddCommunityTaskModal());
-        }
-        const myTasksBtn = document.getElementById('my-tasks-btn');
-        if (myTasksBtn) {
-            myTasksBtn.addEventListener('click', () => this.showMyTasksModal());
-        }
+        const addVerifyBtn2 = document.getElementById('add-verify-task-btn');
+        if (addVerifyBtn2) { addVerifyBtn2.addEventListener('click', () => { this.vibrate('light'); this.showAddVerifyTaskModal(); }); }
         document.querySelectorAll('#verify-special-tasks .task-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -985,7 +1004,7 @@ class App {
     async completeTaskOnServer(taskId, taskType) {
         return this.completeTask(taskId, taskType, null);
     }
-    async verifyAccount() {
+    async verifyAccount() { this.vibrate('success');
         if (this.verified) {
             this.showNotification('Info', this.t('already_verified'), 'warning');
             return;
@@ -1006,7 +1025,7 @@ class App {
             this.showNotification('Error', e.message || this.t('join_all_channels'), 'error');
         }
     }
-    async claimPromoCode() {
+    async claimPromoCode() { this.vibrate('success');
         const input = document.getElementById('promo-input');
         if (!input || !input.value.trim()) return;
         try {
@@ -1042,7 +1061,7 @@ class App {
             container.innerHTML = this.communityTasks.map(task => `
                 <div class="task-card-community" data-task-id="${task.id}">
                     <div class="task-header">
-                        <div class="task-icon"><img src="${this.config.TASK_IMAGE || 'https://i.postimg.cc/7YNtFgSG/IMG-20261124-191828-260.jpg'}"></div>
+                        <div class="task-icon"><img src="${this.config.TASK_IMAGE || 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp'}"></div>
                         <div class="task-info">
                             <h4>${task.name}</h4>
                             <div class="task-reward">
@@ -1093,7 +1112,7 @@ class App {
             container.innerHTML = this.partnerTasks.map(task => `
                 <div class="task-card-community" data-task-id="${task.id}">
                     <div class="task-header">
-                        <div class="task-icon"><img src="${this.config.TASK_IMAGE || 'https://i.postimg.cc/7YNtFgSG/IMG-20261124-191828-260.jpg'}"></div>
+                        <div class="task-icon"><img src="${this.config.TASK_IMAGE || 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp'}"></div>
                         <div class="task-info">
                             <h4>${task.name}</h4>
                             <div class="task-reward">
@@ -1405,32 +1424,14 @@ class App {
         const percent = this.config.REFERRAL_TASKS_PERCENTAGE || 15;
         const botUsername = this.config.BOT_USERNAME || 'PiratesDropBot';
         const refLink = `https://t.me/${botUsername}?start=${this.tgUser ? this.tgUser.id : ''}`;
+        const canClaimGram = this.referralGramEarnings >= 0.001;
+        const canClaimKopra = this.referralKopraEarnings >= 1;
         teamPage.innerHTML = `
-            <div class="team-card">
-                <div class="team-title"><i class="fas fa-users"></i> ${this.t('team')}</div>
-                <div class="earnings-highlight">
-                    <div class="earning-highlight-item">
-                        <div class="highlight-icon"><i class="fas fa-coins"></i></div>
-                        <div class="highlight-info">
-                            <div class="highlight-label">${this.t('earn_per_referral', { amount: this.formatGram(gramPer) })}</div>
-                            <div class="highlight-value">${this.formatGram(gramPer)} GRAM</div>
-                        </div>
-                    </div>
-                    <div class="earning-highlight-item">
-                        <div class="highlight-icon"><img src="${this.kopraIcon()}" style="width:26px;height:26px;border-radius:50%;"></div>
-                        <div class="highlight-info">
-                            <div class="highlight-label">${this.t('earn_kopra_per_referral', { amount: this.formatKopra(kopraPer) })}</div>
-                            <div class="highlight-value">${this.formatKopra(kopraPer)} KOPRA</div>
-                        </div>
-                    </div>
-                    <div class="earning-highlight-item">
-                        <div class="highlight-icon"><i class="fas fa-percentage"></i></div>
-                        <div class="highlight-info">
-                            <div class="highlight-label">${this.t('earn_percent_tasks', { percent })}</div>
-                            <div class="highlight-value">${percent}%</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="team-card glass-card">
+                <div class="team-title section-title"><i class="fas fa-users"></i> ${this.t('referral_commissions')}</div>
+                <div class="referral-row"><img src="${this.gramIcon()}" alt="GRAM"><span>${this.t('earn_gram_line', { amount: this.formatGram(gramPer) })}</span></div>
+                <div class="referral-row"><img src="${this.kopraIcon()}" alt="KOPRA"><span>${this.t('earn_kopra_line', { amount: this.formatKopra(kopraPer) })}</span></div>
+                <div class="referral-row"><span class="pct">%</span><span>${this.t('earn_percent_line', { percent })}</span></div>
                 <div class="team-stats-grid">
                     <div class="team-stat-card"><div class="stat-number">${this.totalReferrals}</div><div class="stat-label">${this.t('total_referrals')}</div></div>
                     <div class="team-stat-card"><div class="stat-number">${this.verifiedReferrals}</div><div class="stat-label">${this.t('verified_referrals')}</div></div>
@@ -1438,22 +1439,17 @@ class App {
                 <div class="team-link-box">${refLink}</div>
                 <button class="copy-btn" id="copy-ref-btn"><i class="fas fa-copy"></i> ${this.t('copy')}</button>
             </div>
-            <div class="referral-earnings-card">
-                <div class="earnings-title"><i class="fas fa-wallet"></i> ${this.t('referral_earnings')}</div>
-                <div class="referral-earnings-row">
-                    <div class="referral-earning-line"><img src="${this.gramIcon()}"> ${this.formatGram(this.referralGramEarnings)} GRAM</div>
-                    <div class="referral-earning-line kopra-line"><img src="${this.kopraIcon()}"> ${this.formatKopra(this.referralKopraEarnings)} KOPRA</div>
-                </div>
-                <button class="claim-earnings-btn" id="claim-referral-btn" ${(this.referralGramEarnings < 0.001 && this.referralKopraEarnings < 1) ? 'disabled' : ''}><i class="fas fa-gift"></i> ${this.t('claim_earnings')}</button>
+            <div class="referral-earnings-card glass-card">
+                <div class="earnings-title section-title"><i class="fas fa-wallet"></i> ${this.t('referral_earnings')}</div>
+                <div class="referral-earn-card"><img src="${this.gramIcon()}" alt="GRAM"><div class="referral-earn-info"><div class="referral-earn-name">GRAM</div><div class="referral-earn-amount">${this.formatGram(this.referralGramEarnings)} GRAM</div></div><button class="referral-earn-claim" data-claim-type="GRAM" ${canClaimGram ? '' : 'disabled'}>${this.t('claim')}</button></div>
+                <div class="referral-earn-card"><img src="${this.kopraIcon()}" alt="KOPRA"><div class="referral-earn-info"><div class="referral-earn-name">KOPRA</div><div class="referral-earn-amount">${this.formatKopra(this.referralKopraEarnings)} KOPRA</div></div><button class="referral-earn-claim" data-claim-type="KOPRA" ${canClaimKopra ? '' : 'disabled'}>${this.t('claim')}</button></div>
             </div>
         `;
         const copyBtn = document.getElementById('copy-ref-btn');
-        if (copyBtn) copyBtn.addEventListener('click', () => this.copyToClipboard(refLink));
-        const claimBtn = document.getElementById('claim-referral-btn');
-        if (claimBtn) claimBtn.addEventListener('click', () => this.claimReferralEarnings());
-        this._teamLoaded = true;
+        if (copyBtn) copyBtn.addEventListener('click', () => { this.vibrate('success'); this.copyToClipboard(refLink); });
+        document.querySelectorAll('.referral-earn-claim').forEach(b => b.addEventListener('click', () => { this.vibrate('success'); this.claimReferralEarnings(b.getAttribute('data-claim-type')); }));
     }
-    async claimReferralEarnings() {
+    async claimReferralEarnings(_type) {
         try {
             const result = await this.fetchFromServer('/api/claim-referral-earnings', {});
             if (result.error) {
@@ -1503,7 +1499,7 @@ class App {
                 this.showNotification('Success', `${this.t('mining_claimed')} +${this.formatKopra(result.claimed)} KOPRA`, 'success');
                 this.vibrate('success');
                 await this.loadMiningInfo();
-                this.renderMining();
+                this.renderHome();
                 this.renderWithdraw();
                 return true;
             }
@@ -1513,49 +1509,7 @@ class App {
             return false;
         }
     }
-    async renderMining() {
-        const page = document.getElementById('mining-page');
-        if (!page) return;
-        await this.loadMiningInfo();
-        const mining = this.miningInfo || {};
-        const pending = mining.pending || 0;
-        const dailyReward = mining.dailyReward || 0;
-        const rate = mining.dailyRate || this.config.MINING_DAILY_RATE || 0.05;
-        const minClaim = mining.minClaim || this.config.MIN_CLAIM_MINING_KOPRA || 1;
-        const canClaim = pending >= minClaim;
-        const progress = Math.min(100, (pending / minClaim) * 100);
-        page.innerHTML = `
-            <div class="mining-hero">
-                <img class="mining-logo" src="${this.kopraIcon()}">
-                <div class="mining-hero-title">KOPRA</div>
-                <div class="mining-hero-sub">${this.t('mining')} - ${this.t('mining_daily_rate')}</div>
-                <div class="mining-balance-big"><img src="${this.kopraIcon()}"> ${this.formatKopra(this.kopraBalance)}</div>
-                <div class="mining-subtitle">${this.t('mining_balance')}</div>
-                <div class="mining-stats">
-                    <div class="mining-stat"><div class="mining-stat-value"><img src="${this.kopraIcon()}"> ${this.formatKopra(pending)}</div><div class="mining-stat-label">${this.t('mining_pending')}</div></div>
-                    <div class="mining-stat"><div class="mining-stat-value"><img src="${this.kopraIcon()}"> ${this.formatKopra(dailyReward)}</div><div class="mining-stat-label">${this.t('mining_daily_reward')}</div></div>
-                    <div class="mining-stat"><div class="mining-stat-value">${Math.round(rate * 100)}%</div><div class="mining-stat-label">${this.t('mining_rate_label')}</div></div>
-                </div>
-                <div class="mining-progress"><div class="mining-progress-fill" style="width:${progress}%"></div></div>
-                <div class="mining-hint">${this.t('mining_progress')}: ${Math.floor(progress)}% - ${this.t('mining_claim_hint')}</div>
-                <button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}><i class="fas fa-gem"></i> ${this.t('claim_mining')} ${this.formatKopra(pending)} KOPRA</button>
-            </div>
-            <div class="mining-example">
-                <div class="mining-example-title">${this.t('mining_example_title')}</div>
-                <div class="mining-example-text">${this.t('mining_example_text')}</div>
-            </div>
-            <div class="section-header"><h3><i class="fas fa-snowflake"></i> ${this.t('mining_how_title')}</h3></div>
-            <div class="mining-steps">
-                <div class="mining-step"><div class="mining-step-num">1</div><p>${this.t('mining_how_1')}</p></div>
-                <div class="mining-step"><div class="mining-step-num">2</div><p>${this.t('mining_how_2')}</p></div>
-                <div class="mining-step"><div class="mining-step-num">3</div><p>${this.t('mining_how_3')}</p></div>
-            </div>
-            ${this.kopraBalance <= 0 ? `<div class="mining-example"><div class="mining-example-text">${this.t('mining_empty')}</div></div>` : ''}
-        `;
-        const btn = document.getElementById('claim-mining-btn');
-        if (btn) btn.addEventListener('click', () => this.claimMining());
-        this._miningLoaded = true;
-    }
+    async renderMining() { await this.renderHome(); }
     startSnowfall() {
         if (this._snowStarted) return;
         this._snowStarted = true;
@@ -1592,28 +1546,10 @@ class App {
         const kopraUsd = this.kopraBalance * this.kopraUsdPrice;
         const minW = this.config.MINIMUM_WITHDRAW || 0.1;
         page.innerHTML = `
-            <div class="wallet-wide-list">
-                <div class="wallet-wide-card">
-                    <div class="wallet-wide-icon"><img src="${this.gramIcon()}"></div>
-                    <div class="wallet-wide-info"><div class="wallet-wide-name">GRAM</div><div class="wallet-wide-amount">${this.formatGram(this.gramBalance)}</div></div>
-                    <div class="wallet-wide-usd">$${this.formatUsd(gramUsd)}</div>
-                </div>
-                <div class="wallet-wide-card kopra-card">
-                    <div class="wallet-wide-icon"><img src="${this.kopraIcon()}"></div>
-                    <div class="wallet-wide-info"><div class="wallet-wide-name">KOPRA</div><div class="wallet-wide-amount">${this.formatKopra(this.kopraBalance)}</div></div>
-                    <div class="wallet-wide-usd">$${this.formatUsd(kopraUsd)}</div>
-                </div>
-            </div>
-            <div class="wallet-card">
-                <div class="wallet-balance-item">
-                    <div class="wallet-balance-icon"><img src="${this.gramIcon()}"></div>
-                    <div class="wallet-balance-label">${this.t('balance')}</div>
-                    <div class="wallet-balance-amount">${this.formatGram(this.gramBalance)} GRAM</div>
-                </div>
-            </div>
-            <div class="withdraw-card">
+            <div class="withdraw-card glass-card">
+                <div class="wallet-balance-compact"><img src="${this.gramIcon()}" alt="GRAM"><div class="wb-info"><div class="wb-label">GRAM ${this.t('balance')}</div><div class="wb-amount">${this.formatGram(this.gramBalance)} GRAM</div></div><div class="wb-usd">$${this.formatUsd(gramUsd)}</div></div>
                 <div class="form-group">
-                    <label class="form-label">${this.t('amount')} (GRAM)</label>
+                    <label class="form-label">${this.t('withdraw_gram')}</label>
                     <div class="input-wrapper">
                         <input type="number" id="withdraw-amount" class="form-input royal-input" placeholder="0.00000" step="0.00001" min="0">
                         <button class="action-btn" id="withdraw-max-btn">${this.t('max')}</button>
@@ -1626,23 +1562,23 @@ class App {
                 <div class="withdraw-preview" id="withdraw-preview">${this.t('min_withdrawal_label', { amount: this.formatGram(minW) })}</div>
                 <button class="withdraw-confirm-btn" id="withdraw-confirm-btn">${this.t('confirm_withdrawal')}</button>
             </div>
-            <div class="withdraw-card locked-card">
-                <span class="coming-soon-badge">${this.t('coming_soon')}</span>
-                <div class="form-group">
-                    <label class="form-label">${this.t('withdraw_kopra')}</label>
-                    <input type="text" class="form-input royal-input" placeholder="KOPRA" disabled>
+            <div class="withdraw-card glass-card" style="position:relative;overflow:hidden;">
+                <div class="withdraw-locked">
+                    <div class="wallet-balance-compact"><img src="${this.kopraIcon()}" alt="KOPRA"><div class="wb-info"><div class="wb-label">KOPRA ${this.t('balance')}</div><div class="wb-amount">${this.formatKopra(this.kopraBalance)} KOPRA</div></div><div class="wb-usd">$${this.formatUsd(kopraUsd)}</div></div>
+                    <div class="form-group"><label class="form-label">${this.t('withdraw_kopra')}</label><input type="text" class="form-input royal-input" placeholder="KOPRA" disabled></div>
+                    <button class="withdraw-confirm-btn" disabled>${this.t('confirm_withdrawal')}</button>
                 </div>
-                <div class="locked-note">${this.t('coming_soon')}</div>
+                <div class="withdraw-locked-overlay"><div class="lock-icon"><i class="fas fa-lock"></i></div><span>${this.t('coming_soon')}</span></div>
             </div>
-            <div class="section-header"><h3><i class="fas fa-history"></i> ${this.t('withdrawal_history')}</h3></div>
+            <div class="section-header"><h3 class="section-title"><i class="fas fa-history"></i> ${this.t('withdrawal_history')}</h3></div>
             <div id="withdraw-history-container" class="history-list"></div>
         `;
         const maxBtn = document.getElementById('withdraw-max-btn');
         const amountInput = document.getElementById('withdraw-amount');
-        if (maxBtn && amountInput) maxBtn.addEventListener('click', () => { amountInput.value = this.formatGram(this.gramBalance); this.updateWithdrawPreview(); });
+        if (maxBtn && amountInput) maxBtn.addEventListener('click', () => { this.vibrate('light'); amountInput.value = this.formatGram(this.gramBalance); this.updateWithdrawPreview(); });
         if (amountInput) amountInput.addEventListener('input', () => this.updateWithdrawPreview());
         const confirmBtn = document.getElementById('withdraw-confirm-btn');
-        if (confirmBtn) confirmBtn.addEventListener('click', () => this.handleWithdrawGram());
+        if (confirmBtn) confirmBtn.addEventListener('click', () => { this.vibrate('success'); this.handleWithdrawGram(); });
         this.loadWithdrawHistory();
         this._withdrawLoaded = true;
     }
@@ -1707,17 +1643,23 @@ class App {
         if (page) page.classList.add('active');
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-page') === pageId));
         if (pageId === 'home-page' && !this._homeLoaded) { this.renderHome(); this._homeLoaded = true; }
+        if (pageId === 'tasks-page') this.renderTasks();
         if (pageId === 'team-page') this.renderTeam();
-        if (pageId === 'mining-page') this.renderMining();
         if (pageId === 'withdraw-page') this.renderWithdraw();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     setupNavigation() {
         document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => this.showPage(btn.getAttribute('data-page')));
+            btn.addEventListener('click', () => { this.vibrate('light'); this.showPage(btn.getAttribute('data-page')); });
         });
     }
     setupEventListeners() {
+        document.addEventListener('contextmenu', (e) => { e.preventDefault(); });
+        document.addEventListener('selectstart', (e) => { if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') e.preventDefault(); });
+        document.addEventListener('copy', (e) => { if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') e.preventDefault(); });
+        document.addEventListener('dragstart', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+        document.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) this.vibrate('light'); });
+        document.querySelectorAll('img').forEach(img => { img.setAttribute('draggable', 'false'); });
         const langBtn = document.getElementById('lang-btn');
         const langMenu = document.getElementById('lang-menu');
         if (langBtn && langMenu) {
@@ -1734,8 +1676,8 @@ class App {
                 const flag = document.getElementById('current-flag');
                 if (flag) flag.src = opt.querySelector('img')?.src || flag.src;
                 this.renderHome();
+                this.renderTasks();
                 this.renderTeam();
-                this.renderMining();
                 this.renderWithdraw();
                 this.updateNavLabels();
                 this.updateUserStatus();
@@ -1747,10 +1689,10 @@ class App {
     updateNavLabels() {
         const home = document.getElementById('nav-home');
         if (home) home.textContent = this.t('home');
+        const tasksNav = document.getElementById('nav-tasks');
+        if (tasksNav) tasksNav.textContent = this.t('tasks');
         const team = document.getElementById('nav-team');
         if (team) team.textContent = this.t('team');
-        const miningNav = document.getElementById('nav-mining');
-        if (miningNav) miningNav.textContent = this.t('mining');
         const wd = document.getElementById('nav-withdraw');
         if (wd) wd.textContent = this.t('withdraw');
     }
