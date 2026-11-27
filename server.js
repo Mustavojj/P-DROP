@@ -16,15 +16,15 @@ app.set('trust proxy', 1);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 const JWT_SECRET = process.env.JWT_SECRET || 'pirates-secret-key-change-in-production';
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const KOPRA_ICON = "https://i.postimg.cc/jSGywN96/In-Collage-20261125-193120332.png";
+const KOPRA_ICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f5b301'/%3E%3Ccircle cx='32' cy='32' r='24' fill='%23ffcf3f'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='28' font-weight='900' text-anchor='middle' fill='%230a0a0f'%3EK%3C/text%3E%3C/svg%3E";
 const APP_CONFIG = {
     BOT_LINK: 'https://t.me/PiratesDropBot?start=',
     TON_WALLET_ADDRESS: 'UQD9Q3Jz2a1b0fI7tHhF3Xz1kT6Qj2vE0dC0f1A2B3C4D5E6F7G8H9I',
     PAYMENT_WALLET: 'UQD9Q3Jz2a1b0fI7tHhF3Xz1kT6Qj2vE0dC0f1A2B3C4D5E6F7G8H9I',
     OFFICIAL_CHANNEL_URL: 'https://t.me/PiratesDrop',
     PAYOUTS_CHANNEL_URL: 'https://t.me/PiratesDropPayouts',
-    GRAM_ICON: 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp',
-    TASK_IMAGE: 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp',
+    GRAM_ICON: 'https://cdn-icons-png.flaticon.com/512/6466/6466968.png',
+    TASK_IMAGE: 'https://i.postimg.cc/7YNtFgSG/IMG-20261124-191828-260.jpg',
     KOPRA_ICON: KOPRA_ICON,
     VERIFY_BONUS: 0,
     REFERRAL_REWARD_GRAM: 0.01,
