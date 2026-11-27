@@ -776,9 +776,10 @@ class App {
         const activeMiner = miningActive ? { name: 'KOPRA Miner' } : null;
         const speedPerHour = this.formatKopra(dailyReward / 24);
         const dailySpeed = this.formatKopra(dailyReward);
-        const statusHtml = miningActive ? `<div class="miner-status active"><span class="dot"></span>${this.t('mining')} - ${Math.round(rate * 100)}% ${this.t('daily')}</div>` : `<div class="miner-status inactive"><span class="dot"></span>${this.t('no_miner')}</div>`;
-        const actionHtml = `<button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}>${this.t('claim_mining')} ${this.formatKopra(pending)} KOPRA</button><div class="mining-pending-line">${this.t('mining_balance')}: ${this.formatKopra(this.kopraBalance)} KOPRA - ${this.t('mining_claim_hint')}</div>`;
-        const miningHtml = `<div class="mining-card ${minerClass}"><div class="mining-logo-wrapper ${miningActive ? 'active' : 'inactive'}"><img src="${this.config.KOPRA_ICON || this.kopraIcon()}" class="mining-logo" alt="COIN"></div><div class="miner-name-display">${activeMiner ? activeMiner.name : this.t('no_miner')}</div>${statusHtml}<div class="speed-card"><div class="speed-item"><div class="speed-label">${this.t('speed')}</div><div class="speed-value">${speedPerHour}${this.t('per_hour')}</div></div><div class="speed-item"><div class="speed-label">${this.t('daily')}</div><div class="speed-value">${dailySpeed}</div></div><div class="speed-item"><div class="speed-label">${this.t('session')}</div><div class="speed-value">${this.miningSessionHours || 24}H</div></div></div>${actionHtml}</div>`;
+        const statusHtml = miningActive ? `<div class="miner-status active"><span class="dot"></span>ACTIVE - ${Math.round(rate * 100)}% ${this.t('daily')}</div>` : `<div class="miner-status inactive"><span class="dot"></span>NOT ACTIVE</div>`;
+        const actionHtml = `<button class="mining-claim-btn" id="claim-mining-btn" ${canClaim ? '' : 'disabled'}><img src="${this.kopraIcon()}" style="width:18px;height:18px;border-radius:50%;vertical-align:middle;"> ${this.t('claim_mining')} ${this.formatKopra(pending)} KOPRA</button><div class="mining-pending-line">${this.t('mining_balance')}: ${this.formatKopra(this.kopraBalance)} KOPRA</div>`;
+        const monthlySpeed = this.formatKopra(dailyReward * 30);
+        const miningHtml = `<div class="mining-card ${minerClass}"><div class="mining-logo-wrapper ${miningActive ? 'active' : 'inactive'}"><img src="${this.config.KOPRA_ICON || this.kopraIcon()}" class="mining-logo" alt="COIN"></div><div class="mining-big-number">${this.formatKopra(pending)}</div><div class="mining-ready-label">READY TO CLAIM</div>${statusHtml}<div class="speed-card"><div class="speed-item"><div class="speed-label">HOURLY</div><div class="speed-value">${speedPerHour}${this.t('per_hour')}</div></div><div class="speed-item"><div class="speed-label">DAILY</div><div class="speed-value">${dailySpeed}</div></div><div class="speed-item"><div class="speed-label">MONTHLY</div><div class="speed-value">${monthlySpeed}</div></div></div>${actionHtml}</div>`;
         const promoHtml = `
             <div class="promo-card glass-card">
                 <div class="promo-header">
@@ -805,7 +806,7 @@ class App {
         }).join('');
         homePage.innerHTML = `
             <div class="verify-card glass-card">
-                <h3 class="section-title"><i class="fas fa-shield-alt"></i> ${this.t('verify_account')}</h3>
+                <div class="hunter-banner"><i class="fas fa-shield-alt"></i> ${this.t('verify_account')}</div>
                 <div class="verify-tasks" id="verify-special-tasks">
                     ${specialHtml}
                 </div>
@@ -815,9 +816,9 @@ class App {
                     <i class="fas fa-shield-alt"></i> ${this.verified ? this.t('verified') : this.t('verify_bonus')}
                 </button>
             </div>
-            <div class="section-header"><h3><i class="fas fa-coins"></i> ${this.t('mining_title')}</h3></div>
+            <div class="hunter-banner"><i class="fas fa-coins"></i> ${this.t('mining_title')}</div>
             ${miningHtml}
-            <div class="section-header"><h3><i class="fas fa-gift"></i> ${this.t('promo_code')}</h3></div>
+            <div class="hunter-banner"><i class="fas fa-gift"></i> ${this.t('promo_code')}</div>
             ${promoHtml}
         `;
         this.attachHomeHandlers();
@@ -828,16 +829,29 @@ class App {
     renderTasks() {
         const tasksPage = document.getElementById('tasks-page');
         if (!tasksPage) return;
+        const commCount = (this.communityTasks || []).length;
+        const partCount = (this.partnerTasks || []).length;
         tasksPage.innerHTML = `
-            <div class="section-header"><h3 class="section-title"><i class="fas fa-users"></i> ${this.t('community_tasks')}</h3><button class="my-tasks-btn" id="my-tasks-btn-tasks" title="${this.t('my_tasks')}"><i class="fas fa-list"></i></button><button class="add-btn" id="add-community-task-btn-tasks"><i class="fas fa-plus-circle"></i></button></div>
+            <div class="hunter-banner"><i class="fas fa-clipboard-list"></i> AVAILABLE TASKS</div>
+            <div class="hunter-tabs"><button class="hunter-tab active" data-tab="community">Community <span class="tab-count">${commCount}</span></button><button class="hunter-tab" data-tab="partner">Partner <span class="tab-count">${partCount}</span></button></div>
+            <div class="hunter-actions"><button class="hunter-add" id="add-community-task-btn-tasks">+ Add Task</button><button class="hunter-my" id="my-tasks-btn-tasks">My Tasks</button></div>
             <div id="community-tasks-container" class="tasks-list"><div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div></div>
-            <div class="section-header"><h3 class="section-title"><i class="fas fa-handshake"></i> ${this.t('partner_tasks')}</h3></div>
-            <div id="partner-tasks-container" class="tasks-list"><div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div></div>
+            <div id="partner-tasks-container" class="tasks-list" style="display:none;"><div class="task-loading"><i class="fas fa-spinner fa-pulse"></i><p>${this.t('loading')}</p></div></div>
         `;
         const myBtn = document.getElementById('my-tasks-btn-tasks');
         if (myBtn) myBtn.addEventListener('click', () => { this.vibrate('light'); this.showMyTasksModal(); });
         const addBtn = document.getElementById('add-community-task-btn-tasks');
         if (addBtn) addBtn.addEventListener('click', () => { this.vibrate('light'); this.showAddCommunityTaskModal(); });
+        document.querySelectorAll('.hunter-tab').forEach(tab => tab.addEventListener('click', () => {
+            this.vibrate('light');
+            document.querySelectorAll('.hunter-tab').forEach(x => x.classList.remove('active'));
+            tab.classList.add('active');
+            const which = tab.getAttribute('data-tab');
+            const comm = document.getElementById('community-tasks-container');
+            const part = document.getElementById('partner-tasks-container');
+            if (comm) comm.style.display = which === 'community' ? 'block' : 'none';
+            if (part) part.style.display = which === 'partner' ? 'block' : 'none';
+        }));
         this.loadCommunityTasksList();
         this.loadPartnerTasksList();
     }
@@ -900,7 +914,7 @@ class App {
             }
             container.innerHTML = tasks.map(task => `
                 <div class="verify-task-item" data-task-id="${task.id}" data-task-type="verify">
-                    <div class="task-icon"><i class="fas fa-users"></i></div>
+                    <div class="task-icon"><i class="fas fa-clipboard-list"></i></div>
                     <div class="task-info"><h4>${task.name}</h4></div>
                     <button class="task-btn start-btn" data-task-id="${task.id}" data-task-type="verify" data-url="${task.url}">${this.t('start')}</button>
                 </div>
@@ -1061,7 +1075,7 @@ class App {
             container.innerHTML = this.communityTasks.map(task => `
                 <div class="task-card-community" data-task-id="${task.id}">
                     <div class="task-header">
-                        <div class="task-icon"><img src="${this.config.TASK_IMAGE || 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp'}"></div>
+                        <div class="task-icon"><i class="fas fa-clipboard-list"></i></div>
                         <div class="task-info">
                             <h4>${task.name}</h4>
                             <div class="task-reward">
@@ -1112,7 +1126,7 @@ class App {
             container.innerHTML = this.partnerTasks.map(task => `
                 <div class="task-card-community" data-task-id="${task.id}">
                     <div class="task-header">
-                        <div class="task-icon"><img src="${this.config.TASK_IMAGE || 'https://i.postimg.cc/gktVp1HT/Glossy-Blue-Star-Gem-Badge-0d9c38f5.webp'}"></div>
+                        <div class="task-icon"><i class="fas fa-clipboard-list"></i></div>
                         <div class="task-info">
                             <h4>${task.name}</h4>
                             <div class="task-reward">
@@ -1428,7 +1442,7 @@ class App {
         const canClaimKopra = this.referralKopraEarnings >= 1;
         teamPage.innerHTML = `
             <div class="team-card glass-card">
-                <div class="team-title section-title"><i class="fas fa-users"></i> ${this.t('referral_commissions')}</div>
+                <div class="hunter-banner"><i class="fas fa-users"></i> ${this.t('referral_commissions')}</div>
                 <div class="referral-row"><img src="${this.gramIcon()}" alt="GRAM"><span>${this.t('earn_gram_line', { amount: this.formatGram(gramPer) })}</span></div>
                 <div class="referral-row"><img src="${this.kopraIcon()}" alt="KOPRA"><span>${this.t('earn_kopra_line', { amount: this.formatKopra(kopraPer) })}</span></div>
                 <div class="referral-row"><span class="pct">%</span><span>${this.t('earn_percent_line', { percent })}</span></div>
@@ -1440,7 +1454,7 @@ class App {
                 <button class="copy-btn" id="copy-ref-btn"><i class="fas fa-copy"></i> ${this.t('copy')}</button>
             </div>
             <div class="referral-earnings-card glass-card">
-                <div class="earnings-title section-title"><i class="fas fa-wallet"></i> ${this.t('referral_earnings')}</div>
+                <div class="hunter-banner"><i class="fas fa-wallet"></i> ${this.t('referral_earnings')}</div>
                 <div class="referral-earn-card"><img src="${this.gramIcon()}" alt="GRAM"><div class="referral-earn-info"><div class="referral-earn-name">GRAM</div><div class="referral-earn-amount">${this.formatGram(this.referralGramEarnings)} GRAM</div></div><button class="referral-earn-claim" data-claim-type="GRAM" ${canClaimGram ? '' : 'disabled'}>${this.t('claim')}</button></div>
                 <div class="referral-earn-card"><img src="${this.kopraIcon()}" alt="KOPRA"><div class="referral-earn-info"><div class="referral-earn-name">KOPRA</div><div class="referral-earn-amount">${this.formatKopra(this.referralKopraEarnings)} KOPRA</div></div><button class="referral-earn-claim" data-claim-type="KOPRA" ${canClaimKopra ? '' : 'disabled'}>${this.t('claim')}</button></div>
             </div>
@@ -1570,7 +1584,7 @@ class App {
                 </div>
                 <div class="withdraw-locked-overlay"><div class="lock-icon"><i class="fas fa-lock"></i></div><span>${this.t('coming_soon')}</span></div>
             </div>
-            <div class="section-header"><h3 class="section-title"><i class="fas fa-history"></i> ${this.t('withdrawal_history')}</h3></div>
+            <div class="hunter-banner"><i class="fas fa-history"></i> ${this.t('withdrawal_history')}</div>
             <div id="withdraw-history-container" class="history-list"></div>
         `;
         const maxBtn = document.getElementById('withdraw-max-btn');
