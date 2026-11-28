@@ -14,8 +14,8 @@
   --muted-2:#5C657A;
   --blue:#4AA8FF;
   --blue-soft:#8FCBFF;
-  --gold:#8FD4FF;
-  --gold-soft:#C9ECFF;
+  --gold:#7DD3FC;
+  --gold-soft:#BAE6FD;
   --green:#2ECC8F;
   --red:#FF6B6B;
   --orange:#F39C12;
@@ -61,7 +61,7 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
 .section-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 2px 10px}
 .section-header h3{margin:0;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
 .section-header h3 i{color:var(--blue);font-size:14px}
-.promo-card,.verify-card,.team-card,.referral-earnings-card,.wallet-card,.withdraw-card,.mining-hero,.wallet-wide-card,.mining-example,.mining-steps,.team-link-box{position:relative;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:12px}
+.promo-card,.verify-card,.team-card,.referral-earnings-card,.wallet-card,.withdraw-card,.mining-hero,.wallet-wide-card,.mining-example,.mining-steps,.team-link-box{position:relative;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:16px;margin-bottom:12px}
 .promo-card:before,.verify-card:before,.team-card:before,.mining-hero:before,.wallet-wide-card:before,.withdraw-card:before,.referral-earnings-card:before{content:"";position:absolute;top:0;left:20px;right:20px;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);border-radius:999px;opacity:.28;pointer-events:none}
 .promo-header{margin-bottom:12px}
 .promo-title{font-size:13px;font-weight:700;color:var(--text-2);display:flex;align-items:center;gap:8px}
@@ -76,7 +76,7 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
 .input-wrapper .form-input{flex:1}
 .royal-btn,.promo-submit-btn,.claim-earnings-btn,.mining-claim-btn,.withdraw-confirm-btn,.copy-btn,.verify-btn,.green-btn,.full-width-btn{background:var(--blue);color:#fff;border:0;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:700}
 .royal-btn:disabled,.mining-claim-btn:disabled,.verify-btn:disabled{opacity:.45;cursor:not-allowed}
-.mining-claim-btn{background:var(--gold);color:#0A1622}
+.mining-claim-btn{background:var(--gold);color:#081120}
 .promo-submit-btn{padding:12px 16px;white-space:nowrap}
 .promo-submit-btn.active{background:var(--blue)}
 .verify-card h3{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px}
@@ -90,13 +90,13 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
 .task-info p{margin:4px 0 0;font-size:12px;color:var(--muted)}
 .task-reward,.reward-badge,.kopra-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(74,168,255,.1);border:1px solid rgba(74,168,255,.18);color:var(--blue-soft);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;white-space:nowrap}
 .task-reward img,.reward-badge img,.kopra-badge img{width:16px;height:16px;border-radius:50%;object-fit:cover}
-.task-btn,.start-btn,.claim-btn,.add-btn,.verify-add-btn,.my-tasks-btn,.action-btn{background:var(--gold);color:#0A1622;border:0;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;white-space:nowrap}
+.task-btn,.start-btn,.claim-btn,.add-btn,.verify-add-btn,.my-tasks-btn,.action-btn{background:var(--gold);color:#081120;border:0;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;white-space:nowrap}
 .task-btn.done,.start-btn.done{background:#1A2333;color:var(--muted);border:1px solid var(--border-2)}
 .add-btn,.my-tasks-btn{width:36px;height:36px;padding:0;border-radius:50%;background:var(--surface);color:var(--text-2);display:flex;align-items:center;justify-content:center}
 .verify-add-box{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-3)}
 .verify-add-price{font-size:13px;font-weight:700;color:var(--gold)}
 .verify-add-btn{background:var(--surface);color:var(--text);border:1px solid var(--border-2);border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700}
-.verify-btn{width:100%;margin-top:12px;background:var(--gold);color:#0A1622}
+.verify-btn{width:100%;margin-top:12px;background:var(--gold);color:#081120}
 .tasks-list{display:flex;flex-direction:column;gap:8px}
 .task-header{display:flex;align-items:center;gap:10px}
 .task-loading{text-align:center;color:var(--muted);padding:18px;font-size:13px}
@@ -145,7 +145,7 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
 .mining-step p{margin:0;font-size:13px;color:var(--text-2);line-height:1.5}
 .mining-step-num{width:24px;height:24px;flex-shrink:0;border-radius:50%;background:var(--surface);color:var(--blue-soft);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
 .wallet-wide-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
-.wallet-wide-card{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;position:relative}
+.wallet-wide-card{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:16px;position:relative}
 .wallet-wide-icon img{width:38px;height:38px;border-radius:50%;object-fit:cover}
 .wallet-wide-info{flex:1;min-width:0}
 .wallet-wide-name{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.5px}
@@ -159,7 +159,7 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
 .withdraw-preview{font-size:12px;color:var(--muted);background:var(--bg-2);border-radius:10px;padding:10px;margin:10px 0}
 .withdraw-confirm-btn{width:100%}
 .locked-card{opacity:.75}
-.coming-soon-badge{display:inline-block;background:rgba(140,210,255,.14);color:var(--gold);border:1px solid rgba(140,210,255,.25);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:700;margin-bottom:10px}
+.coming-soon-badge{display:inline-block;background:rgba(125,211,252,.14);color:var(--gold);border:1px solid rgba(125,211,252,.25);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:700;margin-bottom:10px}
 .locked-note{font-size:12px;color:var(--muted);margin-top:8px}
 .history-list{display:flex;flex-direction:column;gap:8px}
 .history-amount{display:flex;align-items:center;gap:7px;font-weight:700;font-size:14px}
@@ -169,14 +169,14 @@ main#main-content{width:100%;max-width:480px;margin:0 auto;padding:16px 16px 8px
 .history-status.pending{color:var(--gold)}
 .history-status.completed,.history-status.approved{color:var(--green)}
 .history-status.rejected{color:var(--red)}
-.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:flex;justify-content:space-between;gap:4px;background:rgba(16,21,31,.97);border:1px solid var(--border-2);border-radius:20px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.bottom-nav{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:flex;justify-content:space-between;gap:4px;background:rgba(16,21,31,.97);border:1px solid var(--border-2);border-radius:24px;padding:6px;box-shadow:0 12px 32px rgba(0,0,0,.35)}
 .nav-btn{flex:1;border:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border-radius:14px;font-size:11px;font-weight:600;position:relative}
 .nav-btn i{font-size:18px}
 .nav-btn.active{color:var(--blue-soft);background:rgba(74,168,255,.1)}
 .nav-btn.active:after{content:"";width:4px;height:4px;border-radius:50%;background:var(--gold);position:absolute;bottom:3px}
 .modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.62);backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
 .modal[style*="flex"]{display:flex}
-.modal-content{width:100%;max-width:480px;background:var(--card-2);border:1px solid var(--border-2);border-radius:20px 20px 0 0;padding:18px;max-height:86vh;overflow:auto}
+.modal-content{width:100%;max-width:480px;background:var(--card-2);border:1px solid var(--border-2);border-radius:24px 20px 0 0;padding:18px;max-height:86vh;overflow:auto}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .modal-header h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px}
 .modal-close{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:var(--surface);color:var(--text);font-size:18px;line-height:1}
@@ -218,19 +218,19 @@ button:focus, a:focus, input:focus{ outline:none; }
 .promo-card, .verify-card, .team-card, .referral-earnings-card, .wallet-card, .withdraw-card, .wallet-wide-card, .mining-card, .task-card-community, .verify-task-item{ position:relative; overflow:hidden; }.user-status{ display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:999px; background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03)); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.16); position:relative; overflow:hidden; font-weight:800; font-size:11px; }.user-status.verified{ color:var(--green); border-color:rgba(46,204,143,.35); }
 .user-status.unverified{ color:#FF9B9B; border-color:rgba(255,107,107,.3); }
 .header-balance{ position:relative; overflow:hidden; background:linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.02)); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.14); }.task-reward, .reward-badge, .kopra-badge{ position:relative; overflow:hidden; background:linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.02)); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.14); color:var(--text); }
-.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .green-btn, .full-width-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .my-tasks-btn, .action-btn, .promo-submit-btn.active{ background:linear-gradient(135deg,#F4FBFF 0%, #D6F0FF 30%, #A5E0FF 60%, #7FCCFF 100%) !important; color:#0A1622 !important; border:1px solid rgba(255,255,255,.55) !important; box-shadow:0 6px 18px rgba(140,210,255,.28), inset 0 1px 0 rgba(255,255,255,.7), inset 0 -1px 0 rgba(0,0,0,.12) !important; position:relative; overflow:hidden; }.royal-btn:active, .task-btn:active, .promo-submit-btn:active, .copy-btn:active, .verify-btn:active{ transform:scale(.98); filter:brightness(1.05); background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF) !important; }
+.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .green-btn, .full-width-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .my-tasks-btn, .action-btn, .promo-submit-btn.active{ background:linear-gradient(135deg,#E8F7FF 0%, #7DD3FC 45%, #38BDF8 100%) !important; color:#081120 !important; border:1px solid rgba(255,255,255,.55) !important; box-shadow:0 6px 18px rgba(125,211,252,.28), inset 0 1px 0 rgba(255,255,255,.7), inset 0 -1px 0 rgba(0,0,0,.12) !important; position:relative; overflow:hidden; }.royal-btn:active, .task-btn:active, .promo-submit-btn:active, .copy-btn:active, .verify-btn:active{ transform:scale(.98); filter:brightness(1.05); background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8) !important; }
 .task-btn.done, .start-btn.done{ background:#1A2333 !important; color:#8A93A8 !important; border:1px solid var(--border) !important; box-shadow:none !important; }
 .add-btn, .my-tasks-btn{ width:38px; height:38px; padding:0; border-radius:50%; }
-.verify-add-card{ display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:13px 14px; color:var(--text); margin-top:12px; position:relative; overflow:hidden; }.verify-add-card .task-icon{ background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF); color:#0A1622; }
+.verify-add-card{ display:flex; align-items:center; gap:12px; width:100%; text-align:left; background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:13px 14px; color:var(--text); margin-top:12px; position:relative; overflow:hidden; }.verify-add-card .task-icon{ background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8); color:#081120; }
 .verify-add-card .verify-add-text{ flex:1; font-size:14px; font-weight:800; }
-.verify-add-card .verify-add-arrow{ width:32px; height:32px; border-radius:999px; background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF); color:#0A1622; display:flex; align-items:center; justify-content:center; font-size:13px; }
+.verify-add-card .verify-add-arrow{ width:32px; height:32px; border-radius:999px; background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8); color:#081120; display:flex; align-items:center; justify-content:center; font-size:13px; }
 .notif{ background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(18,24,38,.95)); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,.16); border-radius:16px; padding:13px 14px; box-shadow:0 16px 40px rgba(0,0,0,.5); overflow:hidden; position:fixed; animation:notifIn .28s ease; }.notif strong{ font-size:14px; font-weight:900; }
 .notif div{ font-size:12px; color:var(--text-2); }
 @keyframes notifIn{ from{ transform:translateY(10px); opacity:0; } to{ transform:translateY(0); opacity:1; } }
 
-.mining-card{ background:linear-gradient(160deg, rgba(255,255,255,.09), rgba(16,21,31,.95) 55%); border:1px solid rgba(255,255,255,.14); border-radius:22px; padding:20px 16px; text-align:center; position:relative; overflow:hidden; margin-bottom:12px; }.mining-card.active{ border-color:rgba(140,210,255,.4); }
+.mining-card{ background:linear-gradient(160deg, rgba(255,255,255,.09), rgba(16,21,31,.95) 55%); border:1px solid rgba(255,255,255,.14); border-radius:22px; padding:20px 16px; text-align:center; position:relative; overflow:hidden; margin-bottom:12px; }.mining-card.active{ border-color:rgba(125,211,252,.4); }
 .mining-logo-wrapper{ width:76px; height:76px; margin:0 auto 10px; border-radius:22px; background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.16); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
-.mining-logo-wrapper.active{ box-shadow:0 0 0 3px rgba(140,210,255,.18), 0 10px 28px rgba(140,210,255,.22); }
+.mining-logo-wrapper.active{ box-shadow:0 0 0 3px rgba(125,211,252,.18), 0 10px 28px rgba(125,211,252,.22); }
 .mining-logo-wrapper.inactive{ opacity:.7; }
 .mining-logo-wrapper .mining-logo{ width:58px; height:58px; border-radius:16px; object-fit:cover; }
 .miner-name-display{ font-size:17px; font-weight:900; letter-spacing:.2px; }
@@ -246,7 +246,7 @@ button:focus, a:focus, input:focus{ outline:none; }
 .mining-pending-line{ font-size:12px; color:var(--text-2); margin:8px 0 0; }
 
 .referral-row{ display:flex; align-items:center; gap:11px; background:rgba(10,14,24,.65); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:12px; margin-bottom:8px; position:relative; overflow:hidden; }.referral-row img{ width:28px; height:28px; border-radius:50%; object-fit:cover; flex-shrink:0; }
-.referral-row .pct{ width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF); color:#0A1622; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
+.referral-row .pct{ width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8); color:#081120; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; flex-shrink:0; }
 .referral-row span{ font-size:14px; font-weight:700; line-height:1.35; }
 
 .referral-earn-card{ display:flex; align-items:center; gap:12px; background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:14px; margin-bottom:10px; position:relative; overflow:hidden; }.referral-earn-card img{ width:38px; height:38px; border-radius:50%; object-fit:cover; }
@@ -256,8 +256,8 @@ button:focus, a:focus, input:focus{ outline:none; }
 .referral-earn-claim{ padding:9px 18px; font-size:13px; border-radius:999px; white-space:nowrap; }
 
 .withdraw-locked{ position:relative; filter:blur(1.2px) saturate(.7); opacity:.78; }
-.withdraw-locked-overlay{ position:absolute; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:rgba(7,10,18,.38); backdrop-filter:blur(1px); border-radius:20px; filter:none; }
-.withdraw-locked-overlay .lock-icon{ width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF); color:#0A1622; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 10px 28px rgba(0,0,0,.4); }
+.withdraw-locked-overlay{ position:absolute; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; background:rgba(7,10,18,.38); backdrop-filter:blur(1px); border-radius:24px; filter:none; }
+.withdraw-locked-overlay .lock-icon{ width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8); color:#081120; display:flex; align-items:center; justify-content:center; font-size:22px; box-shadow:0 10px 28px rgba(0,0,0,.4); }
 .withdraw-locked-overlay span{ font-size:13px; font-weight:900; letter-spacing:1px; background:#0A0E18; border:1px solid rgba(255,255,255,.16); padding:6px 14px; border-radius:999px; }
 .wallet-balance-compact{ display:flex; align-items:center; gap:10px; background:rgba(10,14,24,.6); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:11px 12px; margin-bottom:12px; }
 .wallet-balance-compact img{ width:28px; height:28px; border-radius:50%; object-fit:cover; }
@@ -266,120 +266,120 @@ button:focus, a:focus, input:focus{ outline:none; }
 .wallet-balance-compact .wb-amount{ font-size:17px; font-weight:900; }
 .wallet-balance-compact .wb-usd{ font-size:12px; color:var(--muted); font-weight:700; }
 
-:root{ --bg:#121214; --bg-2:#121214; --card:#1E1E22; --card-2:#242429; --card-3:#1A1A1E; --surface:#242429; --border:#2A2A30; --border-2:#2E2E35; --border-3:#2A2A30; --text:#FFFFFF; --text-2:#D1D1D6; --muted:#8A8A92; --muted-2:#6E6E76; --blue:#4AA8FF; --blue-soft:#8FCBFF; --gold:#8FD4FF; --gold-soft:#C9ECFF; --gold-2:#5FBFFF; --green:#2ECC8F; --red:#FF6B6B; --orange:#5FBFFF; --radius:20px; --radius-sm:14px; --radius-md:16px; }
-body{ background:#121214; color:#FFFFFF; }
+:root{ --bg:#0D1117; --bg-2:#0D1117; --card:#161B27; --card-2:#1C2230; --card-3:#141925; --surface:#1C2230; --border:#262F42; --border-2:#2A3550; --border-3:#262F42; --text:#FFFFFF; --text-2:#D1D1D6; --muted:#8A8A92; --muted-2:#6E6E76; --blue:#4AA8FF; --blue-soft:#8FCBFF; --gold:#7DD3FC; --gold-soft:#BAE6FD; --gold-2:#38BDF8; --green:#2ECC8F; --red:#FF6B6B; --orange:#38BDF8; --radius:20px; --radius-sm:14px; --radius-md:16px; }
+body{ background:#0D1117; color:#FFFFFF; }
 .glass-card:before, .glass-frame:before, .promo-card:before, .verify-card:before, .team-card:before, .wallet-wide-card:before, .withdraw-card:before, .referral-earnings-card:before, .royal-btn:before, .promo-submit-btn:before, .claim-earnings-btn:before, .mining-claim-btn:before, .withdraw-confirm-btn:before, .copy-btn:before, .verify-btn:before, .task-btn:before, .referral-row:before, .referral-earn-card:before, .verify-add-card:before, .mining-card:before{ display:none !important; }
-.glass-card, .glass-frame{ background:#1E1E22; border:1px solid #2A2A30; backdrop-filter:none; }
-.app-header{ background:#121214; }
-.app-header .header-top{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; margin:12px 12px 0; padding:12px; }
-.avatar-wrapper{ border:2px solid #8FD4FF; border-radius:50%; }
+.glass-card, .glass-frame{ background:#161B27; border:1px solid #262F42; backdrop-filter:none; }
+.app-header{ background:#0D1117; }
+.app-header .header-top{ background:#161B27; border:1px solid #262F42; border-radius:24px; margin:12px 12px 0; padding:12px; }
+.avatar-wrapper{ border:2px solid #7DD3FC; border-radius:50%; }
 .avatar-wrapper img{ border-radius:50%; }
 .user-name{ color:#FFFFFF; font-weight:800; font-size:16px; }
-.user-status{ background:#2A2A30; border:1px solid #2A2A30; color:#D1D1D6; }
+.user-status{ background:#262F42; border:1px solid #262F42; color:#D1D1D6; }
 .user-status.verified{ color:#2ECC8F; }
-.header-balance{ background:#2A2A30; border:1px solid #2A2A30; color:#8FD4FF; font-weight:800; }
+.header-balance{ background:#262F42; border:1px solid #262F42; color:#7DD3FC; font-weight:800; }
 .header-balance:before{ display:none; }
 .section-header{ margin:16px 0 10px; }
-.section-header h3, .section-title{ color:#8FD4FF; font-size:16px; font-weight:900; letter-spacing:1px; text-transform:uppercase; justify-content:center; text-align:center; }
-.section-header h3 i{ color:#8FD4FF; }
-.hunter-banner{ background:#1E1E22; border:1px solid #2A2A30; border-radius:16px; padding:14px; text-align:center; color:#8FD4FF; font-size:16px; font-weight:900; letter-spacing:1px; text-transform:uppercase; display:flex; align-items:center; justify-content:center; gap:9px; margin:16px 0 10px; }
-.hunter-banner i{ color:#8FD4FF; }
-.promo-card{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; padding:16px; }
-.promo-title{ color:#8FD4FF; font-weight:900; letter-spacing:.5px; }
-.promo-input-group input{ background:#121214; border:1px solid #2A2A30; border-radius:999px; color:#FFFFFF; }
+.section-header h3, .section-title{ color:#7DD3FC; font-size:16px; font-weight:900; letter-spacing:1px; text-transform:uppercase; justify-content:center; text-align:center; }
+.section-header h3 i{ color:#7DD3FC; }
+.hunter-banner{ background:#161B27; border:1px solid #262F42; border-radius:16px; padding:14px; text-align:center; color:#7DD3FC; font-size:16px; font-weight:900; letter-spacing:1px; text-transform:uppercase; display:flex; align-items:center; justify-content:center; gap:9px; margin:16px 0 10px; }
+.hunter-banner i{ color:#7DD3FC; }
+.promo-card{ background:#161B27; border:1px solid #262F42; border-radius:24px; padding:16px; }
+.promo-title{ color:#7DD3FC; font-weight:900; letter-spacing:.5px; }
+.promo-input-group input{ background:#0D1117; border:1px solid #262F42; border-radius:999px; color:#FFFFFF; }
 .promo-input-group input::placeholder{ color:#6E6E76; }
-.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .my-tasks-btn, .action-btn, .referral-earn-claim{ background:linear-gradient(135deg,#EAF7FF 0%, #B7E6FF 45%, #7FCCFF 100%) !important; color:#0A1622 !important; border:none !important; border-radius:999px !important; font-weight:800 !important; box-shadow:0 8px 20px rgba(100,180,255,.28) !important; }
+.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .my-tasks-btn, .action-btn, .referral-earn-claim{ background:linear-gradient(135deg,#E8F7FF 0%, #7DD3FC 50%, #38BDF8 100%) !important; color:#081120 !important; border:none !important; border-radius:999px !important; font-weight:800 !important; box-shadow:0 8px 20px rgba(56,189,248,.28) !important; }
 .royal-btn:active, .task-btn:active, .promo-submit-btn:active{ transform:scale(.97); filter:brightness(1.03); }
-.task-btn.done{ background:#2A2A30 !important; color:#8A8A92 !important; box-shadow:none !important; }
-.verify-card{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; padding:16px; }
-.verify-add-card{ background:linear-gradient(135deg,#C9ECFF,#8FD4FF,#5FBFFF) !important; color:#0A1622 !important; border-radius:999px !important; padding:14px !important; justify-content:center; font-weight:900; }
+.task-btn.done{ background:#262F42 !important; color:#8A8A92 !important; box-shadow:none !important; }
+.verify-card{ background:#161B27; border:1px solid #262F42; border-radius:24px; padding:16px; }
+.verify-add-card{ background:linear-gradient(135deg,#BAE6FD,#7DD3FC,#38BDF8) !important; color:#081120 !important; border-radius:999px !important; padding:14px !important; justify-content:center; font-weight:900; }
 .verify-add-card .task-icon{ display:none; }
 .verify-add-card .verify-add-text{ flex:none; text-align:center; }
 .verify-add-card .verify-add-arrow{ display:none; }
-.task-card-community, .verify-task-item{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; padding:14px; margin-bottom:10px; }
-.task-icon{ width:52px; height:52px; border-radius:50%; background:#1A2430; color:#8FD4FF; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.task-card-community, .verify-task-item{ background:#161B27; border:1px solid #262F42; border-radius:24px; padding:14px; margin-bottom:10px; }
+.task-icon{ width:52px; height:52px; border-radius:50%; background:#1B2436; color:#7DD3FC; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
 .task-icon img{ display:none; }
 .task-info h4{ color:#FFFFFF; font-size:15px; font-weight:700; }
-.task-reward, .reward-badge, .kopra-badge{ background:#2A2A30; border:none; color:#8FD4FF; border-radius:999px; padding:4px 10px; font-size:12px; font-weight:800; }
+.task-reward, .reward-badge, .kopra-badge{ background:#262F42; border:none; color:#7DD3FC; border-radius:999px; padding:4px 10px; font-size:12px; font-weight:800; }
 .reward-badge img, .kopra-badge img{ width:14px; height:14px; }
-.mining-card{ background:#1E1E22; border:1px solid #2A2A30; border-radius:24px; padding:24px 16px; text-align:center; }
-.mining-logo-wrapper{ width:72px; height:72px; border-radius:50%; background:#2A2A2A; border:1px solid #2E2E35; margin:0 auto 14px; }
+.mining-card{ background:#161B27; border:1px solid #262F42; border-radius:24px; padding:24px 16px; text-align:center; }
+.mining-logo-wrapper{ width:72px; height:72px; border-radius:50%; background:#2A2A2A; border:1px solid #2A3550; margin:0 auto 14px; }
 .mining-logo-wrapper .mining-logo{ width:56px; height:56px; border-radius:50%; }
-.mining-big-number{ font-size:36px; font-weight:900; color:#8FD4FF; letter-spacing:1px; line-height:1.1; }
+.mining-big-number{ font-size:36px; font-weight:900; color:#7DD3FC; letter-spacing:1px; line-height:1.1; }
 .mining-ready-label{ font-size:12px; letter-spacing:2px; color:#8A8A92; font-weight:800; margin:6px 0 10px; text-transform:uppercase; }
-.miner-status{ background:#2A2A30; border:1px solid #2A2A30; color:#8A8A92; }
+.miner-status{ background:#262F42; border:1px solid #262F42; color:#8A8A92; }
 .miner-status.active{ color:#2ECC8F; }
 .speed-card{ gap:8px; }
-.speed-item{ background:#121214; border:1px solid #2A2A30; border-radius:14px; padding:12px 6px; }
+.speed-item{ background:#0D1117; border:1px solid #262F42; border-radius:14px; padding:12px 6px; }
 .speed-label{ color:#8A8A92; font-size:11px; letter-spacing:1px; text-transform:uppercase; }
-.speed-value{ color:#8FD4FF; font-size:14px; }
+.speed-value{ color:#7DD3FC; font-size:14px; }
 .mining-claim-btn{ padding:16px; font-size:15px; font-weight:900; letter-spacing:.5px; }
-.team-card, .referral-earnings-card, .withdraw-card, .wallet-wide-card, .wallet-card{ background:#1E1E22; border:1px solid #2A2A30; border-radius:20px; }
-.referral-row{ background:#121214; border:1px solid #2A2A30; border-radius:14px; }
+.team-card, .referral-earnings-card, .withdraw-card, .wallet-wide-card, .wallet-card{ background:#161B27; border:1px solid #262F42; border-radius:24px; }
+.referral-row{ background:#0D1117; border:1px solid #262F42; border-radius:14px; }
 .referral-row span{ color:#FFFFFF; }
-.referral-row .pct{ background:linear-gradient(135deg,#C9ECFF,#5FBFFF); color:#0A1622; }
-.referral-earn-card{ background:#121214; border:1px solid #2A2A30; border-radius:18px; }
+.referral-row .pct{ background:linear-gradient(135deg,#BAE6FD,#38BDF8); color:#081120; }
+.referral-earn-card{ background:#0D1117; border:1px solid #262F42; border-radius:18px; }
 .referral-earn-name{ color:#8A8A92; }
 .referral-earn-amount{ color:#FFFFFF; }
-.wallet-balance-compact{ background:#121214; border:1px solid #2A2A30; border-radius:14px; }
-.hunter-tabs{ display:flex; background:#1E1E22; border:1px solid #2A2A30; border-radius:999px; padding:4px; gap:4px; margin:10px 0; }
+.wallet-balance-compact{ background:#0D1117; border:1px solid #262F42; border-radius:14px; }
+.hunter-tabs{ display:flex; background:#161B27; border:1px solid #262F42; border-radius:999px; padding:4px; gap:4px; margin:10px 0; }
 .hunter-tab{ flex:1; background:transparent; border:none; color:#8A8A92; font-size:13px; font-weight:700; padding:10px 6px; border-radius:999px; }
-.hunter-tab.active{ background:linear-gradient(135deg,#C9ECFF,#8FD4FF,#5FBFFF); color:#0A1622; font-weight:900; }
-.hunter-tab .tab-count{ background:#121214; color:#8FD4FF; font-size:11px; padding:2px 7px; border-radius:999px; margin-left:5px; }
-.hunter-tab.active .tab-count{ background:#0A1622; color:#8FD4FF; }
+.hunter-tab.active{ background:linear-gradient(135deg,#BAE6FD,#7DD3FC,#38BDF8); color:#081120; font-weight:900; }
+.hunter-tab .tab-count{ background:#0D1117; color:#7DD3FC; font-size:11px; padding:2px 7px; border-radius:999px; margin-left:5px; }
+.hunter-tab.active .tab-count{ background:#081120; color:#7DD3FC; }
 .hunter-actions{ display:flex; gap:10px; margin:12px 0; }
-.hunter-actions .hunter-add{ flex:1; background:linear-gradient(135deg,#C9ECFF,#8FD4FF,#5FBFFF); color:#0A1622; border:none; border-radius:999px; padding:13px; font-weight:900; font-size:14px; }
-.hunter-actions .hunter-my{ flex:1; background:#1A2430; color:#8FD4FF; border:1px solid #14202E; border-radius:999px; padding:13px; font-weight:900; font-size:14px; }
-.bottom-nav{ position:fixed; left:12px; right:12px; bottom:12px; background:#1E1E22; border:1px solid #2A2A30; border-radius:999px; padding:6px; box-shadow:0 12px 30px rgba(0,0,0,.5); }
+.hunter-actions .hunter-add{ flex:1; background:linear-gradient(135deg,#BAE6FD,#7DD3FC,#38BDF8); color:#081120; border:none; border-radius:999px; padding:13px; font-weight:900; font-size:14px; }
+.hunter-actions .hunter-my{ flex:1; background:#1B2436; color:#7DD3FC; border:1px solid #1B2436; border-radius:999px; padding:13px; font-weight:900; font-size:14px; }
+.bottom-nav{ position:fixed; left:12px; right:12px; bottom:12px; background:#161B27; border:1px solid #262F42; border-radius:999px; padding:6px; box-shadow:0 12px 30px rgba(0,0,0,.5); }
 .nav-btn{ background:transparent; color:#8A8A92; border-radius:999px; padding:10px 6px; }
-.nav-btn.active{ background:linear-gradient(135deg,#C9ECFF,#8FD4FF,#5FBFFF); color:#0A1622; }
+.nav-btn.active{ background:linear-gradient(135deg,#BAE6FD,#7DD3FC,#38BDF8); color:#081120; }
 .nav-btn i{ font-size:18px; }
-.notif{ background:#1E1E22; border:1px solid #2A2A30; }
-.form-input, .royal-input{ background:#121214; border:1px solid #2A2A30; color:#FFFFFF; border-radius:999px; }
+.notif{ background:#161B27; border:1px solid #262F42; }
+.form-input, .royal-input{ background:#0D1117; border:1px solid #262F42; color:#FFFFFF; border-radius:999px; }
 .form-input::placeholder{ color:#6E6E76; }
 
-:root{ --gold:#8FD4FF; --gold-soft:#D9F1FF; --gold-2:#5FBFFF; }
-button:disabled, .royal-btn:disabled, .promo-submit-btn:disabled, .task-btn:disabled, .mining-claim-btn:disabled, .withdraw-confirm-btn:disabled, .copy-btn:disabled, .verify-btn:disabled, .referral-earn-claim:disabled{ background:#2A2A30 !important; color:#6E6E76 !important; opacity:.38 !important; filter:grayscale(1) brightness(.7) !important; box-shadow:none !important; border:1px solid #2A2A30 !important; cursor:not-allowed; }
-.task-btn.done{ background:#2A2A30 !important; color:#6E6E76 !important; opacity:.38 !important; filter:grayscale(1) brightness(.7) !important; box-shadow:none !important; }
-.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .referral-earn-claim, .hunter-add{ background:linear-gradient(135deg,#EAF7FF 0%, #A9DFFF 40%, #66C2FF 100%) !important; color:#0A1622 !important; box-shadow:0 8px 22px rgba(110,190,255,.45), inset 0 1px 0 rgba(255,255,255,.65) !important; }
-.hunter-banner, .section-title, .promo-title{ background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; filter:drop-shadow(0 0 12px rgba(120,200,255,.35)); font-weight:900; }
-.hunter-banner{ background-color:#1E1E22; background-image:none; -webkit-text-fill-color:#8FD4FF; color:#8FD4FF; border:1px solid rgba(120,200,255,.35); box-shadow:0 0 0 1px rgba(120,200,255,.12), 0 10px 30px rgba(100,180,255,.18), inset 0 1px 0 rgba(255,255,255,.18); text-shadow:0 0 18px rgba(120,200,255,.45); }
+:root{ --gold:#7DD3FC; --gold-soft:#E0F2FE; --gold-2:#38BDF8; }
+button:disabled, .royal-btn:disabled, .promo-submit-btn:disabled, .task-btn:disabled, .mining-claim-btn:disabled, .withdraw-confirm-btn:disabled, .copy-btn:disabled, .verify-btn:disabled, .referral-earn-claim:disabled{ background:#262F42 !important; color:#6E6E76 !important; opacity:.38 !important; filter:grayscale(1) brightness(.7) !important; box-shadow:none !important; border:1px solid #262F42 !important; cursor:not-allowed; }
+.task-btn.done{ background:#262F42 !important; color:#6E6E76 !important; opacity:.38 !important; filter:grayscale(1) brightness(.7) !important; box-shadow:none !important; }
+.royal-btn, .promo-submit-btn, .claim-earnings-btn, .mining-claim-btn, .withdraw-confirm-btn, .copy-btn, .verify-btn, .task-btn, .start-btn, .claim-btn, .add-btn, .verify-add-btn, .referral-earn-claim, .hunter-add{ background:linear-gradient(135deg,#E8F7FF 0%, #7DD3FC 50%, #38BDF8 100%) !important; color:#081120 !important; box-shadow:0 8px 22px rgba(125,211,252,.45), inset 0 1px 0 rgba(255,255,255,.65) !important; }
+.hunter-banner, .section-title, .promo-title{ background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; filter:drop-shadow(0 0 12px rgba(125,211,252,.35)); font-weight:900; }
+.hunter-banner{ background-color:#161B27; background-image:none; -webkit-text-fill-color:#7DD3FC; color:#7DD3FC; border:1px solid rgba(125,211,252,.35); box-shadow:0 0 0 1px rgba(125,211,252,.12), 0 10px 30px rgba(56,189,248,.18), inset 0 1px 0 rgba(255,255,255,.18); text-shadow:0 0 18px rgba(125,211,252,.45); }
 .hunter-banner .banner-logo{ -webkit-text-fill-color:initial; }
-.banner-logo{ width:26px; height:26px; border-radius:50%; object-fit:cover; flex-shrink:0; box-shadow:0 0 12px rgba(120,200,255,.5); background:#1A1A1E; }
+.banner-logo{ width:26px; height:26px; border-radius:50%; object-fit:cover; flex-shrink:0; box-shadow:0 0 12px rgba(125,211,252,.5); background:#141925; }
 .glass-card, .verify-card, .team-card, .referral-earnings-card, .withdraw-card, .mining-card, .promo-card, .task-card-community, .verify-task-item, .wallet-wide-card, .wallet-card{ background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03) 55%, rgba(255,255,255,.06)) !important; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.18) !important; box-shadow:0 12px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18); position:relative; overflow:hidden; }.glass-card > *, .verify-card > *, .team-card > *, .referral-earnings-card > *, .withdraw-card > *, .mining-card > *, .promo-card > *, .task-card-community > *, .verify-task-item > *{ position:relative; z-index:1; }
 60%{ left:130%; } 100%{ left:130%; } }
 .user-status{ background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.03)); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.2); box-shadow:inset 0 1px 0 rgba(255,255,255,.2); }
 .header-balance{ background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.03)); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.18); }
-.task-icon{ background:#1A1A1E; border:1px solid rgba(120,200,255,.4); box-shadow:0 0 14px rgba(120,200,255,.3); overflow:hidden; }
+.task-icon{ background:#141925; border:1px solid rgba(125,211,252,.4); box-shadow:0 0 14px rgba(125,211,252,.3); overflow:hidden; }
 .task-icon img{ display:block !important; width:100% !important; height:100% !important; object-fit:cover; border-radius:50%; }
 .verify-add-card .task-icon{ display:flex; }
 .verify-add-card .task-icon img{ display:block !important; width:100%; height:100%; object-fit:cover; }
-.mining-big-number{ background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; filter:drop-shadow(0 0 14px rgba(120,200,255,.45)); }
-.speed-value{ color:#8FD4FF; text-shadow:0 0 12px rgba(120,200,255,.45); }
-.reward-badge img, .kopra-badge img{ width:16px !important; height:16px !important; border-radius:50%; box-shadow:0 0 8px rgba(120,200,255,.4); }
-.mining-logo-wrapper{ border:1px solid rgba(120,200,255,.45); box-shadow:0 0 22px rgba(120,200,255,.35); }
+.mining-big-number{ background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; filter:drop-shadow(0 0 14px rgba(125,211,252,.45)); }
+.speed-value{ color:#7DD3FC; text-shadow:0 0 12px rgba(125,211,252,.45); }
+.reward-badge img, .kopra-badge img{ width:16px !important; height:16px !important; border-radius:50%; box-shadow:0 0 8px rgba(125,211,252,.4); }
+.mining-logo-wrapper{ border:1px solid rgba(125,211,252,.45); box-shadow:0 0 22px rgba(125,211,252,.35); }
 .mining-logo-wrapper .mining-logo{ display:block !important; }
-.hunter-tab.active{ background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF) !important; box-shadow:0 6px 18px rgba(110,190,255,.45); }
-.nav-btn.active{ background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF) !important; box-shadow:0 6px 18px rgba(110,190,255,.4); }
+.hunter-tab.active{ background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8) !important; box-shadow:0 6px 18px rgba(125,211,252,.45); }
+.nav-btn.active{ background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8) !important; box-shadow:0 6px 18px rgba(125,211,252,.4); }
 
 
 /* ===== KOPR redesign ===== */
 .card-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.card-title{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900;color:#8FD4FF;letter-spacing:.4px}
-.add-btn{background:linear-gradient(135deg,#EAF7FF,#8FD4FF,#5FBFFF) !important;color:#0A1622 !important;border:none !important}
+.card-title{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900;color:#7DD3FC;letter-spacing:.4px}
+.add-btn{background:linear-gradient(135deg,#E8F7FF,#7DD3FC,#38BDF8) !important;color:#081120 !important;border:none !important}
 .mining-logo-plain{width:92px;height:92px;margin:2px auto 14px}
-.mining-logo-plain .mining-logo{width:92px;height:92px;border-radius:50%;object-fit:cover;display:block !important;border:none;box-shadow:0 0 26px rgba(120,200,255,.4)}
+.mining-logo-plain .mining-logo{width:92px;height:92px;border-radius:50%;object-fit:cover;display:block !important;border:none;box-shadow:0 0 26px rgba(125,211,252,.4)}
 .miner-status.active .dot{animation:kopPulse 1.2s ease-in-out infinite}
 @keyframes kopPulse{0%,100%{box-shadow:0 0 0 0 rgba(46,204,143,.55);opacity:1}50%{box-shadow:0 0 0 8px rgba(46,204,143,0);opacity:.55}}
 .modal{align-items:center !important;justify-content:center;padding:20px}
-.modal-content{border-radius:20px !important;max-width:380px}
+.modal-content{border-radius:24px !important;max-width:380px}
 .lang-options{display:flex;flex-direction:column;gap:8px}
-.lang-row{display:flex;align-items:center;gap:12px;width:100%;background:#121214;border:1px solid #2A2A30;border-radius:14px;padding:12px 14px;color:#fff;font-size:14px;font-weight:700;text-align:left}
+.lang-row{display:flex;align-items:center;gap:12px;width:100%;background:#0D1117;border:1px solid #262F42;border-radius:14px;padding:12px 14px;color:#fff;font-size:14px;font-weight:700;text-align:left}
 .lang-row img{width:26px;height:18px;border-radius:4px;object-fit:cover}
 .lang-row span{flex:1}
-.lang-row.active{border-color:rgba(120,200,255,.55)}
-.lang-row i{color:#8FD4FF}
-.app-header{padding:10px 12px !important;border-bottom:1px solid #2A2A30 !important;background:#121214 !important}
+.lang-row.active{border-color:rgba(125,211,252,.55)}
+.lang-row i{color:#7DD3FC}
+.app-header{padding:10px 12px !important;border-bottom:1px solid #262F42 !important;background:#0D1117 !important}
 .app-header .header-top{margin:0 !important;background:transparent !important;border:none !important;padding:0 !important}
 .user-name{max-width:105px !important;font-size:14px !important;font-weight:800}
 .user-status{font-size:10px !important;padding:4px 9px !important}
@@ -393,3 +393,19 @@ button:disabled, .royal-btn:disabled, .promo-submit-btn:disabled, .task-btn:disa
 .verify-tasks .task-info h4{font-size:13px !important;font-weight:800}
 .verify-tasks .task-btn{padding:7px 14px !important;font-size:12px !important}
 .hunter-banner{margin:14px 0 10px}
+
+
+/* ===== Luxury Blockchain - refinements =====*/
+body{background:#0D1117}
+.app-header{background:#0D1117 !important;border-bottom:1px solid #262F42 !important}
+.bottom-nav{background:rgba(22,27,39,.97) !important;border:1px solid #262F42 !important}
+.glass-card,.promo-card,.verify-card,.team-card,.referral-earnings-card,.withdraw-card,.mining-card,.task-card-community,.verify-task-item,.wallet-wide-card,.modal-content{border-top:1px solid rgba(255,255,255,.07) !important;box-shadow:0 10px 30px rgba(0,0,0,.35) !important}
+.mining-big-number{position:relative;padding-bottom:10px;text-shadow:0 0 18px rgba(125,211,252,.35)}
+.mining-big-number::after{content:"";position:absolute;left:22%;right:22%;bottom:0;height:1px;background:linear-gradient(90deg,transparent,#7DD3FC,transparent);box-shadow:0 0 10px rgba(125,211,252,.55)}
+.mining-card{padding:26px 18px}
+.speed-item{border-radius:16px !important}
+.card-title{color:#7DD3FC}
+.hunter-banner{color:#7DD3FC;border:1px solid rgba(125,211,252,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.header-balance{background:linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.02)) !important}
+.royal-btn,.promo-submit-btn,.claim-earnings-btn,.mining-claim-btn,.withdraw-confirm-btn,.copy-btn,.verify-btn,.green-btn,.task-btn,.start-btn,.claim-btn,.add-btn,.verify-add-btn,.referral-earn-claim,.hunter-add{box-shadow:0 8px 22px rgba(56,189,248,.28), inset 0 1px 0 rgba(255,255,255,.55) !important}
+.mining-logo-plain .mining-logo{box-shadow:0 0 30px rgba(125,211,252,.45)}
